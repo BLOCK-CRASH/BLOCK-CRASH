@@ -133,7 +133,8 @@ void CSceneGame2::Update() {
 
 	CTaskManager::Get()->TaskCollision();
 
-	//CollisionManager.Render();
+	CCollisionManager::Get()
+		->Render();
 
 	
 
