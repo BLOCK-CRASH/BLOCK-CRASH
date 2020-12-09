@@ -61,6 +61,7 @@ public:
 	//í≤êÆíl:è’ìÀÇµÇ»Ç¢à íuÇ‹Ç≈ñﬂÇ∑íl
 	static bool CollisionTriangleSphere(CCollider *t, CCollider *s, CVector *a);
 	static bool CollisionTriangleLine(CCollider *triangle, CCollider *line , CVector *adjust);
+	static bool CollisionSphereSphere(CCollider *ms, CCollider *my, CVector *a);
 };
 
 #endif

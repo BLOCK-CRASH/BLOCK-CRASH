@@ -295,6 +295,27 @@ bool CCollider::CollisionTriangleSphere(CCollider *t, CCollider *s, CVector *a) 
 	return true;
 }
 
+//SPHERE‚ÆSPHERE‚Ì”»’è
+
+bool CCollider::CollisionSphereSphere(CCollider*ms, CCollider*ys, CVector*a){
+
+	CVector mpos = CVector()*ms->mMatrix*ms->mpParent->mMatrix;
+	CVector ypos = CVector()*ys->mMatrix*ys->mpParent->mMatrix;
+
+	mpos = mpos - ypos;
+
+	*a = mpos.Normalize()*(ms->mRadius + ys->mRadius - mpos.Length());
+
+	if (ms->mRadius + ys->mRadius > mpos.Length()){
+
+		return true;
+
+	}
+
+	return false;
+
+}
+
 void CCollider::ChangePriority(){
 
 	CMatrix matrix = mMatrix;//s—ñ‘Ş”ğ

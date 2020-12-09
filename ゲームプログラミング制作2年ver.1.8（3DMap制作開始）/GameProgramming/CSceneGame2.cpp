@@ -50,39 +50,6 @@ void CSceneGame2::Init() {
 
 	//new CMoveItem(&mBoard, CVector(600.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0));
 
-	//アウトライン
-	//new COut(&mOut,CVector(0.0f, -70.0f, 0.0f), CVector(), CVector(100.0f, 5.0f, 2.0));
-
-//	//正面
-//	new CObj(&mBoard, CVector(-80.0f, 0.0f, -40.0f), CVector(0.0f, 0.0f, 90.0), CVector(100.0f, 55.0f, 5.0));
-//	new CObj(&mBoard, CVector(130.0f, 0.0f, -40.0f), CVector(0.0f, 0.0f, 90.0), CVector(100.0f, 55.0f, 5.0));
-//	new CObj(&mBoard, CVector(-30.0f, 60.0f, -40.0f), CVector(0.0f, 0.0f, 0.0), CVector(160.0f, 55.0f, 5.0));
-//	new CObj(&mBoard, CVector(-30.0f, -140.0f, -40.0f), CVector(0.0f, 0.0f, 0.0), CVector(160.0f, 55.0f, 5.0));
-//
-//	//背面
-//	new CObj(&mBoard, CVector(-80.0f, 0.0f, -340.0f), CVector(0.0f, 0.0f, 90.0), CVector(100.0f, 55.0f, 5.0));
-//	new CObj(&mBoard, CVector(130.0f, 0.0f, -340.0f), CVector(0.0f, 0.0f, 90.0), CVector(100.0f, 55.0f, 5.0));
-//	new CObj(&mBoard, CVector(-30.0f, 60.0f, -340.0f), CVector(0.0f, 0.0f, 0.0), CVector(160.0f, 55.0f, 5.0));
-//	new CObj(&mBoard, CVector(-30.0f, -140.0f, -340.0f), CVector(0.0f, 0.0f, 0.0), CVector(160.0f, 55.0f, 5.0));
-//
-//	//右面
-//	new CObj(&mBoard, CVector(-180.0f, 10.0f, -150.0f), CVector(0.0f, 90.0f, 90.0), CVector(150.0f, 55.0f, 5.0));
-//	new CObj(&mBoard, CVector(-180.0f, 10.0f, -350.0f), CVector(0.0f, 90.0f, 90.0), CVector(150.0f, 55.0f, 5.0));
-//	new CObj(&mBoard, CVector(-180.0f, 60.0f, -150.0f), CVector(0.0f, 90.0f, 0.0), CVector(160.0f, 55.0f, 5.0));
-//	new CObj(&mBoard, CVector(-180.0f, -140.0f, -150.0f), CVector(0.0f, 90.0f, 0.0), CVector(160.0f, 55.0f, 5.0));
-//
-//	//左面
-//	new CObj(&mBoard, CVector(130.0f, 10.0f, -150.0f), CVector(0.0f, 90.0f, 90.0), CVector(150.0f, 55.0f, 5.0));
-//	new CObj(&mBoard, CVector(130.0f, 10.0f, -350.0f), CVector(0.0f, 90.0f, 90.0), CVector(150.0f, 55.0f, 5.0));
-//	new CObj(&mBoard, CVector(130.0f, 60.0f, -150.0f), CVector(0.0f, 90.0f, 0.0), CVector(160.0f, 55.0f, 5.0));
-//	new CObj(&mBoard, CVector(130.0f, -140.0f, -150.0f), CVector(0.0f, 90.0f, 0.0), CVector(160.0f, 55.0f, 5.0));
-//
-//	//上面
-////	new CObj(&mBoard, CVector(-25.0f, 145.0f, -190.0f), CVector(0.0f, 0.0f, 0.0), CVector(150.0f, 5.0f, 150.0));
-//
-//	//下面
-//	new CObj(&mBoard, CVector(-25.0f, -145.0f, -190.0f), CVector(0.0f, 0.0f, 0.0), CVector(150.0f, 5.0f, 150.0));
-
 	//プレイヤー(板)
 
 	new CPlayer(&mBoard, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0));
@@ -103,7 +70,7 @@ void CSceneGame2::Update() {
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める
 
-	e = CVector(0.0f, 250.0f, -150.0f)*mCamera.mMatrix;
+	e = CVector(0.0f, 150.0f, 70.0f)*mCamera.mMatrix;
 
 	//注視点を求める
 
