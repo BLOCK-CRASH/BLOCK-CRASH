@@ -10,6 +10,8 @@
 #include "CScene.h"
 //
 #include "CCollisionManager.h"
+//
+#include "CEffect.h"
 
 static int ItemsStageCount;
 

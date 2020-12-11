@@ -16,15 +16,15 @@ float CBallPlayer::ScoreMore = 0;//â¡éZêîéö
 int CBallPlayer::ScoreBox = -180;//ÉXÉRÉAî†
 int CBallPlayer::BScoreBox = 0;
 int CBallPlayer::SScoreBox = 0;
+
+extern std::shared_ptr<CTexture>TextureExp;
+
 CVector CBallPlayer::jumpspeed = CVector(0.0, 0.0, 0.0);
 CBallPlayer::CBallPlayer(CModel*model, CVector position, CVector rotation, CVector scale)
 :BallCol(this, CVector(), CVector(),
-CVector(5.0,5.0,5.0), scale.mX){
+CVector(1.0,1.0,1.0), scale.mX){
+
 	mTag = CCharacter::EBALL;
-
-	//BScoreBox = CItem::BMyScorePoint;
-
-	//SScoreBox = CSpinItem::SMyScorePoint;
 
 	mpModel = model;
 	
@@ -32,7 +32,7 @@ CVector(5.0,5.0,5.0), scale.mX){
 
 	mPosition = position;
 
-	mScale = CVector(5.0,5.0,5.0);
+	mScale = scale;
 
 	jumpspeed = CVector();
 
@@ -136,12 +136,22 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 				}
 
 			}
-		}
 
+
+		}
 		if (y->mType == CCollider::ESPHERE){
 
-			ScoreBox - CExItem::BomCutScore;
+			if (CCollider::CollisionSphereSphere(m, y, &mAdjust)){
 
+				if (y->mpParent->mTag == CCharacter::EBOMB){
+
+					ScoreBox = ScoreBox - CExItem::BomCutScore;
+
+					new CEffect(mPosition, 100.0, 100.0, TextureExp, 4, 4, 7);
+
+				}
+
+			}
 		}
 		break;
 	}

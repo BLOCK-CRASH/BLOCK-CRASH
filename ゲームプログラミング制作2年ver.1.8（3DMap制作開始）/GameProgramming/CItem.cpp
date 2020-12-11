@@ -16,6 +16,7 @@ int CExItem::BomTime = 0;
 float CExItem::BBoundNum = 0;
 
 bool::CExItem::jumpBF = false;
+
 /*--------------------------------------------------------*/
 CItem::CItem(CModel*model, CVector position, CVector rotation, CVector scale)
 :mItemBody(0)
@@ -116,7 +117,7 @@ CMoveItem::CMoveItem(CModel*model, CVector position, CVector rotation, CVector s
 
 CExItem::CExItem(CModel*model, CVector position, CVector rotation, CVector scale)
 :BomCol(this, CVector(), CVector(),
-CVector(10.0,10.0,10.0), scale.mX){
+CVector(1.0,1.0,1.0), scale.mX){
 
 	mpModel = model;
 
@@ -124,7 +125,7 @@ CVector(10.0,10.0,10.0), scale.mX){
 
 	mPosition = position;
 
-	mScale = CVector(10.0, 10.0, 10.0);
+	mScale = scale;
 
 	BjumpSpeed = CVector();
 	
@@ -287,7 +288,7 @@ void CExItem::Collision(CCollider*Bm, CCollider*y){
 
 						mAdjust.mZ = NULL;
 
-						if (BBoundNum < 1.1){
+						if (BBoundNum < 0.75){
 							BBoundNum += 0.02;
 						}
 						else{

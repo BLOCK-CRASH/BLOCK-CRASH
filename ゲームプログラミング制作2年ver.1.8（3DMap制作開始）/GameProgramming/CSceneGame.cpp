@@ -11,6 +11,8 @@
 #include "CItem.h"
 int CSceneGame::GAMETIME;
 int CSceneGame::LETTERTIME;
+std::shared_ptr<CTexture>TextureExp(new CTexture());
+
 void CSceneGame::Init() {
 
 	GAMETIME = 4 * 60;
@@ -18,6 +20,7 @@ void CSceneGame::Init() {
 	mScene = EGAME1;
 
 
+	TextureExp->Load("exp.tga");
 	//テキストフォントの読み込みと設定
 	CText::mFont.Load("FontG.tga");
 	CText::mFont.SetRowCol(1, 4096 / 64);
@@ -25,11 +28,7 @@ void CSceneGame::Init() {
 
 	mBoardR.Load("cubeRotate.obj", "cubeRotate.mtl");
 
-	//mOut.Load("cube.obj", "cube.mtl");
-
 	mBoard.Load("cube.obj", "cube.mtl");
-
-	//mItem.Load("sphere.obj","sphere.mtl");
 
 	mBall.Load("sphere.obj", "sphere.mtl");
 
@@ -37,25 +36,24 @@ void CSceneGame::Init() {
 
 	mDelete.Load("cube.obj", "cube.mtl");
 
-	new CSpinItem(&mBoardR, CVector(-60.0f, 20.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
-	new CSpinItem(&mBoardR, CVector(60.0f, 20.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
-	new CSpinItem(&mBoardR, CVector(110.0f, 30.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
-	new CSpinItem(&mBoardR, CVector(-110.0f, 30.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
+	//new CSpinItem(&mBoardR, CVector(-60.0f, 20.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
+	//new CSpinItem(&mBoardR, CVector(60.0f, 20.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
+	//new CSpinItem(&mBoardR, CVector(110.0f, 30.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
+	//new CSpinItem(&mBoardR, CVector(-110.0f, 30.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
 
-	new CItem(&mBoard, CVector(40.0f, 70.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(11.0, 11.0, 11.0));
-	new CItem(&mBoard, CVector(-40.0f, 70.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(11.0, 11.0, 11.0));
+	//new CItem(&mBoard, CVector(40.0f, 70.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(11.0, 11.0, 11.0));
+	//new CItem(&mBoard, CVector(-40.0f, 70.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(11.0, 11.0, 11.0));
 
-	new CItem(&mBoard, CVector(50.0f, -60.0f, 1.0f), CVector(0.0f, 0.0f, 40.0f), CVector(11.0, 11.0, 11.0));
-	new CItem(&mBoard, CVector(-50.0f, -60.0f, 1.0f), CVector(0.0f, 0.0f, 40.0f), CVector(11.0, 11.0, 11.0));
+	//new CItem(&mBoard, CVector(50.0f, -60.0f, 1.0f), CVector(0.0f, 0.0f, 40.0f), CVector(11.0, 11.0, 11.0));
+	//new CItem(&mBoard, CVector(-50.0f, -60.0f, 1.0f), CVector(0.0f, 0.0f, 40.0f), CVector(11.0, 11.0, 11.0));
 
-	new CItem(&mBoard, CVector(120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 80.0f), CVector(11.0, 11.0, 11.0));
-	new CItem(&mBoard, CVector(-120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 80.0f), CVector(11.0, 11.0, 11.0));
+	//new CItem(&mBoard, CVector(120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 80.0f), CVector(11.0, 11.0, 11.0));
+	//new CItem(&mBoard, CVector(-120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 80.0f), CVector(11.0, 11.0, 11.0));
 
-	new CMoveItem(&mBoard, CVector(600.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0));
+	//new CMoveItem(&mBoard, CVector(600.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0));
 
 	//アウトライン
 	//new COut(&mOut,CVector(0.0f, -70.0f, 0.0f), CVector(), CVector(100.0f, 5.0f, 2.0));
-
 
 	new CObj(&mBoard, CVector(255.0f, 130.0f, 0.0f), CVector(0.0f, 0.0f, 75.0), CVector(20.0f, 120.0f, 10.0));
 	new CObj(&mBoard, CVector(-255.0f, 130.0f, 0.0f), CVector(0.0f, 0.0f, -75.0), CVector(20.0f, 120.0f, 10.0));
@@ -73,7 +71,7 @@ void CSceneGame::Init() {
 	new CBottomPlayer(&mBoard, CVector(0.0f, -110.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0));
 	//玉
 	new CBallPlayer(&mBall, CVector(0.0f, 50.0f, 0.0f), CVector(), CVector(10.0f, 10.0f, 10.0));
-	new CExItem(&mBomb, CVector(100.0f, 100.0f, 0.0f), CVector(), CVector(10.0f, 10.0f, 10.0));
+	new CExItem(&mBomb, CVector(0.0f/*100*/, 100.0f, 0.0f), CVector(), CVector(10.0f, 10.0f, 10.0));
 	new CDeleteBlock(&mDelete, CVector(0.0f, -300.0f, 0.0f), CVector(), CVector(200.0f, 5.0f, 10.0));
 	new CDeleteBlock(&mDelete, CVector(0.0f, 250.0f, 0.0f), CVector(), CVector(200.0f, 5.0f, 10.0));
 
@@ -99,32 +97,13 @@ void CSceneGame::Update() {
 	//カメラの設定
 	Camera3D(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
 
-	//if (CBallPlayer::mpthis == 0 && CBallPlayer::BallHP > 0&&CBallPlayer::BallF==true){
-
-	//	if (CKey::Once(' ')){
-
-	//	CBallPlayer(&mBall, CVector(0.0f, -5.0f, 0.0f), CVector(), CVector(10.0f, 10.0f, 10.0));
-
-	//	CBallPlayer::jumpspeed = CVector(0.0f, 0.0f, 0.0f);
-
-	//	CBallPlayer::jumpF = true;
-
-	//	CBallPlayer::GoF = true;
-
-	//	CBallPlayer::BallF = false;
-
-	//	}
-
-	//}
-
-
 	CMatrix Matrix;
 
 	CTaskManager::Get()->Render();
 
 	CTaskManager::Get()->TaskCollision();
 
-	//CollisionManager.Render();
+	CCollisionManager::Get()->Render();
 
 
 

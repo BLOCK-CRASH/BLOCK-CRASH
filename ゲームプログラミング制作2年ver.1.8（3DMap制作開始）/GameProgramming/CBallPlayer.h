@@ -14,6 +14,8 @@
 #include "CItem.h"
 
 #include "CScene.h"
+
+#include "CEffect.h"
 class CBallPlayer :CCharacter{
 public:
 	CBallPlayer(){}
