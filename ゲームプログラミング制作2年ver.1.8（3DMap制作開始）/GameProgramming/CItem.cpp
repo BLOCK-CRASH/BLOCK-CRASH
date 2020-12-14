@@ -143,7 +143,7 @@ CVector(1.0,1.0,1.0), scale.mX){
 
 	mpthis = this;
 
-	BomCutScore = 1000;
+	BomCutScore = -1000;
 
 	BomTime = 60 * 60;
 }
@@ -264,7 +264,9 @@ void CMoveItem::Collision(CCollider*Mm, CCollider*y){
 
 				MminusF = false;
 				
-				CMoveItem::mEnabled = false;
+				//CMoveItem::mEnabled = false;
+
+				CMoveItem::~CMoveItem();
 			}
 
 		}

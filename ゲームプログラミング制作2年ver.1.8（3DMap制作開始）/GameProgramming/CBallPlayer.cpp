@@ -147,7 +147,7 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 
 					ScoreBox = ScoreBox - CExItem::BomCutScore;
 
-					new CEffect(mPosition, 100.0, 100.0, TextureExp, 4, 4, 7);
+					//new CEffect(mPosition, 100.0, 100.0, TextureExp, 4, 4, 7);
 
 				}
 

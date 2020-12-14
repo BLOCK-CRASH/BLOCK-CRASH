@@ -10,12 +10,15 @@
 //
 #include "CItem.h"
 int CSceneGame::GAMETIME;
+int CSceneGame::COUNTDOWN;
 int CSceneGame::LETTERTIME;
 std::shared_ptr<CTexture>TextureExp(new CTexture());
 
 void CSceneGame::Init() {
 
-	GAMETIME = 4 * 60;
+	COUNTDOWN = 4 * 60;
+
+	GAMETIME = 1 * 60;
 
 	mScene = EGAME1;
 
@@ -23,6 +26,7 @@ void CSceneGame::Init() {
 	TextureExp->Load("exp.tga");
 	//テキストフォントの読み込みと設定
 	CText::mFont.Load("FontG.tga");
+	CBlackText::mBFont.Load("font.tga");
 	CText::mFont.SetRowCol(1, 4096 / 64);
 	//mSky.Load("sky.obj", "sky.mtl");
 
@@ -52,9 +56,6 @@ void CSceneGame::Init() {
 
 	//new CMoveItem(&mBoard, CVector(600.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0));
 
-	//アウトライン
-	//new COut(&mOut,CVector(0.0f, -70.0f, 0.0f), CVector(), CVector(100.0f, 5.0f, 2.0));
-
 	new CObj(&mBoard, CVector(255.0f, 130.0f, 0.0f), CVector(0.0f, 0.0f, 75.0), CVector(20.0f, 120.0f, 10.0));
 	new CObj(&mBoard, CVector(-255.0f, 130.0f, 0.0f), CVector(0.0f, 0.0f, -75.0), CVector(20.0f, 120.0f, 10.0));
 	new CObj(&mBoard, CVector(-235.0f, -120.0f, 0.0f), CVector(0.0f, 0.0f, -115.0), CVector(20.0f, 95.0f, 10.0));
@@ -70,8 +71,8 @@ void CSceneGame::Init() {
 	new CPlayer(&mBoard, CVector(0.0f, 120.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 3.0f, 1.0));
 	new CBottomPlayer(&mBoard, CVector(0.0f, -110.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0));
 	//玉
-	new CBallPlayer(&mBall, CVector(0.0f, 50.0f, 0.0f), CVector(), CVector(10.0f, 10.0f, 10.0));
-	new CExItem(&mBomb, CVector(0.0f/*100*/, 100.0f, 0.0f), CVector(), CVector(10.0f, 10.0f, 10.0));
+	new CBallPlayer(&mBall, CVector(0.0f, 50.0f, 0.0f), CVector(), CVector(5.0f, 5.0f, 5.0));
+	new CExItem(&mBomb, CVector(0.0f/*100*/, 400.0f, 0.0f), CVector(), CVector(10.0f, 10.0f, 10.0));
 	new CDeleteBlock(&mDelete, CVector(0.0f, -300.0f, 0.0f), CVector(), CVector(200.0f, 5.0f, 10.0));
 	new CDeleteBlock(&mDelete, CVector(0.0f, 250.0f, 0.0f), CVector(), CVector(200.0f, 5.0f, 10.0));
 
@@ -88,7 +89,7 @@ void CSceneGame::Update() {
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める
-	e = CVector(0.0f, 5.0f, -250.0f);
+	e = CVector(0.0f, 5.0f, -300.0f);
 	//注視点を求める
 	c = CVector(0.0f, 0.0f, 0.0f);
 	//上方向を求める
@@ -105,21 +106,18 @@ void CSceneGame::Update() {
 
 	CCollisionManager::Get()->Render();
 
-
-
 	//2D描画開始
 	Start2D(0, 800, 0, 600);
 
+	if (COUNTDOWN > 60){
 
-	if (GAMETIME > 60){
-
-		GAMETIME--;
+		COUNTDOWN--;
 
 		if (ResetF == true){
 		
 			char buf[10];
 
-			sprintf(buf, "%d", GAMETIME / 60);
+			sprintf(buf, "%d", COUNTDOWN / 60);
 
 			CText::DrawString(buf, 400, 500, 30, 30);
 
@@ -127,13 +125,42 @@ void CSceneGame::Update() {
 
 	}
 
-	else if (GAMETIME > 0){
+	else if (COUNTDOWN > 0){
 
-		GAMETIME--;
+		COUNTDOWN--;
 
 			CText::DrawString("GO!!", 300, 500, 30, 30);
 		}
 
+	if (COUNTDOWN <= 0){
+	
+		if (GAMETIME > 60){
+
+			GAMETIME--;
+
+			char buf[10];
+
+			sprintf(buf, "%d", GAMETIME / 60);
+
+			CText::DrawString(buf, 680, 30, 30, 30);
+
+		}
+
+		else{
+
+			CText::DrawString("GAME  SET!!", 300, 500, 10, 12);
+
+			CText::DrawString("YOU SCORE  . . . .", 140, 350, 10, 12);
+
+			CText::DrawString("LIFE BONUS . . . .", 140, 300, 10, 12);
+
+			CText::DrawString("TOTAL SCORE", 300, 250, 12, 12);
+
+			CText::DrawString("[                    ]", 200, 180, 10, 12);
+
+		}
+
+	}
 
 	if (CBallPlayer::BallHP == 0){
 
@@ -142,33 +169,20 @@ void CSceneGame::Update() {
 		CText::DrawString("GAME OVER...", 280, 400, 15, 18);
 	}
 
-	//if (ItemsStageCount<= 0) {
-
-	//	ResetF = false;
-
-	//	CText::DrawString("WAVE CLEAR!", 280, 400, 15, 18);
-
-	// 	//CBallPlayer::mpthis->mEnabled=false;
-
-	//}
-
-	//char buf[16];
-	//sprintf(buf, "%d",)
-
 	CText::DrawString("SUTAG.1", 20, 20, 10, 12);
 
 	char buf[100];
 
-	//CBallPlayer::ScoreBox = CBallPlayer::BScoreBox + CBallPlayer::SScoreBox;
-
 	sprintf(buf, "%d", CBallPlayer::ScoreBox);
 
-	CText::DrawString(buf, 200, 15, 10, 12);
+	CBlackText::DrawString(buf, 200, 20, 10, 12);
 
-	//if (CPlayer::mPosition){
+	//if (CBallPlayer::ScoreBox <= -1){
 
+	//	CBlackText::DrawString("-", 15, 20, 10, 12);
 
 	//}
+
 	CTaskManager::Get()->Delete();
 
 	//2D描画終了
