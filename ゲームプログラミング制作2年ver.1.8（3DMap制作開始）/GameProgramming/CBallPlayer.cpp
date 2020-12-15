@@ -13,7 +13,7 @@ int CBallPlayer::BallHP = 6;
 
 float CBallPlayer::BoundNum = 0;
 float CBallPlayer::ScoreMore = 0;//加算数字
-int CBallPlayer::ScoreBox = -180;//スコア箱
+int CBallPlayer::ScoreBox = 0;//スコア箱
 int CBallPlayer::BScoreBox = 0;
 int CBallPlayer::SScoreBox = 0;
 
@@ -49,6 +49,8 @@ CVector(1.0,1.0,1.0), scale.mX){
 	mpthis = this;
 
 	BALLtime = 3 * 60;
+
+	minusF = 0;
 }
 
 CBallPlayer::~CBallPlayer(){
@@ -139,18 +141,19 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 
 
 		}
+
 		if (y->mType == CCollider::ESPHERE){
 
 			if (CCollider::CollisionSphereSphere(m, y, &mAdjust)){
+				minusF = false;
+				if (minusF == false){
 
-				if (y->mpParent->mTag == CCharacter::EBOMB){
+					if (y->mpParent->mTag == CCharacter::EBOMB){
 
-					ScoreBox = ScoreBox - CExItem::BomCutScore;
-
-					//new CEffect(mPosition, 100.0, 100.0, TextureExp, 4, 4, 7);
-
+						ScoreBox = ScoreBox - CExItem::BomCutScore;
+						minusF = true;
+					}
 				}
-
 			}
 		}
 		break;
@@ -163,9 +166,7 @@ void CBallPlayer::Update(){
 
 	ColF = true;
 
-	//PlusF = true;
-
-	//ScoreBox  /*BScoreBox + SScoreBox*/++;
+	minusF = true;
 
 	CBallPlayer::mAdjust = CVector(0.0, 0.0, 0.0);
 	
@@ -199,6 +200,9 @@ void CBallPlayer::Update(){
 		ScorePulsF = true;
 
 	}
+
+	mPosition = mPosition + mAdjust + jumpspeed;
+
 	CCharacter::Update();
 
 
@@ -209,12 +213,11 @@ void CBallPlayer::TaskCollision(){
 	BallCol.ChangePriority();
 
 	CCollisionManager::Get()->Collision(&BallCol);
+
+
 }
 void CBallPlayer::Render(){
 
-	mPosition = mPosition + mAdjust + jumpspeed;
-
-	CCharacter::Update();
 	CCharacter::Render();
 }
 

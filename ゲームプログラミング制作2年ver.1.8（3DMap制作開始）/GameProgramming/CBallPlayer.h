@@ -37,6 +37,8 @@ public:
 
 	static bool PlusF;
 
+	bool minusF;
+
 	static int BallHP;
 
 	static float BoundNum;	

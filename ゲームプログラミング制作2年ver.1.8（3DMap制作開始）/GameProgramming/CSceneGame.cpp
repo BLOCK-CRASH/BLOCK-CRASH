@@ -6,8 +6,6 @@
 //
 #include "CCollisionManager.h"
 //
-#include "CRock.h"
-//
 #include "CItem.h"
 int CSceneGame::GAMETIME;
 int CSceneGame::COUNTDOWN;
@@ -18,10 +16,11 @@ void CSceneGame::Init() {
 
 	COUNTDOWN = 4 * 60;
 
-	GAMETIME = 1 * 60;
+	GAMETIME = 30 * 60;
 
 	mScene = EGAME1;
 
+	Result = false;
 
 	TextureExp->Load("exp.tga");
 	//テキストフォントの読み込みと設定
@@ -40,21 +39,21 @@ void CSceneGame::Init() {
 
 	mDelete.Load("cube.obj", "cube.mtl");
 
-	//new CSpinItem(&mBoardR, CVector(-60.0f, 20.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
-	//new CSpinItem(&mBoardR, CVector(60.0f, 20.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
-	//new CSpinItem(&mBoardR, CVector(110.0f, 30.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
-	//new CSpinItem(&mBoardR, CVector(-110.0f, 30.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
+	new CSpinItem(&mBoardR, CVector(-60.0f, 20.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
+	new CSpinItem(&mBoardR, CVector(60.0f, 20.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
+	new CSpinItem(&mBoardR, CVector(110.0f, 30.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
+	new CSpinItem(&mBoardR, CVector(-110.0f, 30.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
 
-	//new CItem(&mBoard, CVector(40.0f, 70.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(11.0, 11.0, 11.0));
-	//new CItem(&mBoard, CVector(-40.0f, 70.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(11.0, 11.0, 11.0));
+	new CItem(&mBoard, CVector(40.0f, 70.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(11.0, 11.0, 11.0));
+	new CItem(&mBoard, CVector(-40.0f, 70.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(11.0, 11.0, 11.0));
 
-	//new CItem(&mBoard, CVector(50.0f, -60.0f, 1.0f), CVector(0.0f, 0.0f, 40.0f), CVector(11.0, 11.0, 11.0));
-	//new CItem(&mBoard, CVector(-50.0f, -60.0f, 1.0f), CVector(0.0f, 0.0f, 40.0f), CVector(11.0, 11.0, 11.0));
+	new CItem(&mBoard, CVector(50.0f, -60.0f, 1.0f), CVector(0.0f, 0.0f, 40.0f), CVector(11.0, 11.0, 11.0));
+	new CItem(&mBoard, CVector(-50.0f, -60.0f, 1.0f), CVector(0.0f, 0.0f, 40.0f), CVector(11.0, 11.0, 11.0));
 
-	//new CItem(&mBoard, CVector(120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 80.0f), CVector(11.0, 11.0, 11.0));
-	//new CItem(&mBoard, CVector(-120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 80.0f), CVector(11.0, 11.0, 11.0));
+	new CItem(&mBoard, CVector(120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 80.0f), CVector(11.0, 11.0, 11.0));
+	new CItem(&mBoard, CVector(-120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 80.0f), CVector(11.0, 11.0, 11.0));
 
-	//new CMoveItem(&mBoard, CVector(600.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0));
+	new CMoveItem(&mBoard, CVector(600.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0));
 
 	new CObj(&mBoard, CVector(255.0f, 130.0f, 0.0f), CVector(0.0f, 0.0f, 75.0), CVector(20.0f, 120.0f, 10.0));
 	new CObj(&mBoard, CVector(-255.0f, 130.0f, 0.0f), CVector(0.0f, 0.0f, -75.0), CVector(20.0f, 120.0f, 10.0));
@@ -72,7 +71,10 @@ void CSceneGame::Init() {
 	new CBottomPlayer(&mBoard, CVector(0.0f, -110.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0));
 	//玉
 	new CBallPlayer(&mBall, CVector(0.0f, 50.0f, 0.0f), CVector(), CVector(5.0f, 5.0f, 5.0));
-	new CExItem(&mBomb, CVector(0.0f/*100*/, 400.0f, 0.0f), CVector(), CVector(10.0f, 10.0f, 10.0));
+	new CExItem(&mBomb, CVector(0.0f/*100*/, 300.0f, 0.0f), CVector(), CVector(10.0f, 10.0f, 10.0));
+
+/*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
 	new CDeleteBlock(&mDelete, CVector(0.0f, -300.0f, 0.0f), CVector(), CVector(200.0f, 5.0f, 10.0));
 	new CDeleteBlock(&mDelete, CVector(0.0f, 250.0f, 0.0f), CVector(), CVector(200.0f, 5.0f, 10.0));
 
@@ -82,14 +84,38 @@ void CSceneGame::Init() {
 
 void CSceneGame::Update() {
 
-	CTaskManager::Get()->Update();
+
+
+	if (CSceneGame::GAMETIME > 61){
+	
+		CTaskManager::Get()->Update();
+	
+		Result = true;
+	}
+
+	if (CSceneGame::GAMETIME < 61){
+
+		Result = false;
+
+		if (Result == false){
+
+			if (CKey::Once(VK_RETURN)){
+
+				mScene = ERESULT;
+
+			}
+
+
+		}
+
+	}
 
 	//
 
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める
-	e = CVector(0.0f, 5.0f, -300.0f);
+	e = CVector(0.0f, 5.0f, -500.0f);
 	//注視点を求める
 	c = CVector(0.0f, 0.0f, 0.0f);
 	//上方向を求める
@@ -149,14 +175,6 @@ void CSceneGame::Update() {
 		else{
 
 			CText::DrawString("GAME  SET!!", 300, 500, 10, 12);
-
-			CText::DrawString("YOU SCORE  . . . .", 140, 350, 10, 12);
-
-			CText::DrawString("LIFE BONUS . . . .", 140, 300, 10, 12);
-
-			CText::DrawString("TOTAL SCORE", 300, 250, 12, 12);
-
-			CText::DrawString("[                    ]", 200, 180, 10, 12);
 
 		}
 

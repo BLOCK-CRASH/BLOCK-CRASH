@@ -41,7 +41,7 @@ public:
 
 	bool ResetF;
 	
-	bool mEnabled;
+	bool Result;
 
 	static int GAMETIME;
 

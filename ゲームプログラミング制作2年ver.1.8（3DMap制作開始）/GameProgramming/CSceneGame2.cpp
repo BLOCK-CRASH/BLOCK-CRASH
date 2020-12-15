@@ -6,8 +6,6 @@
 //
 #include "CCollisionManager.h"
 //
-#include "CRock.h"
-//
 #include "CItem.h"
 //
 int CSceneGame2::GAMETIME;

@@ -2,6 +2,7 @@
 #include "CSceneGame.h"
 #include "CTitle.h"
 #include "CMenu.h"
+#include "CResult.h"
 CSceneManager SceneManager;
 
 //コンストラクタ
@@ -58,6 +59,13 @@ void CSceneManager::Update() {
 		case CScene::EMENU:
 
 			mpScene = new CMenu();
+			mpScene->Init();
+
+			break;
+
+		case CScene::ERESULT:
+
+			mpScene = new CResult();
 			mpScene->Init();
 
 			break;

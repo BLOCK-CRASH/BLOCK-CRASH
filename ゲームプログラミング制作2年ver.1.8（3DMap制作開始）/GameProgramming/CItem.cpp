@@ -143,7 +143,7 @@ CVector(1.0,1.0,1.0), scale.mX){
 
 	mpthis = this;
 
-	BomCutScore = -1000;
+	BomCutScore = 500;
 
 	BomTime = 60 * 60;
 }
@@ -154,7 +154,7 @@ CDeleteBlock::CDeleteBlock(CModel*model, CVector position, CVector rotation, CVe
 	mpModel = model;
 	mPosition = position;
 	mRotation = rotation;
-	mScale = CVector(200.0, 20.0, 10.0);
+	mScale = scale/*CVector(10.0, 10.0, 10.0);*/;
 	//モデルの三角形の数分、コライダの配列を作成します
 	mDelete = new CCollider[model->mTriangles.size()];
 	for (int i = 0; i < model->mTriangles.size(); i++){
@@ -303,7 +303,7 @@ void CExItem::Collision(CCollider*Bm, CCollider*y){
 
 				}
 
-				if (y->mpParent->mTag == CCharacter::EDELETE){
+				if (y->mpParent->mTag == CCharacter::EDELETE || y->mpParent->mTag == CCharacter::EBALL){
 
 					BomGoF = false;
 
@@ -405,7 +405,7 @@ void CExItem::Update(){
 	
 		CExItem::mPosition = mPosition + BjumpSpeed;
 
-		CExItem::BjumpSpeed = CVector(0.0, -0.5, 0.0);
+		CExItem::BjumpSpeed = CVector(0.0, -0.2, 0.0);
 
 		CExItem::jumpBF = true;
 	}
@@ -415,6 +415,9 @@ void CExItem::Update(){
 		mPosition = mPosition + BjumpSpeed;
 
 	}
+
+	mPosition = mPosition + mAdjust + BjumpSpeed;
+
 	CCharacter::Update();
 }
 
@@ -557,9 +560,6 @@ void CExItem::TaskCollision(){
 
 void CExItem::Render(){
 
-	mPosition = mPosition + mAdjust + BjumpSpeed;
-
-	CCharacter::Update();
 	CCharacter::Render();
 
 }

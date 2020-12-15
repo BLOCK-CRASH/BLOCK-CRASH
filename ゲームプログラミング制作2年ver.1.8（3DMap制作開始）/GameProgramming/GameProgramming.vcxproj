@@ -99,6 +99,7 @@
     <ClCompile Include="CObj.cpp" />
     <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CRectangle.cpp" />
+    <ClCompile Include="CResult.cpp" />
     <ClCompile Include="CScene.cpp" />
     <ClCompile Include="CSceneGame.cpp" />
     <ClCompile Include="CSceneGame2.cpp" />
@@ -112,7 +113,6 @@
     <ClCompile Include="CVector.cpp" />
     <ClCompile Include="CMenu.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Release\CResult.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CBallPlayer.h" />
