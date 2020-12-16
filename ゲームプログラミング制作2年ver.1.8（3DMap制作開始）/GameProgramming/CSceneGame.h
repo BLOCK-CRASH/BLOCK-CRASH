@@ -37,7 +37,7 @@ public:
 	
 	CModel mBomb;
 
-	CModel mDelete;
+	CModel mDelete;//ステルスで表示
 
 	bool ResetF;
 	

@@ -58,7 +58,7 @@ CMoveItem::CMoveItem(CModel*model, CVector position, CVector rotation, CVector s
 	mpModel = model;
 	mPosition = position;
 	mRotation = rotation;
-	mScale = CVector(10.0, 10.0, 10.0);
+	mScale = CVector(7.0, 7.0, 7.0);
 	//モデルの三角形の数分、コライダの配列を作成します
 	mMItemBody = new CCollider[model->mTriangles.size()];
 	for (int i = 0; i < model->mTriangles.size(); i++){
@@ -86,7 +86,7 @@ CSpinItem::CSpinItem(CModel*model, CVector position, CVector rotation, CVector s
 	mpModel = model;
 	mPosition = position;
 	mRotation = rotation;
-	mScale = CVector(10.0,10.0,10.0);
+	mScale = scale;
 
 	mSItemBody = new CCollider[model->mTriangles.size()];
 	for (int i = 0; i < model->mTriangles.size(); i++){
@@ -235,25 +235,6 @@ CExItem::~CExItem(){
 
 void CSpinItem::Collision(CCollider*sm, CCollider*y){
 
-	//switch (sm->mType){
-
-	//case CCollider::ETRIANGLE:
-
-	//	if (y->mType == CCollider::ESPHERE){
-
-	//		CVector adjust;
-
-	//		if (CCollider::CollisionTriangleSphere(sm, y, &adjust)){
-
-	//			mRotation.mZ*-1;
-	//			
-	//		}
-
-	//	}
-	//	break;
-	//
-	//}
-
 }
 
 
@@ -319,16 +300,6 @@ void CDeleteBlock::Collision(CCollider*Dm, CCollider*y){}
 //更新処理
 void CItem::Update(){
 
-	//if (mPosition.mX < -100){
-
-	//	mPosition.mX = 0;
-
-	//	mPosition.mX++;
-
-	//}
-
-	//mRotation.mZ++;
-
 	CCharacter::Update();
 
 }
@@ -339,9 +310,9 @@ void CMoveItem::Update(){
 
 	mPosition.mX++;
 
-	if (mPosition.mX > 180){
+	if (mPosition.mX > 200){
 
-		mPosition.mX = -180;
+		mPosition.mX = -200;
 
 		mPosition.mX--;
 
