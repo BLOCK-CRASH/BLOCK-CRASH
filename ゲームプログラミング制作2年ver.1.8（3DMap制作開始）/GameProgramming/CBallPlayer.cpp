@@ -50,7 +50,7 @@ CVector(1.0,1.0,1.0), scale.mX){
 
 	BALLtime = 3 * 60;
 
-	minusF = 0;
+	minusF = true;
 }
 
 CBallPlayer::~CBallPlayer(){
@@ -116,7 +116,7 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 
 				if (y->mpParent->mTag == CCharacter::EMOVEBONUS){
 
-					ScoreBox = ScoreBox + CMoveItem::MMyScorePoint;
+					ScoreBox = ScoreBox + CBonus::BMyScorePoint;
 
 				}
 
@@ -145,14 +145,11 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 		if (y->mType == CCollider::ESPHERE){
 
 			if (CCollider::CollisionSphereSphere(m, y, &mAdjust)){
-				minusF = false;
-				if (minusF == false){
 
-					if (y->mpParent->mTag == CCharacter::EBOMB){
+				if (y->mpParent->mTag == CCharacter::EBOMB){
 
-						ScoreBox = ScoreBox - CExItem::BomCutScore;
-						minusF = true;
-					}
+					minusF = false;
+					minusF=true;
 				}
 			}
 		}
@@ -165,8 +162,6 @@ void CBallPlayer::Update(){
 	BALLtime--;
 
 	ColF = true;
-
-	minusF = true;
 
 	CBallPlayer::mAdjust = CVector(0.0, 0.0, 0.0);
 	
@@ -198,6 +193,13 @@ void CBallPlayer::Update(){
 		CBallPlayer::SScoreBox = CSpinItem::SMyScorePoint*CBallPlayer::ScoreMore;
 
 		ScorePulsF = true;
+
+	}
+
+	if (minusF == false){
+
+		ScoreBox = ScoreBox - CExItem::BomCutScore;
+		minusF = true;
 
 	}
 

@@ -16,7 +16,7 @@ void CSceneGame::Init() {
 
 	COUNTDOWN = 4 * 60;
 
-	GAMETIME = 30 * 60;
+	GAMETIME = 61 * 60;
 
 	mScene = EGAME1;
 
@@ -53,7 +53,7 @@ void CSceneGame::Init() {
 	new CItem(&mBoard, CVector(120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 80.0f), CVector(11.0, 11.0, 11.0));
 	new CItem(&mBoard, CVector(-120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 80.0f), CVector(11.0, 11.0, 11.0));
 
-	new CMoveItem(&mBoard, CVector(600.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0));
+	new CBonus(&mBoard, CVector(600.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0));
 
 	new CObj(&mBoard, CVector(255.0f, 130.0f, 0.0f), CVector(0.0f, 0.0f, 75.0), CVector(20.0f, 120.0f, 10.0));
 	new CObj(&mBoard, CVector(-255.0f, 130.0f, 0.0f), CVector(0.0f, 0.0f, -75.0), CVector(20.0f, 120.0f, 10.0));
@@ -77,6 +77,8 @@ void CSceneGame::Init() {
 
 	new CDeleteBlock(&mDelete, CVector(0.0f, -300.0f, 0.0f), CVector(), CVector(200.0f, 5.0f, 10.0));
 	new CDeleteBlock(&mDelete, CVector(0.0f, 250.0f, 0.0f), CVector(), CVector(200.0f, 5.0f, 10.0));
+	new CDeleteBlock(&mDelete, CVector(300.0f, 0.0f, 0.0f), CVector(0.0,0.0,90.0), CVector(200.0f, 5.0f, 10.0));
+	new CDeleteBlock(&mDelete, CVector(-300.0f, 0.0f, 0.0f), CVector(0.0, 0.0, 90.0), CVector(200.0f, 5.0f, 10.0));
 
 	CSceneGame::ResetF = true;
 }
@@ -92,6 +94,13 @@ void CSceneGame::Update() {
 	
 		Result = true;
 	}
+
+	if (CSceneGame::GAMETIME < 1801){
+
+		CSpinItem::RebirthF=true;
+
+	}
+
 
 	if (CSceneGame::GAMETIME < 61){
 

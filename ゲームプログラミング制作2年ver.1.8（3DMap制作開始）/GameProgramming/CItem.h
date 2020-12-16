@@ -25,9 +25,6 @@ public:
 	CCollider *mItemBody;
 
 	static CCharacter*mpthis;
-	//衝突判定
-	//（コライダ1、コライダ2）
-	void Collision(CCollider*im, CCollider*y);
 
 	void Update();
 
@@ -42,6 +39,30 @@ public:
 
 };
 
+class CMoveItem :public CCharacter{
+public:
+	CMoveItem(){}
+
+	~CMoveItem();
+	CMoveItem(CModel*model, CVector position, CVector rotation, CVector scale);
+
+	CCollider *mMItemBody;
+
+	static CCharacter*mpthis;
+
+	void Update();
+
+	int ItemCount;
+
+	void TaskCollision();
+
+	static int BStageCount;
+	bool BminusF;
+	//int BDamageCount;
+	static int MMyScorePoint;
+
+};
+
 class CSpinItem :public CCharacter{
 public:
 	CSpinItem(){}
@@ -50,6 +71,8 @@ public:
 	CSpinItem(CModel*model, CVector position, CVector rotation, CVector scale);
 
 	CCollider *mSItemBody;
+
+	static bool RebirthF;
 
 	static CCharacter*mpthis;
 
@@ -71,20 +94,19 @@ public:
 	static int SMyScorePoint;
 };
 
-class CMoveItem :public CCharacter{
+class CBonus :public CCharacter{
 public:
-	CMoveItem(){}
+	CBonus(){}
 
-	~CMoveItem();
-	CMoveItem(CModel*model, CVector position, CVector rotation, CVector scale);
+	~CBonus();
+	CBonus(CModel*model, CVector position, CVector rotation, CVector scale);
 
-	CCollider *mMItemBody;
+	CCollider *mBoBody;
 
 	static CCharacter*mpthis;
 
 	//衝突判定
 	//（コライダ1、コライダ2）
-	void Collision(CCollider*Mm, CCollider*y);
 
 	void Update();
 
@@ -95,7 +117,7 @@ public:
 	static int MStageCount;
 	bool MminusF;
 	int MDamageCount;
-	static int MMyScorePoint;
+	static int BMyScorePoint;
 	int MoveTime;
 };
 
@@ -116,6 +138,8 @@ public:
 	CVector mAdjust;
 
 	static bool jumpBF;
+
+	static bool ReBomF;//////////////リスポーンフラグtrueなら存在falseならリスポーン
 
 	bool BomGoF;
 

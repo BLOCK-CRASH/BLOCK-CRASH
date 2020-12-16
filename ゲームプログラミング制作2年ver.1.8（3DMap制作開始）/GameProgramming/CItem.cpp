@@ -1,22 +1,26 @@
 #include "CItem.h"
 
 CCharacter *CItem::mpthis = 0;
+CCharacter *CMoveItem::mpthis = 0;
 CCharacter*CSpinItem::mpthis = 0;
-CCharacter*CMoveItem::mpthis = 0;
+CCharacter*CBonus::mpthis = 0;
 CCharacter*CExItem::mpthis = 0;
 CCharacter*CDeleteBlock::mpthis = 0;
 
 int CItem::BMyScorePoint = 0;
-int CSpinItem::SMyScorePoint = 0;
 int CMoveItem::MMyScorePoint = 0;
+int CSpinItem::SMyScorePoint = 0;
+int CBonus::BMyScorePoint = 0;
 int CExItem::BomCutScore = 0;
 
 
 int CExItem::BomTime = 0;
 float CExItem::BBoundNum = 0;
 
-bool::CExItem::jumpBF = false;
+bool::CSpinItem::RebirthF = false;
 
+bool::CExItem::jumpBF = false;
+bool::CExItem::ReBomF = true;
 /*--------------------------------------------------------*/
 CItem::CItem(CModel*model, CVector position, CVector rotation, CVector scale)
 :mItemBody(0)
@@ -37,8 +41,6 @@ CItem::CItem(CModel*model, CVector position, CVector rotation, CVector scale)
 	}
 	mTag = CCharacter::EITEM;
 
-	ItemsStageCount += 1;
-
 	BminusF = false;
 
 	mpthis = this; 
@@ -47,7 +49,35 @@ CItem::CItem(CModel*model, CVector position, CVector rotation, CVector scale)
 
 	//BDamageCount = 10;
 
-	BMyScorePoint = 100;
+	BMyScorePoint = 120;
+}
+
+CMoveItem::CMoveItem(CModel*model, CVector position, CVector rotation, CVector scale)
+:mMItemBody(0)
+{
+	mpModel = model;
+	mPosition = position;
+	mRotation = rotation;
+	mScale = CVector(10.0, 10.0, 10.0);
+	//モデルの三角形の数分、コライダの配列を作成します
+	mMItemBody = new CCollider[model->mTriangles.size()];
+	for (int i = 0; i < model->mTriangles.size(); i++){
+		//コライダを三角形コライダで設定していきます
+		mMItemBody[i].SetTriangle(this,
+			model->mTriangles[i].mV[0],
+			model->mTriangles[i].mV[1],
+			model->mTriangles[i].mV[2]);
+
+	}
+	mTag = CCharacter::EITEM;
+
+	BminusF = false;
+
+	mpthis = this;
+
+	mEnabled = true;
+
+	MMyScorePoint = 100;
 }
 
 CSpinItem::CSpinItem(CModel*model, CVector position, CVector rotation, CVector scale)
@@ -82,18 +112,18 @@ CSpinItem::CSpinItem(CModel*model, CVector position, CVector rotation, CVector s
 	SMyScorePoint = 80;
 }
 
-CMoveItem::CMoveItem(CModel*model, CVector position, CVector rotation, CVector scale)
-:mMItemBody(0){
+CBonus::CBonus(CModel*model, CVector position, CVector rotation, CVector scale)
+:mBoBody(0){
 
 	mpModel = model;
 	mPosition = position;
 	mRotation = rotation;
 	mScale = CVector(3.0, 3.0, 5.0);
 
-	mMItemBody = new CCollider[model->mTriangles.size()];
+	mBoBody = new CCollider[model->mTriangles.size()];
 	for (int i = 0; i < model->mTriangles.size(); i++){
 
-		mMItemBody[i].SetTriangle(this,
+		mBoBody[i].SetTriangle(this,
 			model->mTriangles[i].mV[0],
 			model->mTriangles[i].mV[1],
 			model->mTriangles[i].mV[2]);
@@ -110,7 +140,7 @@ CMoveItem::CMoveItem(CModel*model, CVector position, CVector rotation, CVector s
 
 	MDamageCount = 1;
 
-	MMyScorePoint = 500;
+	BMyScorePoint = 500;
 
 	MoveTime = 60 * 60;
 }
@@ -149,7 +179,7 @@ CVector(1.0,1.0,1.0), scale.mX){
 }
 
 CDeleteBlock::CDeleteBlock(CModel*model, CVector position, CVector rotation, CVector scale)
-:mDelete(0){
+:mDelete(){
 
 	mpModel = model;
 	mPosition = position;
@@ -179,14 +209,19 @@ CItem::~CItem(){
 	delete[]mItemBody;
 
 }
+CMoveItem::~CMoveItem(){
+
+	delete[]mMItemBody;
+
+}
 CSpinItem::~CSpinItem(){
 
 	delete[]mSItemBody;
 
 }
-CMoveItem::~CMoveItem(){
+CBonus::~CBonus(){
 
-	delete[]mMItemBody;
+	delete[]mBoBody;
 
 }
 CExItem::~CExItem(){
@@ -197,81 +232,28 @@ CExItem::~CExItem(){
 }
 /*----------------------------------------------------------------------------------------------------------------------------*/
 //衝突判定
-void CItem::Collision(CCollider*im, CCollider*y){
-
-	switch (im->mType){
-
-	case CCollider::ETRIANGLE:
-		
-		if (y->mType == CCollider::ESPHERE){
-
-			CVector adjust;
-
-			if (CCollider::CollisionTriangleSphere(im, y, &adjust)){
-
-				//BminusF = false;
-
-				//BDamageCount = BDamageCount - 1;
-
-				if (BminusF == true){
-
-
-					BminusF = false;
-				}
-				
-			}
-
-		}
-		break;
-	}
-
-}
 
 void CSpinItem::Collision(CCollider*sm, CCollider*y){
 
-	switch (sm->mType){
+	//switch (sm->mType){
 
-	case CCollider::ETRIANGLE:
+	//case CCollider::ETRIANGLE:
 
-		if (y->mType == CCollider::ESPHERE){
+	//	if (y->mType == CCollider::ESPHERE){
 
-			CVector adjust;
+	//		CVector adjust;
 
-			if (CCollider::CollisionTriangleSphere(sm, y, &adjust)){
+	//		if (CCollider::CollisionTriangleSphere(sm, y, &adjust)){
 
-				//SDamageCount = SDamageCount - 1;				
-				
-			}
+	//			mRotation.mZ*-1;
+	//			
+	//		}
 
-		}
-		break;
-	
-	}
+	//	}
+	//	break;
+	//
+	//}
 
-}
-
-void CMoveItem::Collision(CCollider*Mm, CCollider*y){
-
-	switch (Mm->mType){
-
-	case CCollider::ETRIANGLE:
-
-		if (y->mType == CCollider::ESPHERE){
-
-			CVector adjust;
-
-			if (CCollider::CollisionTriangleSphere(Mm, y, &adjust)){
-
-				MminusF = false;
-				
-				//CMoveItem::mEnabled = false;
-
-				CMoveItem::~CMoveItem();
-			}
-
-		}
-		break;
-	}
 }
 
 
@@ -303,17 +285,30 @@ void CExItem::Collision(CCollider*Bm, CCollider*y){
 
 				}
 
-				if (y->mpParent->mTag == CCharacter::EDELETE || y->mpParent->mTag == CCharacter::EBALL){
+				if (y->mpParent->mTag == CCharacter::EDELETE){
 
 					BomGoF = false;
 
 					mPosition = CVector(100.0f, 100.0f, 0.0f);
 
 					BomGoF = true;
+
 				}
+
 			}
 		}
 
+		if (y->mType == CCollider::ESPHERE){
+
+			if (CCollider::CollisionSphereSphere(y, Bm, &mAdjust)){
+
+				if (y->mpParent->mTag == CCharacter::EBALL){
+
+					ReBomF = false;
+				}
+
+			}
+		}
 		break;
 	}
 }
@@ -323,18 +318,6 @@ void CExItem::Collision(CCollider*Bm, CCollider*y){
 void CDeleteBlock::Collision(CCollider*Dm, CCollider*y){}
 //更新処理
 void CItem::Update(){
-
-	BminusF = true;
-
-	mPosition.mX++;
-
-	if (mPosition.mX > 180){
-
-		mPosition.mX = -180;
-
-		mPosition.mX --;
-
-	}
 
 	//if (mPosition.mX < -100){
 
@@ -350,38 +333,66 @@ void CItem::Update(){
 
 }
 
-void CSpinItem::Update(){
+void CMoveItem::Update(){
 
-	SminusF = true;
+	BminusF = true;
 
-	mRotation.mZ++;
-	
+	mPosition.mX++;
+
+	if (mPosition.mX > 180){
+
+		mPosition.mX = -180;
+
+		mPosition.mX--;
+
+	}
+
 	CCharacter::Update();
 
 }
 
-void CMoveItem::Update(){
+void CSpinItem::Update(){
+
+	SminusF = true;
+
+	if (RebirthF == false){
+
+		mRotation.mZ++;
+
+	}
+	
+	if (RebirthF == true){
+
+		mRotation.mZ--;
+
+	}
+
+	CCharacter::Update();
+
+}
+
+void CBonus::Update(){
 
 	MminusF = true;
 
-	if (CMoveItem::MoveTime > 0){
+	if (CBonus::MoveTime > 0){
 		
 		MoveTime--;
 
 	}
 
-	if (CMoveItem::MoveTime<=3000){
+	if (CBonus::MoveTime <= 3000){
 
  		mPosition.mX -= 1.5;
 
 	}
 
-	if (CMoveItem::MoveTime <= 2280){
-
+	if (CBonus::MoveTime <= 2280){
+		
 		mPosition.mX += 0;
 
 	}
-	if (CMoveItem::MoveTime <= 2000){
+	if (CBonus::MoveTime <= 2000){
 
 		mPosition.mX += 3;
 
@@ -415,6 +426,16 @@ void CExItem::Update(){
 		mPosition = mPosition + BjumpSpeed;
 
 	}
+
+	//if (ReBomF == false){
+
+	//	BomTime = 3001;
+
+	//	mPosition = CVector(0.0f, 301.0f, 0.0f);
+
+	//	ReBomF = true;
+
+	//}
 
 	mPosition = mPosition + mAdjust + BjumpSpeed;
 
@@ -459,6 +480,36 @@ void CItem::TaskCollision(){
 
 }
 
+void CMoveItem::TaskCollision(){
+
+	mMItemBody[0].ChangePriority();
+	mMItemBody[1].ChangePriority();
+	mMItemBody[2].ChangePriority();
+	mMItemBody[3].ChangePriority();
+	mMItemBody[4].ChangePriority();
+	mMItemBody[5].ChangePriority();
+	mMItemBody[6].ChangePriority();
+	mMItemBody[7].ChangePriority();
+	mMItemBody[8].ChangePriority();
+	mMItemBody[9].ChangePriority();
+	mMItemBody[10].ChangePriority();
+	mMItemBody[11].ChangePriority();
+
+	CCollisionManager::Get()->Collision(&mMItemBody[0]);
+	CCollisionManager::Get()->Collision(&mMItemBody[1]);
+	CCollisionManager::Get()->Collision(&mMItemBody[2]);
+	CCollisionManager::Get()->Collision(&mMItemBody[3]);
+	CCollisionManager::Get()->Collision(&mMItemBody[4]);
+	CCollisionManager::Get()->Collision(&mMItemBody[5]);
+	CCollisionManager::Get()->Collision(&mMItemBody[6]);
+	CCollisionManager::Get()->Collision(&mMItemBody[7]);
+	CCollisionManager::Get()->Collision(&mMItemBody[8]);
+	CCollisionManager::Get()->Collision(&mMItemBody[9]);
+	CCollisionManager::Get()->Collision(&mMItemBody[10]);
+	CCollisionManager::Get()->Collision(&mMItemBody[11]);
+
+}
+
 void CSpinItem::TaskCollision(){
 
 	mSItemBody[0].ChangePriority();
@@ -489,33 +540,33 @@ void CSpinItem::TaskCollision(){
 
 }
 
-void CMoveItem::TaskCollision(){
+void CBonus::TaskCollision(){
 
-	mMItemBody[0].ChangePriority();
-	mMItemBody[1].ChangePriority();
-	mMItemBody[2].ChangePriority();
-	mMItemBody[3].ChangePriority();
-	mMItemBody[4].ChangePriority();
-	mMItemBody[5].ChangePriority();
-	mMItemBody[6].ChangePriority();
-	mMItemBody[7].ChangePriority();
-	mMItemBody[8].ChangePriority();
-	mMItemBody[9].ChangePriority();
-	mMItemBody[10].ChangePriority();
-	mMItemBody[11].ChangePriority();
+	mBoBody[0].ChangePriority();
+	mBoBody[1].ChangePriority();
+	mBoBody[2].ChangePriority();
+	mBoBody[3].ChangePriority();
+	mBoBody[4].ChangePriority();
+	mBoBody[5].ChangePriority();
+	mBoBody[6].ChangePriority();
+	mBoBody[7].ChangePriority();
+	mBoBody[8].ChangePriority();
+	mBoBody[9].ChangePriority();
+	mBoBody[10].ChangePriority();
+	mBoBody[11].ChangePriority();
 
-	CCollisionManager::Get()->Collision(&mMItemBody[0]);
-	CCollisionManager::Get()->Collision(&mMItemBody[1]);
-	CCollisionManager::Get()->Collision(&mMItemBody[2]);
-	CCollisionManager::Get()->Collision(&mMItemBody[3]);
-	CCollisionManager::Get()->Collision(&mMItemBody[4]);
-	CCollisionManager::Get()->Collision(&mMItemBody[5]);
-	CCollisionManager::Get()->Collision(&mMItemBody[6]);
-	CCollisionManager::Get()->Collision(&mMItemBody[7]);
-	CCollisionManager::Get()->Collision(&mMItemBody[8]);
-	CCollisionManager::Get()->Collision(&mMItemBody[9]);
-	CCollisionManager::Get()->Collision(&mMItemBody[10]);
-	CCollisionManager::Get()->Collision(&mMItemBody[11]);
+	CCollisionManager::Get()->Collision(&mBoBody[0]);
+	CCollisionManager::Get()->Collision(&mBoBody[1]);
+	CCollisionManager::Get()->Collision(&mBoBody[2]);
+	CCollisionManager::Get()->Collision(&mBoBody[3]);
+	CCollisionManager::Get()->Collision(&mBoBody[4]);
+	CCollisionManager::Get()->Collision(&mBoBody[5]);
+	CCollisionManager::Get()->Collision(&mBoBody[6]);
+	CCollisionManager::Get()->Collision(&mBoBody[7]);
+	CCollisionManager::Get()->Collision(&mBoBody[8]);
+	CCollisionManager::Get()->Collision(&mBoBody[9]);
+	CCollisionManager::Get()->Collision(&mBoBody[10]);
+	CCollisionManager::Get()->Collision(&mBoBody[11]);
 
 
 }
