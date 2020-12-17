@@ -13,8 +13,6 @@
 //
 #include "CEffect.h"
 
-static int ItemsStageCount;
-
 class CItem :public CCharacter{
 public:
 	CItem(){}
@@ -47,6 +45,8 @@ public:
 	CMoveItem(CModel*model, CVector position, CVector rotation, CVector scale);
 
 	CCollider *mMItemBody;
+
+	static bool RebirthF;
 
 	static CCharacter*mpthis;
 

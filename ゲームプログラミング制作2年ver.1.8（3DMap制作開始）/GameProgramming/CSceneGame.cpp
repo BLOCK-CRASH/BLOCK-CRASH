@@ -105,7 +105,7 @@ void CSceneGame::Update() {
 	if (CSceneGame::GAMETIME < 1801){
 
 		CSpinItem::RebirthF=true;
-
+		CMoveItem::RebirthF = true;
 	}
 
 

@@ -18,6 +18,7 @@ int CExItem::BomTime = 0;
 float CExItem::BBoundNum = 0;
 
 bool::CSpinItem::RebirthF = false;
+bool::CMoveItem::RebirthF = false;
 
 bool::CExItem::jumpBF = false;
 bool::CExItem::ReBomF = true;
@@ -98,8 +99,6 @@ CSpinItem::CSpinItem(CModel*model, CVector position, CVector rotation, CVector s
 
 	}
 	mTag = CCharacter::ESPINITEM;
-
-	ItemsStageCount += 1;
 
 	SminusF = false;
 
@@ -197,8 +196,6 @@ CDeleteBlock::CDeleteBlock(CModel*model, CVector position, CVector rotation, CVe
 	}
 
 	mTag = CCharacter::EDELETE;
-
-	ItemsStageCount += 1;
 
 	mpthis = this;
 
@@ -308,13 +305,29 @@ void CMoveItem::Update(){
 
 	BminusF = true;
 
-	mPosition.mX++;
+	if (RebirthF == false){
+
+		mPosition.mX++;
+
+	}
+
+	if (RebirthF == true){
+
+		mPosition.mX--;
+
+	}
 
 	if (mPosition.mX > 200){
 
 		mPosition.mX = -200;
 
-		mPosition.mX--;
+		//mPosition.mX--;
+
+	}
+
+	if (mPosition.mX < -200){
+
+		mPosition.mX = 200;
 
 	}
 

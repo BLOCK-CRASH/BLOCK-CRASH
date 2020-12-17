@@ -138,20 +138,11 @@ void CSceneGame2::Update() {
 		CText::DrawString("GAME OVER...", 280, 400, 15, 18);
 	}
 
-	if (ItemsStageCount<= 0) {
-
-		ResetF = false;
-
-		CText::DrawString("WAVE CLEAR!", 280, 400, 15, 18);
-
-		//CBallPlayer::mpthis->mEnabled=false;
-
-	}
-
 	//char buf[16];
 	//sprintf(buf, "%d",)
 
 	CText::DrawString("SUTAG.1", 20, 20, 10, 12);
+	//CText::DrawString("WAVE CLEAR!", 280, 400, 15, 18);
 
 	//if (CPlayer::mPosition){
 
