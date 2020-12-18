@@ -113,12 +113,12 @@ void C3DMap::Update(){
 
 		//XF = true;
 
-			mRotation.mX += 0.5;
+			//mRotation.mX += 0.5;
 
 
 	}
 
-	//mRotation.mZ += 0.5;
+	mRotation.mZ += 0.5;
 
 	CCharacter::Update();
 

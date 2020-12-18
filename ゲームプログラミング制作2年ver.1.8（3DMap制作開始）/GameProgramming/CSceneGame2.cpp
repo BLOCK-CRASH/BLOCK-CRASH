@@ -28,7 +28,9 @@ void CSceneGame2::Init() {
 
 	mBall.Load("sphere.obj", "sphere.mtl");
 
-	mStage.Load("window.obj", "window.mtl");
+	mStage.Load("window_All_Stage.obj", "window_All_Stage.mtl");
+
+	//mStage.Load("window.obj", "window.mtl");
 
 	//new CSpinItem(&mBoardR, CVector(-60.0f, 20.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
 	//new CSpinItem(&mBoardR, CVector(60.0f, 20.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
@@ -44,7 +46,7 @@ void CSceneGame2::Init() {
 	//new CItem(&mBoard, CVector(120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 80.0f), CVector(11.0, 11.0, 11.0));
 	//new CItem(&mBoard, CVector(-120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 80.0f), CVector(11.0, 11.0, 11.0));
 
-	new C3DMap(&mStage, CVector(0.0,-75.0,0.0), CVector(0.0,0.0,0.0), CVector(10.0, 10.0, 10.0));
+	new C3DMap(&mStage, CVector(0.0,-75.0,0.0), CVector(0.0,0.0,0.0), CVector(8.0, 8.0, 8.0));
 
 	//new CMoveItem(&mBoard, CVector(600.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0));
 
@@ -98,7 +100,7 @@ void CSceneGame2::Update() {
 
 	CTaskManager::Get()->TaskCollision();
 
-	CCollisionManager::Get()->Render();
+	//CTaskManager::Get()->Render();
 
 	
 
