@@ -32,8 +32,6 @@ void CCollider::Render() {
 	glMultMatrixf((mMatrix * mpParent->mMatrix).mM[0]);
 
 	CMatrix m;
-	m.Scale(1 / mpParent->mScale.mX, 1 / mpParent->mScale.mY, 1 / mpParent->mScale.mZ);
-	glMultMatrixf(m.mM[0]);
 
 	//アルファブレンドを有効にする
 	glEnable(GL_BLEND);
@@ -51,6 +49,10 @@ void CCollider::Render() {
 	//コライダタイプの判定
 	switch (mType) {
 	case ESPHERE:
+
+		m.Scale(1 / mpParent->mScale.mX, 1 / mpParent->mScale.mY, 1 / mpParent->mScale.mZ);
+		glMultMatrixf(m.mM[0]);
+
 		//球描画
 		glutWireSphere(mRadius, 16, 16);
 		break;

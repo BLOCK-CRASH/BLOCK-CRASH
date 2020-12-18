@@ -98,8 +98,7 @@ void CSceneGame2::Update() {
 
 	CTaskManager::Get()->TaskCollision();
 
-	CCollisionManager::Get()
-		->Render();
+	CCollisionManager::Get()->Render();
 
 	
 
