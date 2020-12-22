@@ -145,4 +145,6 @@ CMenu::~CMenu(){
 	//‰Â•Ï’·”z—ñ‚ÌƒNƒŠƒA
 	VectorRect.clear();
 
+	CTaskManager::Get()->Destory();
+
 }

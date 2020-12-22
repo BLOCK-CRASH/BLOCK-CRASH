@@ -90,6 +90,8 @@ void CSceneGame::Init() {
 	new CDeleteBlock(&mDelete, CVector(-250.0f, 0.0f, 0.0f), CVector(0.0, 0.0, 90.0), CVector(200.0f, 10.0f, 10.0));
 
 	CSceneGame::ResetF = true;
+
+	CSceneGame::mEnable = true;
 }
 
 
@@ -100,6 +102,7 @@ void CSceneGame::Update() {
 		CTaskManager::Get()->Update();
 	
 		Result = true;
+
 	}
 
 	if (CSceneGame::GAMETIME < 1801){
@@ -112,6 +115,8 @@ void CSceneGame::Update() {
 	if (CSceneGame::GAMETIME < 61){
 
 		Result = false;
+
+		mEnable = false;
 
 		if (Result == false){
 
@@ -126,7 +131,9 @@ void CSceneGame::Update() {
 
 	}
 
-	//
+
+	CBallPlayer::mAdjust.mZ = NULL;
+
 
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
@@ -209,11 +216,6 @@ void CSceneGame::Update() {
 
 	CBlackText::DrawString(buf, 200, 20, 10, 12);
 
-	//if (CBallPlayer::ScoreBox <= -1){
-
-	//	CBlackText::DrawString("-", 15, 20, 10, 12);
-
-	//}
 
 	CTaskManager::Get()->Delete();
 
@@ -236,4 +238,8 @@ CSceneGame::~CSceneGame() {
 	}
 	//可変長配列のクリア
 	VectorRect.clear();
+
+	CTaskManager::Get()->Destory();
+	CCollisionManager::Get()->Destory();
+
 }

@@ -32,19 +32,19 @@ void CSceneGame2::Init() {
 
 	//mStage.Load("window.obj", "window.mtl");
 
-	//new CSpinItem(&mBoardR, CVector(-60.0f, 20.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
-	//new CSpinItem(&mBoardR, CVector(60.0f, 20.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
-	//new CSpinItem(&mBoardR, CVector(110.0f, 30.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
-	//new CSpinItem(&mBoardR, CVector(-110.0f, 30.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
+	new CSpinItem(&mBoardR, CVector(-60.0f, 20.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
+	new CSpinItem(&mBoardR, CVector(60.0f, 20.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
+	new CSpinItem(&mBoardR, CVector(110.0f, 30.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
+	new CSpinItem(&mBoardR, CVector(-110.0f, 30.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
 
-	//new CItem(&mBoard, CVector(40.0f, 70.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(11.0, 11.0, 11.0));
-	//new CItem(&mBoard, CVector(-40.0f, 70.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(11.0, 11.0, 11.0));
+	new CItem(&mBoard, CVector(40.0f, 70.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(11.0, 11.0, 11.0));
+	new CItem(&mBoard, CVector(-40.0f, 70.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(11.0, 11.0, 11.0));
 
-	//new CItem(&mBoard, CVector(50.0f, -60.0f, 1.0f), CVector(0.0f, 0.0f, 40.0f), CVector(11.0, 11.0, 11.0));
-	//new CItem(&mBoard, CVector(-50.0f, -60.0f, 1.0f), CVector(0.0f, 0.0f, 40.0f), CVector(11.0, 11.0, 11.0));
+	new CItem(&mBoard, CVector(50.0f, -60.0f, 1.0f), CVector(0.0f, 0.0f, 40.0f), CVector(11.0, 11.0, 11.0));
+	new CItem(&mBoard, CVector(-50.0f, -60.0f, 1.0f), CVector(0.0f, 0.0f, 40.0f), CVector(11.0, 11.0, 11.0));
 
-	//new CItem(&mBoard, CVector(120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 80.0f), CVector(11.0, 11.0, 11.0));
-	//new CItem(&mBoard, CVector(-120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 80.0f), CVector(11.0, 11.0, 11.0));
+	new CItem(&mBoard, CVector(120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 80.0f), CVector(11.0, 11.0, 11.0));
+	new CItem(&mBoard, CVector(-120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 80.0f), CVector(11.0, 11.0, 11.0));
 
 	new C3DMap(&mStage, CVector(0.0,-75.0,0.0), CVector(0.0,0.0,0.0), CVector(8.0, 8.0, 8.0));
 
@@ -52,10 +52,10 @@ void CSceneGame2::Init() {
 
 	//プレイヤー(板)
 
-	new CPlayer(&mBoard, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0));
-	new CBottomPlayer(&mBoard, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0));
-	//玉
-	new CBallPlayer(&mBall, CVector(0.0f, -50.0f, 0.0f), CVector(), CVector(10.0f, 10.0f, 10.0));
+	//new CPlayer(&mBoard, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0));
+	//new CBottomPlayer(&mBoard, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0));
+	////玉
+	//new CBallPlayer(&mBall, CVector(0.0f, -50.0f, 0.0f), CVector(), CVector(10.0f, 10.0f, 10.0));
 
 	CSceneGame2::ResetF = true;
 }
@@ -100,9 +100,7 @@ void CSceneGame2::Update() {
 
 	CTaskManager::Get()->TaskCollision();
 
-	//CTaskManager::Get()->Render();
-
-	
+	CCollisionManager::Get()->Render();
 
 	//2D描画開始
 	Start2D(0, 800, 0, 600);
@@ -170,4 +168,8 @@ CSceneGame2::~CSceneGame2() {
 	}
 	//可変長配列のクリア
 	VectorRect.clear();
+
+	CTaskManager::Get()->Destory(); 
+	CCollisionManager::Get()->Destory();
+
 }

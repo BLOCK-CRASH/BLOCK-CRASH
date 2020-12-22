@@ -44,6 +44,13 @@ void CSceneManager::Update() {
 
 			break;
 
+		case CScene::EMENU:
+
+			mpScene = new CMenu();
+			mpScene->Init();
+
+			break;
+
 		case CScene::EGAME1:
 			mpScene = new CSceneGame();
 			mpScene->Init();
@@ -52,13 +59,6 @@ void CSceneManager::Update() {
 		
 		case CScene::EGAME2:
 			mpScene = new CSceneGame2();
-			mpScene->Init();
-
-			break;
-
-		case CScene::EMENU:
-
-			mpScene = new CMenu();
 			mpScene->Init();
 
 			break;

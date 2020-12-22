@@ -39,6 +39,8 @@ public:
 
 	CModel mDelete;//ステルスで表示
 
+	bool mEnable;
+
 	bool ResetF;
 	
 	bool Result;

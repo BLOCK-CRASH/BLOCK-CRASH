@@ -9,7 +9,6 @@ public:
 	enum EScene
 	{
 		ETITEL,//タイトル
-		EPAUSE,//一時停止
 		EMENU,//セレクト
 		EGAME1,//ステージ
 		EGAME2,//ステージ2

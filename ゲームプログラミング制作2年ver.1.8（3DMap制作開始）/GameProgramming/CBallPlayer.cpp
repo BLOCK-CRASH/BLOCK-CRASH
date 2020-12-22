@@ -20,6 +20,7 @@ int CBallPlayer::SScoreBox = 0;
 extern std::shared_ptr<CTexture>TextureExp;
 
 CVector CBallPlayer::jumpspeed = CVector(0.0, 0.0, 0.0);
+CVector CBallPlayer::mAdjust = CVector(0.0, 0.0, 0.0);
 CBallPlayer::CBallPlayer(CModel*model, CVector position, CVector rotation, CVector scale)
 :BallCol(this, CVector(), CVector(),
 CVector(1.0,1.0,1.0), scale.mX){
@@ -71,9 +72,6 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 			if (CCollider::CollisionTriangleSphere(y, m, &mAdjust)){
 
 				if (ColF == true){
-
-					mAdjust.mZ = NULL;
-					
 
 					if (BoundNum < 1.3){
 						BoundNum += 0.05;

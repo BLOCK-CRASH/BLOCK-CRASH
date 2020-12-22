@@ -168,6 +168,15 @@ void CTaskManager::TaskCollision(){
 
 void CTaskManager::Destory(){
 
+	CTask*pos = mpHead->mpNext;
+
+	while (pos)
+	{
+		CTask*del = pos;
+
+		pos = pos->mpNext;
+	}
+
 	if (instance)
 
 		delete instance;

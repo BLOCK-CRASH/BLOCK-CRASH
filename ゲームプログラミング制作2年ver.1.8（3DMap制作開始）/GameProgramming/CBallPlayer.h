@@ -29,7 +29,7 @@ public:
 
 	static CVector jumpspeed;
 
-	CVector mAdjust;
+	static	CVector mAdjust;
 
 	static bool jumpF;
 
