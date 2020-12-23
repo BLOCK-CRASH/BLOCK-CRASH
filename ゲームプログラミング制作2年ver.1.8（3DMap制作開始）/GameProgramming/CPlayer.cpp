@@ -3,8 +3,6 @@
 
 CCharacter *CPlayer::mpthis=0;
 CCharacter *CBottomPlayer::mpthis = 0;
-//#define G (9.8f/60.0f)  //重力加速度
-//#define JUMPV0  (4.0f)  //ジャンプ初速
 CPlayer::CPlayer(CModel*model, CVector position, CVector rotation, CVector scale)
 :mColBody(0)
 {
@@ -29,6 +27,14 @@ CPlayer::CPlayer(CModel*model, CVector position, CVector rotation, CVector scale
 	mTag = CCharacter::EPLAYER;
 }
 
+//CPlayer::~CPlayer(){
+//
+//	if (mColBody)
+//
+//		delete[]mColBody;
+//
+//}
+//
 CBottomPlayer::CBottomPlayer(CModel*model, CVector position, CVector rotation, CVector scale)
 :mColBody(0)
 {
@@ -53,6 +59,14 @@ CBottomPlayer::CBottomPlayer(CModel*model, CVector position, CVector rotation, C
 	mTag = CCharacter::EPLAYER;
 }
 
+//CBottomPlayer::~CBottomPlayer(){
+//
+//	if (mColBody)
+//
+//		delete[]mColBody;
+//
+//}
+//
 void CPlayer::Collision(CCollider*m,CCollider*y){
 	return;
 	//自身のコライダタイプの判定

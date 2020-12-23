@@ -175,6 +175,9 @@ void CTaskManager::Destory(){
 		CTask*del = pos;
 
 		pos = pos->mpNext;
+
+		delete del;
+
 	}
 
 	if (instance)
@@ -182,4 +185,5 @@ void CTaskManager::Destory(){
 		delete instance;
 
 	instance = 0;
+
 }

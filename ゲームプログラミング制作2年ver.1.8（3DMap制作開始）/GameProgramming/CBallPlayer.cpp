@@ -9,7 +9,7 @@ bool::CBallPlayer::GoF = true;
 bool::CBallPlayer::BallF = false;
 
 CCharacter *CBallPlayer::mpthis = 0;
-int CBallPlayer::BallHP = 6;
+int CBallPlayer::BallHP = 0;
 
 float CBallPlayer::BoundNum = 0;
 float CBallPlayer::ScoreMore = 0;//â¡éZêîéö
@@ -40,6 +40,8 @@ CVector(1.0,1.0,1.0), scale.mX){
 	BoundNum = 0.75;
 	
 	CBallPlayer::BallCol.mType = CCollider::ESPHERE;
+
+	BallHP = 6;
 
 	GoF = false;
 

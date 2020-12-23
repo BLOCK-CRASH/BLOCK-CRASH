@@ -72,7 +72,7 @@ CMoveItem::CMoveItem(CModel*model, CVector position, CVector rotation, CVector s
 	}
 	mTag = CCharacter::EITEM;
 
-	BminusF = false;
+	BminusF = 0;
 
 	mpthis = this;
 
@@ -203,36 +203,44 @@ CDeleteBlock::CDeleteBlock(CModel*model, CVector position, CVector rotation, CVe
 /*----------------------------------------------------------------------------------------------------------------------------*/
 CItem::~CItem(){
 
+	if (mItemBody)
 	delete[]mItemBody;
 
 }
 CMoveItem::~CMoveItem(){
 
+	if (mMItemBody)
 	delete[]mMItemBody;
 
 }
 CSpinItem::~CSpinItem(){
 
+	if (mSItemBody)
 	delete[]mSItemBody;
 
 }
 CBonus::~CBonus(){
 
+	if (mBoBody)
 	delete[]mBoBody;
 
 }
 CExItem::~CExItem(){
 
-	CCollisionManager::Get()->Remove(this);
+	//CCollisionManager::Get()->Remove(this);
 	mpthis = 0;
+
+}
+CDeleteBlock::~CDeleteBlock(){
+
+	if (mDelete)
+		delete[]mDelete;
 
 }
 /*----------------------------------------------------------------------------------------------------------------------------*/
 //è’ìÀîªíË
 
-void CSpinItem::Collision(CCollider*sm, CCollider*y){
-
-}
+void CSpinItem::Collision(CCollider*sm, CCollider*y){}
 
 
 void CExItem::Collision(CCollider*Bm, CCollider*y){

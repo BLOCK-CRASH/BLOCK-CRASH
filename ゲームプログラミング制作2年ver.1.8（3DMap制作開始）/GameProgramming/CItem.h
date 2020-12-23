@@ -15,7 +15,7 @@
 
 class CItem :public CCharacter{
 public:
-	CItem(){}
+	CItem():mItemBody(0){}
 
 	~CItem();
 	CItem(CModel*model, CVector position, CVector rotation, CVector scale);
@@ -39,7 +39,7 @@ public:
 
 class CMoveItem :public CCharacter{
 public:
-	CMoveItem(){}
+	CMoveItem():mMItemBody(0){}
 
 	~CMoveItem();
 	CMoveItem(CModel*model, CVector position, CVector rotation, CVector scale);
@@ -65,7 +65,7 @@ public:
 
 class CSpinItem :public CCharacter{
 public:
-	CSpinItem(){}
+	CSpinItem():mSItemBody(0){}
 
 	~CSpinItem();
 	CSpinItem(CModel*model, CVector position, CVector rotation, CVector scale);
@@ -96,7 +96,7 @@ public:
 
 class CBonus :public CCharacter{
 public:
-	CBonus(){}
+	CBonus():mBoBody(0){}
 
 	~CBonus();
 	CBonus(CModel*model, CVector position, CVector rotation, CVector scale);
@@ -171,9 +171,10 @@ class CDeleteBlock :public CCharacter{
 
 public:
 
-	CDeleteBlock(){}
+	CDeleteBlock():mDelete(0){}
 
-	//~CItem();
+	~CDeleteBlock();
+
 	CDeleteBlock(CModel*model, CVector position, CVector rotation, CVector scale);
 
 	CCollider *mDelete;
