@@ -78,6 +78,8 @@ public:
 
 	CModel mStage;
 
+	CModel m3DPlayer;
+
 	C3DCamera mCamera;
 
 	//CPlayer Player;

@@ -30,6 +30,8 @@ void CSceneGame2::Init() {
 
 	mStage.Load("StageEdit.obj", "StageEdit.mtl");
 
+	m3DPlayer.Load("3DPlayer.obj","3DPlayer.mtl");
+
 	//mStage.Load("window.obj", "window.mtl");
 
 	new CSpinItem(&mBoardR, CVector(-60.0f, 20.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
@@ -46,11 +48,13 @@ void CSceneGame2::Init() {
 	new CItem(&mBoard, CVector(120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 80.0f), CVector(11.0, 11.0, 11.0));
 	new CItem(&mBoard, CVector(-120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 80.0f), CVector(11.0, 11.0, 11.0));
 
-	new C3DMap(&mStage, CVector(0.0,-75.0,0.0), CVector(0.0,0.0,180.0), CVector(8.0, 8.0, 8.0));
+	//new C3DMap(&mStage, CVector(0.0,-75.0,0.0), CVector(0.0,0.0,180.0), CVector(8.0, 8.0, 8.0));
 
 	//new CMoveItem(&mBoard, CVector(600.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0));
 
 	//ÉvÉåÉCÉÑÅ[(î¬)
+
+	new C3DPlayer(&m3DPlayer, CVector(0.0, -75.0, 0.0), CVector(0.0, 0.0, 180.0), CVector(8.0, 8.0, 8.0));
 
 	//new CPlayer(&mBoard, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0));
 	//new CBottomPlayer(&mBoard, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0));

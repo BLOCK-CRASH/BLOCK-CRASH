@@ -30,7 +30,7 @@ C3DMap::C3DMap(CModel*model, const CVector &position, const
 	mpModel = model;
 	mPosition = position;
 	mRotation = rotation;
-	mScale = CVector(20.0,20.0,20.0);
+	mScale = scale;
 	CCharacter::Update();
 	//モデルの三角形の数分、コライダの配列を作成します
 	mpCollider = new CCollider[model->mTriangles.size()];
@@ -118,7 +118,7 @@ void C3DMap::Update(){
 
 	}
 
-	//mRotation.mZ += 0.5;
+	mRotation.mZ += 0.5;
 
 	CCharacter::Update();
 

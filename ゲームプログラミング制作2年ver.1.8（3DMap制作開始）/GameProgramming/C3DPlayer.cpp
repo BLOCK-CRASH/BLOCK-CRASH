@@ -34,36 +34,11 @@ C3DPlayer::C3DPlayer(CModel*model, CVector position, CVector rotation, CVector s
 
 #define MOUSE_S 3
 void C3DPlayer::Update(){
-	if (CKey::Push('N')){
-		mRotation.mZ += 25.0f;
-		if (C3DPlayer::mRotation.mZ > 25.1f){
-			mRotation.mZ = 25.0f;
-		}
-	}
-	else if (CKey::Push('V')){
-		mRotation.mZ -= 25.0f;
-		if (C3DPlayer::mRotation.mZ < -25.1f){
-			mRotation.mZ += 25.0f;
-		}
-	}
-	else{
-		mRotation.mZ = 0.0f;
-	}
-	if (CKey::Push('J')){
-		mPosition.mX += 1.2;
-		if (C3DPlayer::mPosition.mX >= 100 && C3DPlayer::mPosition.mX > 0){
-			mPosition.mX -= 1.2;
-			mPosition.mZ += 0.3;
-		}
 
-	}
-	if (CKey::Push('F')){
-		mPosition.mX -= 1.2;
+	if (CKey::Push('D')){
+		
+		mRotation.mX += 0.5;
 
-		if (C3DPlayer::mPosition.mX <= -100 && C3DPlayer::mPosition.mX < 0){
-			mPosition.mX += 1.2;
-
-		}
 	}
 	CCharacter::Update();
 }
