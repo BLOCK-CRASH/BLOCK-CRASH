@@ -53,6 +53,32 @@ C3DMap::C3DMap(CModel*model, const CVector &position, const
 	mTag = CCharacter::EWALL;
 
 }
+
+C3DDelete::C3DDelete(CModel*model, const CVector &position, const
+	CVector &rotation, const CVector &scale)
+	:mpCollider(0){
+
+	mpModel = model;
+	mPosition = position;
+	mRotation = rotation;
+	mScale = scale;
+	CCharacter::Update();
+	//モデルの三角形の数分、コライダの配列を作成します
+	mpCollider = new CCollider[model->mTriangles.size()];
+	for (int i = 0; i < model->mTriangles.size(); i++){
+		//コライダを三角形コライダで設定していきます
+		mpCollider[i].SetTriangle(this,
+			model->mTriangles[i].mV[0],
+			model->mTriangles[i].mV[1],
+			model->mTriangles[i].mV[2]);
+
+		mpCollider[i].ChangePriority();
+	}
+
+	mColsize = model->mTriangles.size();
+
+	mTag = CCharacter::EDELETE;
+}
 /*-------------------------------------------------------------------------------------------*/
 //デストラクタ
 CObj::~CObj(){
@@ -70,9 +96,16 @@ C3DMap::~C3DMap(){
 		delete[] mpCollider;
 	}
 }
+
+C3DDelete::~C3DDelete(){
+	//コライダがあれば削除
+	if (mpCollider){
+		//delete[]配列を削除
+		delete[] mpCollider;
+	}
+}
 /*-------------------------------------------------------------------------------------------*/
 void CObj::TaskCollision(){
-
 
 	mpCollider[0].ChangePriority();
 	mpCollider[1].ChangePriority();
@@ -111,6 +144,16 @@ void C3DMap::TaskCollision(){
 	}
 
 }
+
+void C3DDelete::TaskCollision(){
+
+	for (int c = 0; c < mColsize; c++){
+
+		mpCollider[c].ChangePriority();
+
+	}
+
+}
 /*-------------------------------------------------------------------------------------------*/
 
 void C3DMap::Update(){
@@ -123,10 +166,15 @@ void C3DMap::Update(){
 
 			//mRotation.mX += 0.5;
 
-
 	}
 
 //	mRotation.mZ += 0.5;
+
+	CCharacter::Update();
+
+}
+
+void C3DDelete::Update(){
 
 	CCharacter::Update();
 

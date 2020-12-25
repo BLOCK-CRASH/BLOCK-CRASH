@@ -26,9 +26,16 @@ C3DPlayer::C3DPlayer(CModel*model, CVector position, CVector rotation, CVector s
 
 	}
 
+	mColsize = model->mTriangles.size();
+
 	janpspead = 0;
 
 	mpthis = this;
+
+	PlayerMoveW = 0;
+	PlayerMoveA = 0;
+	PlayerMoveS = 0;
+	PlayerMoveD = 0;
 
 	mTag = CCharacter::EPLAYER;
 }
@@ -38,11 +45,88 @@ C3DPlayer::C3DPlayer(CModel*model, CVector position, CVector rotation, CVector s
 #define MOUSE_S 3
 void C3DPlayer::Update(){
 
-	if (CKey::Push('D')){
-		
-		mRotation.mX += 0.5;
+	if (CKey::Push('W')){
 
+		PlayerMoveW = false;
+
+		if (PlayerMoveW == false){
+
+			mRotation.mZ -= 0.5;
+
+		}
+		if (CKey::Push('A') || CKey::Push('S') || CKey::Push('D')){
+
+			PlayerMoveA = true;
+			PlayerMoveS = true;
+			PlayerMoveD = true;
+
+		}
+		PlayerMoveW = true;
 	}
+/*-------------------------------------------------------------------------------*/
+	if (CKey::Push('A')){
+
+		PlayerMoveA = false;
+		PlayerMoveW = true;
+		PlayerMoveS = true;
+		PlayerMoveD = true;
+
+		if (PlayerMoveA == false){
+		
+			mRotation.mX -= 0.5;
+
+		}
+
+		if (CKey::Push('W') || CKey::Push('S') || CKey::Push('D')){
+
+			PlayerMoveW = true;
+			PlayerMoveS = true;
+			PlayerMoveD = true;
+
+		}
+		PlayerMoveA = true;
+	}
+/*-------------------------------------------------------------------------------*/
+		if (CKey::Push('S')){
+
+		PlayerMoveS = false;
+
+		if (PlayerMoveS == false){
+
+			mRotation.mZ += 0.5;
+
+		}
+
+		if (CKey::Push('W') || CKey::Push('A') || CKey::Push('D')){
+
+			PlayerMoveW = true;
+			PlayerMoveA = true;
+			PlayerMoveD = true;
+
+		}
+		PlayerMoveS = true;
+	}
+/*-------------------------------------------------------------------------------*/
+		if (CKey::Push('D')){
+
+		PlayerMoveD = false;
+
+		if (PlayerMoveD == false){
+
+			mRotation.mX += 0.5;
+
+		}
+
+		if (CKey::Push('W') || CKey::Push('A') || CKey::Push('S')){
+
+			PlayerMoveW = true;
+			PlayerMoveA = true;
+			PlayerMoveS = true;
+
+		}
+		PlayerMoveD = true;
+	}
+
 	CCharacter::Update();
 }
 
@@ -92,33 +176,15 @@ void C3DCamera::Update(){
 	CCharacter::Update();
 
 }
+
 /*-------------------------------------------------------------------------------------------------------------------------------*/
+
 void C3DPlayer::TaskCollision(){
 
-	mColBody[0].ChangePriority();
-	mColBody[1].ChangePriority();
-	mColBody[2].ChangePriority();
-	mColBody[3].ChangePriority();
-	mColBody[4].ChangePriority();
-	mColBody[5].ChangePriority();
-	mColBody[6].ChangePriority();
-	mColBody[7].ChangePriority();
-	mColBody[8].ChangePriority();
-	mColBody[9].ChangePriority();
-	mColBody[10].ChangePriority();
-	mColBody[11].ChangePriority();
+	for (int p = 0; p < mColsize; p++){
 
-	CCollisionManager::Get()->Collision(&mColBody[0]);
-	CCollisionManager::Get()->Collision(&mColBody[1]);
-	CCollisionManager::Get()->Collision(&mColBody[2]);
-	CCollisionManager::Get()->Collision(&mColBody[3]);
-	CCollisionManager::Get()->Collision(&mColBody[4]);
-	CCollisionManager::Get()->Collision(&mColBody[5]);
-	CCollisionManager::Get()->Collision(&mColBody[6]);
-	CCollisionManager::Get()->Collision(&mColBody[7]);
-	CCollisionManager::Get()->Collision(&mColBody[8]);
-	CCollisionManager::Get()->Collision(&mColBody[9]);
-	CCollisionManager::Get()->Collision(&mColBody[10]);
-	CCollisionManager::Get()->Collision(&mColBody[11]);
+		mColBody[p].ChangePriority();
+
+	}
 
 }

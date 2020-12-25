@@ -47,4 +47,20 @@ public:
 
 };
 
+class C3DDelete :public CCharacter{
+public:
+
+	//コライダの追加
+	CCollider*mpCollider;
+	int mColsize;
+	//コンストラクタで初期設定
+	C3DDelete(CModel*model, const CVector&position,
+		const CVector&rotation, const CVector&scale);
+	~C3DDelete();
+
+	void TaskCollision();
+
+	void Update();
+
+};
 #endif

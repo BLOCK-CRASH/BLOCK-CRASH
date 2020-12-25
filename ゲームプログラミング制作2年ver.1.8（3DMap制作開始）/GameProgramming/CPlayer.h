@@ -49,6 +49,7 @@ class C3DPlayer :public CCharacter{
 public:
 	C3DPlayer():mColBody(0){}
 	~C3DPlayer(){}
+	int mColsize;
 	float janpspead;
 	C3DPlayer(CModel*model, CVector position, CVector rotation, CVector scale);
 	CCollider *mColBody;
@@ -57,6 +58,10 @@ public:
 	//çXêVèàóù
 	void Update();
 	void TaskCollision();
+	bool PlayerMoveW;
+	bool PlayerMoveA;
+	bool PlayerMoveS;
+	bool PlayerMoveD;
 };
 
 class C3DCamera :public CCharacter{

@@ -27,14 +27,6 @@ CPlayer::CPlayer(CModel*model, CVector position, CVector rotation, CVector scale
 	mTag = CCharacter::EPLAYER;
 }
 
-//CPlayer::~CPlayer(){
-//
-//	if (mColBody)
-//
-//		delete[]mColBody;
-//
-//}
-//
 CBottomPlayer::CBottomPlayer(CModel*model, CVector position, CVector rotation, CVector scale)
 :mColBody(0)
 {
@@ -59,14 +51,6 @@ CBottomPlayer::CBottomPlayer(CModel*model, CVector position, CVector rotation, C
 	mTag = CCharacter::EPLAYER;
 }
 
-//CBottomPlayer::~CBottomPlayer(){
-//
-//	if (mColBody)
-//
-//		delete[]mColBody;
-//
-//}
-//
 void CPlayer::Collision(CCollider*m,CCollider*y){
 	return;
 	//自身のコライダタイプの判定

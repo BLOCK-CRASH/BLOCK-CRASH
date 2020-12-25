@@ -80,6 +80,8 @@ public:
 
 	CModel m3DPlayer;
 
+	CModel mDelete;
+
 	C3DCamera mCamera;
 
 	//CPlayer Player;
