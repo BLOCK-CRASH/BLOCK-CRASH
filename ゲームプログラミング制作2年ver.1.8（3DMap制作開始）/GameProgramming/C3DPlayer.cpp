@@ -21,6 +21,9 @@ C3DPlayer::C3DPlayer(CModel*model, CVector position, CVector rotation, CVector s
 			model->mTriangles[i].mV[0],
 			model->mTriangles[i].mV[1],
 			model->mTriangles[i].mV[2]);
+
+		mColBody[i].ChangePriority();
+
 	}
 
 	janpspead = 0;

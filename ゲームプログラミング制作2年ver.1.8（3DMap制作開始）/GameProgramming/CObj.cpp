@@ -62,6 +62,14 @@ CObj::~CObj(){
 		delete[] mpCollider;
 	}
 }
+
+C3DMap::~C3DMap(){
+	//コライダがあれば削除
+	if (mpCollider){
+		//delete[]配列を削除
+		delete[] mpCollider;
+	}
+}
 /*-------------------------------------------------------------------------------------------*/
 void CObj::TaskCollision(){
 
@@ -118,7 +126,7 @@ void C3DMap::Update(){
 
 	}
 
-	mRotation.mZ += 0.5;
+//	mRotation.mZ += 0.5;
 
 	CCharacter::Update();
 

@@ -31,6 +31,7 @@ public:
 	//コンストラクタで初期設定
 	C3DMap(CModel*model, const CVector&position,
 		const CVector&rotation, const CVector&scale);
+	~C3DMap();
 	
 	bool XF;
 

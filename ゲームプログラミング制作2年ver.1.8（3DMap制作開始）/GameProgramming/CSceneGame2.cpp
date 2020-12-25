@@ -28,7 +28,7 @@ void CSceneGame2::Init() {
 
 	mBall.Load("sphere.obj", "sphere.mtl");
 
-	mStage.Load("StageEdit.obj", "StageEdit.mtl");
+	mStage.Load("STAGE (2).obj", "STAGE (2).mtl");
 
 	m3DPlayer.Load("3DPlayer.obj","3DPlayer.mtl");
 
@@ -48,13 +48,13 @@ void CSceneGame2::Init() {
 	new CItem(&mBoard, CVector(120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 80.0f), CVector(11.0, 11.0, 11.0));
 	new CItem(&mBoard, CVector(-120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 80.0f), CVector(11.0, 11.0, 11.0));
 
-	//new C3DMap(&mStage, CVector(0.0,-75.0,0.0), CVector(0.0,0.0,180.0), CVector(8.0, 8.0, 8.0));
+	new C3DMap(&mStage, CVector(0.0,161.5,0.0), CVector(0.0,0.0,180.0), CVector(9.0, 9.0, 9.0));
 
 	//new CMoveItem(&mBoard, CVector(600.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0));
 
 	//ÉvÉåÉCÉÑÅ[(î¬)
 
-	new C3DPlayer(&m3DPlayer, CVector(0.0, -75.0, 0.0), CVector(0.0, 0.0, 180.0), CVector(8.0, 8.0, 8.0));
+	new C3DPlayer(&m3DPlayer, CVector(0.0, 0.0, 0.0), CVector(0.0, 0.0, 180.0), CVector(0.75, 0.75, 0.75));
 
 	//new CPlayer(&mBoard, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0));
 	//new CBottomPlayer(&mBoard, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0));
