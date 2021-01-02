@@ -52,6 +52,8 @@ C3DMap::C3DMap(CModel*model, const CVector &position, const
 
 	mTag = CCharacter::EWALL;
 
+	ROTATETIME = 60 * 60;
+
 }
 
 C3DDelete::C3DDelete(CModel*model, const CVector &position, const
@@ -158,22 +160,43 @@ void C3DDelete::TaskCollision(){
 
 void C3DMap::Update(){
 
-	ROTATETIME++;
+	ROTATETIME--;
 
-	if (ROTATETIME <=1200){
+	XF, YF, ZF = false;
 
-		//XF = true;
+	if (ROTATETIME = 3540){
 
-			//mRotation.mX += 0.5;
+		XF = true;
 
 	}
 
-//	mRotation.mZ += 0.5;
+	mRotation.mZ += 0.5;
 
 	CCharacter::Update();
 
 }
 
+void C3DMap::RotateUpdate(){
+
+	if (XF == true){
+
+		mRotation.mX = mRotation.mX + 90.0;
+
+	}
+
+	if (YF == true){
+
+		mRotation.mY = mRotation.mY + 90.0;
+
+	}
+
+	if (ZF == true){
+
+		mRotation.mZ = mRotation.mZ + 90.0;
+
+	}
+
+}
 void C3DDelete::Update(){
 
 	CCharacter::Update();

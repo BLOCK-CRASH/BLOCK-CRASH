@@ -48,7 +48,12 @@ public:
 class C3DPlayer :public CCharacter{
 public:
 	C3DPlayer():mColBody(0){}
-	~C3DPlayer(){}
+	~C3DPlayer(){
+	
+		if (mColBody)
+			delete[] mColBody;
+	
+	}
 	int mColsize;
 	float janpspead;
 	C3DPlayer(CModel*model, CVector position, CVector rotation, CVector scale);
@@ -69,7 +74,7 @@ public:
 
 	static C3DCamera*mpthis;
 
-	C3DCamera() {
+	C3DCamera(){
 
 		mMouseX = 1920 / 2;
 

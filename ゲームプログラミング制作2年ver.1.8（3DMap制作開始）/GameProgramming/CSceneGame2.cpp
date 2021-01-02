@@ -9,12 +9,17 @@
 #include "CItem.h"
 //
 int CSceneGame2::GAMETIME;
+int CSceneGame2::COUNTDOWN;
 int CSceneGame2::LETTERTIME;
 void CSceneGame2::Init() {
 
-	GAMETIME = 4 * 60;
+	COUNTDOWN = 4 * 60;
+
+	GAMETIME = 61 * 60;
 
 	mScene = EGAME2;
+
+	Result = false;
 
 	//テキストフォントの読み込みと設定
 	CText::mFont.Load("FontG.tga");
@@ -30,9 +35,12 @@ void CSceneGame2::Init() {
 
 	mStage.Load("STAGE (2).obj", "STAGE (2).mtl");
 
+	//mStage.Load("STAGE(2)_Edit_OF_0102.obj", "STAGE(2)_Edit_OF_0102.mtl");
+
 	m3DPlayer.Load("3DPlayer.obj","3DPlayer.mtl");
 
 	mDelete.Load("3DMapDeleteBlock.obj", "3DMapDeleteBlock.mtl");
+	mDelete.mMaterials[0].mDiffuse[3] = 0.0f;
 
 	//mStage.Load("window.obj", "window.mtl");
 
@@ -59,15 +67,50 @@ void CSceneGame2::Init() {
 	new C3DPlayer(&m3DPlayer, CVector(0.0, 0.0, 0.0), CVector(0.0, 0.0, 180.0), CVector(0.75, 0.75, 0.75));
 
 	////玉
-	//new CBallPlayer(&mBall, CVector(0.0f, -50.0f, 0.0f), CVector(), CVector(10.0f, 10.0f, 10.0));
+	new CBallPlayer(&mBall, CVector(0.0f, -50.0f, 0.0f), CVector(), CVector(10.0f, 10.0f, 10.0));
 
 	CSceneGame2::ResetF = true;
+
+	CSceneGame2::mEnable = true;
+
 }
 
 
 void CSceneGame2::Update() {
 
-	CTaskManager::Get()->Update();
+	if (CSceneGame2::GAMETIME > 61){
+
+		CTaskManager::Get()->Update();
+
+		Result = true;
+
+	}
+
+	//if (CSceneGame2::GAMETIME < 1801){
+
+	//	CSpinItem::RebirthF = true;
+	//	CMoveItem::RebirthF = true;
+	//}
+
+	if (CSceneGame2::GAMETIME < 61){
+
+		Result = false;
+
+		mEnable = false;
+
+		if (Result == false){
+
+			if (CKey::Once(VK_RETURN)){
+
+				mScene = ERESULT;
+
+			}
+
+
+		}
+
+	}
+
 
 	mCamera.mPosition = CVector(0.0, 0.0, 0.0);
 	//カメラのパラメータを作成する
@@ -87,17 +130,6 @@ void CSceneGame2::Update() {
 	//カメラの設定
 	Camera3D(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
 
-	//if (CBallPlayer::mpthis == 0 && CBallPlayer::BallHP > 0){
-
-		if (CKey::Once(' ')){
-
-			new CBallPlayer(&mBall, CVector(0.0f, -5.0f, 0.0f), CVector(), CVector(10.0f, 10.0f, 10.0));
-
-	//	}
-
-	}
-
-
 	CMatrix Matrix;
 
 	CTaskManager::Get()->Render();
@@ -110,15 +142,15 @@ void CSceneGame2::Update() {
 	Start2D(0, 800, 0, 600);
 
 
-	if (GAMETIME > 60){
+	if (COUNTDOWN > 60){
 
-		GAMETIME--;
+		COUNTDOWN--;
 
 		if (ResetF == true){
 
 			char buf[10];
 
-			sprintf(buf, "%d", GAMETIME / 60);
+			sprintf(buf, "%d", COUNTDOWN / 60);
 
 			CText::DrawString(buf, 400, 500, 30, 30);
 
@@ -126,13 +158,34 @@ void CSceneGame2::Update() {
 
 	}
 
-	else if (GAMETIME > 0){
+	else if (COUNTDOWN > 0){
 
-		GAMETIME--;
+		COUNTDOWN--;
 
 		CText::DrawString("GO!!", 300, 500, 30, 30);
 	}
 
+	if (COUNTDOWN <= 0){
+
+		if (GAMETIME > 60){
+
+			GAMETIME--;
+
+			char buf[10];
+
+			sprintf(buf, "%d", GAMETIME / 60);
+
+			CText::DrawString(buf, 680, 30, 30, 30);
+
+		}
+
+		else{
+
+			CText::DrawString("GAME  SET!!", 300, 500, 10, 12);
+
+		}
+
+	}
 
 	if (CBallPlayer::BallHP == 0){
 
@@ -141,21 +194,18 @@ void CSceneGame2::Update() {
 		CText::DrawString("GAME OVER...", 280, 400, 15, 18);
 	}
 
-	//char buf[16];
-	//sprintf(buf, "%d",)
+	CText::DrawString("SUTAG.2", 20, 20, 10, 12);
 
-	CText::DrawString("SUTAG.1", 20, 20, 10, 12);
-	//CText::DrawString("WAVE CLEAR!", 280, 400, 15, 18);
+	char buf[100];
 
-	//if (CPlayer::mPosition){
+	sprintf(buf, "%d", CBallPlayer::ScoreBox);
 
+	CBlackText::DrawString(buf, 200, 20, 10, 12);
 
-	//}
 	CTaskManager::Get()->Delete();
 
 	//2D描画終了
 	End2D();
-
 
 	return;
 

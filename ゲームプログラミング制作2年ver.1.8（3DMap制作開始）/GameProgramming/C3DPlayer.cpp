@@ -45,86 +45,28 @@ C3DPlayer::C3DPlayer(CModel*model, CVector position, CVector rotation, CVector s
 #define MOUSE_S 3
 void C3DPlayer::Update(){
 
-	if (CKey::Push('W')){
+	if (CKey::Push(VK_LBUTTON)){
 
-		PlayerMoveW = false;
+		mRotation.mX += 1;
 
-		if (PlayerMoveW == false){
+		if (CKey::Push('R')){
 
-			mRotation.mZ -= 0.5;
-
-		}
-		if (CKey::Push('A') || CKey::Push('S') || CKey::Push('D')){
-
-			PlayerMoveA = true;
-			PlayerMoveS = true;
-			PlayerMoveD = true;
+		mRotation.mX -= 2;
 
 		}
-		PlayerMoveW = true;
+
 	}
-/*-------------------------------------------------------------------------------*/
-	if (CKey::Push('A')){
 
-		PlayerMoveA = false;
-		PlayerMoveW = true;
-		PlayerMoveS = true;
-		PlayerMoveD = true;
+	if (CKey::Push(VK_RBUTTON)){
 
-		if (PlayerMoveA == false){
-		
-			mRotation.mX -= 0.5;
+		mRotation.mZ -= 1;
+
+		if (CKey::Push('R')){
+
+			mRotation.mZ += 2;
 
 		}
 
-		if (CKey::Push('W') || CKey::Push('S') || CKey::Push('D')){
-
-			PlayerMoveW = true;
-			PlayerMoveS = true;
-			PlayerMoveD = true;
-
-		}
-		PlayerMoveA = true;
-	}
-/*-------------------------------------------------------------------------------*/
-		if (CKey::Push('S')){
-
-		PlayerMoveS = false;
-
-		if (PlayerMoveS == false){
-
-			mRotation.mZ += 0.5;
-
-		}
-
-		if (CKey::Push('W') || CKey::Push('A') || CKey::Push('D')){
-
-			PlayerMoveW = true;
-			PlayerMoveA = true;
-			PlayerMoveD = true;
-
-		}
-		PlayerMoveS = true;
-	}
-/*-------------------------------------------------------------------------------*/
-		if (CKey::Push('D')){
-
-		PlayerMoveD = false;
-
-		if (PlayerMoveD == false){
-
-			mRotation.mX += 0.5;
-
-		}
-
-		if (CKey::Push('W') || CKey::Push('A') || CKey::Push('S')){
-
-			PlayerMoveW = true;
-			PlayerMoveA = true;
-			PlayerMoveS = true;
-
-		}
-		PlayerMoveD = true;
 	}
 
 	CCharacter::Update();

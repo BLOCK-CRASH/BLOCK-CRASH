@@ -84,11 +84,15 @@ public:
 
 	C3DCamera mCamera;
 
-	//CPlayer Player;
+	bool mEnable;
 
 	bool ResetF;
 
+	bool Result;
+
 	static int GAMETIME;
+
+	static int COUNTDOWN;
 
 	static int LETTERTIME;
 
