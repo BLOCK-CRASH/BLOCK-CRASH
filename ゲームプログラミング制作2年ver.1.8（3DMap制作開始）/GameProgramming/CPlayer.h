@@ -63,10 +63,6 @@ public:
 	//XVˆ—
 	void Update();
 	void TaskCollision();
-	bool PlayerMoveW;
-	bool PlayerMoveA;
-	bool PlayerMoveS;
-	bool PlayerMoveD;
 };
 
 class C3DCamera :public CCharacter{

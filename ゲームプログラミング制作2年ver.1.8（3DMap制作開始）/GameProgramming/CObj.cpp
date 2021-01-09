@@ -50,7 +50,7 @@ C3DMap::C3DMap(CModel*model, const CVector &position, const
 
 	ROTATETIME = 0;
 
-	mTag = CCharacter::EWALL;
+	//mTag = CCharacter::EWALL;
 
 	ROTATETIME = 60 * 60;
 
@@ -166,11 +166,11 @@ void C3DMap::Update(){
 
 	if (ROTATETIME = 3540){
 
-		XF = true;
+		//XF = true;
 
 	}
 
-	mRotation.mZ += 0.5;
+	//mRotation.mZ += 0.5;
 
 	CCharacter::Update();
 

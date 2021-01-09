@@ -32,11 +32,6 @@ C3DPlayer::C3DPlayer(CModel*model, CVector position, CVector rotation, CVector s
 
 	mpthis = this;
 
-	PlayerMoveW = 0;
-	PlayerMoveA = 0;
-	PlayerMoveS = 0;
-	PlayerMoveD = 0;
-
 	mTag = CCharacter::EPLAYER;
 }
 

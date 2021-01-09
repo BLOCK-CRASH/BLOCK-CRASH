@@ -108,11 +108,6 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 
 				}
 
-				if (y->mpParent->mTag == CCharacter::EPLAYER){		//プレイヤーならScoreMoreを初期値へ戻す
-
-					ScoreMore = 1.0;
-
-				}
 
 				if (y->mpParent->mTag == CCharacter::EMOVEBONUS){
 
