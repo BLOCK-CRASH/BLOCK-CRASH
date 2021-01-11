@@ -33,7 +33,7 @@ void CSceneGame2::Init() {
 
 	mBall.Load("sphere.obj", "sphere.mtl");
 
-	mStage.Load("STAGE (2).obj", "STAGE (2).mtl");
+	mStage.Load("StageEdit0108.obj", "StageEdit0108.mtl");
 
 	//mStage.Load("STAGE(2)_Edit_OF_0102.obj", "STAGE(2)_Edit_OF_0102.mtl");
 
@@ -58,7 +58,7 @@ void CSceneGame2::Init() {
 	//new CItem(&mBoard, CVector(120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 80.0f), CVector(11.0, 11.0, 11.0));
 	//new CItem(&mBoard, CVector(-120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 80.0f), CVector(11.0, 11.0, 11.0));
 
-	new C3DMap(&mStage, CVector(0.0,151.0/*STAGE2‚ÌŽž‚¾‚¯151*/,0.0), CVector(0.0,0.0,180.0), CVector(9.0, 9.0, 9.0));
+	new C3DMap(&mStage, CVector(0.0,0.0/*STAGE2‚ÌŽž‚¾‚¯151*/,0.0), CVector(0.0,0.0,180.0), CVector(9.0, 9.0, 9.0));
 	new C3DDelete(&mDelete, CVector(0.0, 0.0, 0.0), CVector(0.0, 0.0, 180.0), CVector(15.0, 15.0, 15.0));
 	//new CMoveItem(&mBoard, CVector(600.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0));
 
