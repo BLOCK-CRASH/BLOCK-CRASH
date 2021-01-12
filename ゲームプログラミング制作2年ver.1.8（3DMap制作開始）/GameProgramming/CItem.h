@@ -202,5 +202,12 @@ public:
 
 };
 
+///////////////////////////////////////////////3D‚ÅŽg‚¤—p‚ÌItem
+
+class C3DMoveItem :public CCharacter{
+
+public:
+
+};
 
 #endif

@@ -37,31 +37,31 @@ void CSceneGame::Init() {
 	mBomb.Load("Bomb.obj", "Bomb.mtl");
 
 	mDelete.Load("cube.obj", "cube.mtl");
-	mDelete.mMaterials[0].mDiffuse[3] = 0.0f;
+	//mDelete.mMaterials[0].mDiffuse[3] = 0.0f;
 	
 	/*スピンアイテムブロック----------------------------------------------------------------------------*/
-	new CSpinItem(&mBoardR, CVector(-60.0f, 20.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(8.0f, 8.0f, 5.0));
-	new CSpinItem(&mBoardR, CVector(60.0f, 20.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(8.0f, 8.0f, 5.0));
-	new CSpinItem(&mBoardR, CVector(110.0f, 70.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(8.0f, 8.0f, 5.0));
-	new CSpinItem(&mBoardR, CVector(-110.0f, 70.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(8.0f, 8.0f, 5.0));
-	new CSpinItem(&mBoardR, CVector(0.0f, -20.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0f,15.0f, 10.0));
+	//new CSpinItem(&mBoardR, CVector(-60.0f, 20.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(8.0f, 8.0f, 5.0));
+	//new CSpinItem(&mBoardR, CVector(60.0f, 20.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(8.0f, 8.0f, 5.0));
+	//new CSpinItem(&mBoardR, CVector(110.0f, 70.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(8.0f, 8.0f, 5.0));
+	//new CSpinItem(&mBoardR, CVector(-110.0f, 70.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(8.0f, 8.0f, 5.0));
+	//new CSpinItem(&mBoardR, CVector(0.0f, -20.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0f,15.0f, 10.0));
 
-	/*ノーマルアイテムブロック----------------------------------------------------------------------------*/
-	new CItem(&mBoard, CVector(40.0f/*40.0*/, 70.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f/*45*/), CVector(11.0, 11.0, 11.0));
-	new CItem(&mBoard, CVector(-40.0f, 70.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(11.0, 11.0, 11.0));
-	new CItem(&mBoard, CVector(50.0f, -60.0f, 1.0f), CVector(0.0f, 0.0f, 40.0f), CVector(11.0, 11.0, 11.0));
-	new CItem(&mBoard, CVector(-50.0f, -60.0f, 1.0f), CVector(0.0f, 0.0f, 40.0f), CVector(11.0, 11.0, 11.0));
-	new CItem(&mBoard, CVector(120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 65.0f), CVector(11.0, 11.0, 11.0));
-	new CItem(&mBoard, CVector(-120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 65.0f), CVector(11.0, 11.0, 11.0));
-	/*ボーナスアイテムブロック----------------------------------------------------------------------------*/
-	new CBonus(&mBoard, CVector(600.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0));
-	/*移動アイテムブロック----------------------------------------------------------------------------*/
-	new CMoveItem(&mBoard, CVector(-120.0f, -130.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(6.0, 6.0, 6.0));
-	new CMoveItem(&mBoard, CVector(120.0f, -130.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(6.0, 6.0, 6.0));
-	new CMoveItem(&mBoard, CVector(60.0f, -25.0f, 0.0f), CVector(0.0f, 0.0f, 60.0f), CVector(6.0, 6.0, 6.0));
-	new CMoveItem(&mBoard, CVector(-60.0f, -25.0f, 0.0f), CVector(0.0f, 0.0f, -60.0f), CVector(6.0, 6.0, 6.0));
-	new CMoveItem(&mBoard, CVector(140.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 110.0f), CVector(6.0, 6.0, 6.0));
-	new CMoveItem(&mBoard, CVector(-140.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, -110.0f), CVector(6.0, 6.0, 6.0));
+	///*ノーマルアイテムブロック----------------------------------------------------------------------------*/
+	//new CItem(&mBoard, CVector(40.0f/*40.0*/, 70.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f/*45*/), CVector(11.0, 11.0, 11.0));
+	//new CItem(&mBoard, CVector(-40.0f, 70.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(11.0, 11.0, 11.0));
+	//new CItem(&mBoard, CVector(50.0f, -60.0f, 1.0f), CVector(0.0f, 0.0f, 40.0f), CVector(11.0, 11.0, 11.0));
+	//new CItem(&mBoard, CVector(-50.0f, -60.0f, 1.0f), CVector(0.0f, 0.0f, 40.0f), CVector(11.0, 11.0, 11.0));
+	//new CItem(&mBoard, CVector(120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 65.0f), CVector(11.0, 11.0, 11.0));
+	//new CItem(&mBoard, CVector(-120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 65.0f), CVector(11.0, 11.0, 11.0));
+	///*ボーナスアイテムブロック----------------------------------------------------------------------------*/
+	//new CBonus(&mBoard, CVector(600.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0));
+	///*移動アイテムブロック----------------------------------------------------------------------------*/
+	//new CMoveItem(&mBoard, CVector(-120.0f, -130.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(6.0, 6.0, 6.0));
+	//new CMoveItem(&mBoard, CVector(120.0f, -130.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(6.0, 6.0, 6.0));
+	//new CMoveItem(&mBoard, CVector(60.0f, -25.0f, 0.0f), CVector(0.0f, 0.0f, 60.0f), CVector(6.0, 6.0, 6.0));
+	//new CMoveItem(&mBoard, CVector(-60.0f, -25.0f, 0.0f), CVector(0.0f, 0.0f, -60.0f), CVector(6.0, 6.0, 6.0));
+	//new CMoveItem(&mBoard, CVector(140.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 110.0f), CVector(6.0, 6.0, 6.0));
+	//new CMoveItem(&mBoard, CVector(-140.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, -110.0f), CVector(6.0, 6.0, 6.0));
 
 	///*マップブロック----------------------------------------------------------------------------*/
 	new CObj(&mBoard, CVector(265.0f, 137.0f, 0.0f), CVector(0.0f, 0.0f, 75.0), CVector(15.0f, 120.0f, 10.0));
@@ -88,6 +88,11 @@ void CSceneGame::Init() {
 	new CDeleteBlock(&mDelete, CVector(0.0f, 230.0f, 0.0f), CVector(), CVector(200.0f, 10.0f, 10.0));
 	new CDeleteBlock(&mDelete, CVector(250.0f, 0.0f, 0.0f), CVector(0.0,0.0,90.0), CVector(200.0f, 10.0f, 10.0));
 	new CDeleteBlock(&mDelete, CVector(-250.0f, 0.0f, 0.0f), CVector(0.0, 0.0, 90.0), CVector(200.0f, 10.0f, 10.0));
+	new CDeleteBlock(&mDelete, CVector(0.0f, 360.0f, 0.0f), CVector(0.0, 0.0, 0.0), CVector(200.0f, 10.0f, 10.0));
+	new CDeleteBlock(&mDelete, CVector(-50.0f, 310.0f, 0.0f), CVector(0.0, 0.0, 90.0), CVector(40.0f, 10.0f, 10.0));
+	new CDeleteBlock(&mDelete, CVector(50.0f, 310.0f, 0.0f), CVector(0.0, 0.0, 90.0), CVector(40.0f, 10.0f, 10.0));
+
+
 
 	CSceneGame::ResetF = true;
 
@@ -133,7 +138,7 @@ void CSceneGame::Update() {
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める
-	e = CVector(0.0f, 5.0f, -300.0f);
+	e = CVector(0.0f, 5.0f, -600.0f);////0.0,0.0,-300
 	//注視点を求める
 	c = CVector(0.0f, 0.0f, 0.0f);
 	//上方向を求める
@@ -178,7 +183,7 @@ void CSceneGame::Update() {
 	
 		if (GAMETIME > 60){
 
-			GAMETIME--;
+			//GAMETIME--;
 
 			char buf[10];
 

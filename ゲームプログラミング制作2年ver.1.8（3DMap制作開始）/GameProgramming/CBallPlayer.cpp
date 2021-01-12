@@ -143,8 +143,9 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 
 				if (y->mpParent->mTag == CCharacter::EBOMB){
 
+					CExItem::ReBomF = false;
 					minusF = false;
-					minusF=true;
+					//minusF=true;
 				}
 			}
 		}

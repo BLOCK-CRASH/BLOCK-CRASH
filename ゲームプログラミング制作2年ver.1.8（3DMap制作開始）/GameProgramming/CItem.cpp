@@ -21,7 +21,7 @@ bool::CSpinItem::RebirthF = false;
 bool::CMoveItem::RebirthF = false;
 
 bool::CExItem::jumpBF = false;
-bool::CExItem::ReBomF = true;
+bool::CExItem::ReBomF = true;//////////////リスポーンフラグtrueなら存在falseならリスポーン
 /*--------------------------------------------------------*/
 CItem::CItem(CModel*model, CVector position, CVector rotation, CVector scale)
 :mItemBody(0)
@@ -311,7 +311,9 @@ void CExItem::Collision(CCollider*Bm, CCollider*y){
 
 				if (y->mpParent->mTag == CCharacter::EBALL){
 
+					//mEnabled = false;
 					ReBomF = false;
+					ReBomF = true;
 				}
 
 			}
@@ -446,15 +448,15 @@ void CExItem::Update(){
 
 	}
 
-	//if (ReBomF == false){
+	if (ReBomF == false){
 
-	//	BomTime = 3001;
+		mPosition = CVector(0.0f, 301.0f, 0.0f);
 
-	//	mPosition = CVector(0.0f, 301.0f, 0.0f);
+		BomTime + 4000;
 
-	//	ReBomF = true;
+		ReBomF = true;
 
-	//}
+	}
 
 	mPosition = mPosition + mAdjust + BjumpSpeed;
 
