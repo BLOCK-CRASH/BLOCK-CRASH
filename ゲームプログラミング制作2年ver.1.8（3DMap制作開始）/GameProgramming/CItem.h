@@ -22,9 +22,13 @@ public:
 
 	CCollider *mItemBody;
 
+	CVector aj;
+
 	static CCharacter*mpthis;
 
 	void Update();
+
+	void Collision(CCollider*sm, CCollider*y);
 
 	int ItemCount;
 
@@ -32,7 +36,8 @@ public:
 
 	static int BStageCount;
 	bool BminusF;
-	//int BDamageCount;
+	int BDamageCount;
+	int DefeatBonus;//撃破ボーナス
 	static int BMyScorePoint;
 
 };
@@ -189,4 +194,13 @@ public:
 	void Update();
 
 };
+
+class CColoreItem:public CCharacter{
+
+public:
+
+
+};
+
+
 #endif

@@ -37,45 +37,16 @@ C3DPlayer::C3DPlayer(CModel*model, CVector position, CVector rotation, CVector s
 
 /*-------------------------------------------------------------------------------------------------------------------------------*/
 
-#define MOUSE_S 3
+#define MOUSE_S 1
 void C3DPlayer::Update(){
-
-	if (CKey::Push(VK_LBUTTON)){
-
-		mRotation.mX += 1;
-
-		if (CKey::Push('R')){
-
-		mRotation.mX -= 2;
-
-		}
-
-	}
-
-	if (CKey::Push(VK_RBUTTON)){
-
-		mRotation.mZ -= 1;
-
-		if (CKey::Push('R')){
-
-			mRotation.mZ += 2;
-
-		}
-
-	}
-
-	CCharacter::Update();
-}
-
-void C3DCamera::Update(){
 
 	static int mMouseCount = 0;
 	++mMouseCount %= MOUSE_S;
 
 	if (mMouseCount == 0){
-	
+
 		CInput::SetMousePos(mMouseX, mMouseY);
-	
+
 	}
 
 	//ç¿ïWéÊìæ
@@ -110,6 +81,59 @@ void C3DCamera::Update(){
 
 	}
 
+
+	//if (CKey::Push(VK_LBUTTON)){
+
+	//	mRotation.mX += 1;
+
+	//	if (CKey::Push('R')){
+
+	//	mRotation.mX -= 2;
+
+	//	}
+
+	//}
+
+	//if (CKey::Push(VK_RBUTTON)){
+
+	//	mRotation.mZ -= 1;
+
+	//	if (CKey::Push('R')){
+
+	//		mRotation.mZ += 2;
+
+	//	}
+
+	//}
+
+	CCharacter::Update();
+}
+
+void C3DCamera::Update(){
+
+	//static int mMouseCount = 0;
+	//++mMouseCount %= MOUSE_S;
+
+	//if (mMouseCount == 0){
+	//
+	//	CInput::SetMousePos(mMouseX, mMouseY);
+	//}
+	////ç¿ïWéÊìæ
+	//int mx, my;
+	//float m(10.0);
+	//CInput::GetMousePos(&mx, &my);
+	//if (my < mMouseY){
+	//	mRotation.mX -= (mMouseY - my) / m;
+	//}
+	//if (mMouseY < my){
+	//	mRotation.mX -= (mMouseY - my) / m;
+	//}
+	//if (mx < mMouseX){
+	//	mRotation.mY += (mMouseX - mx) / m;
+	//}
+	//if (mMouseX < mx){
+	//	mRotation.mY += (mMouseX - mx) / m;
+	//}
 	CCharacter::Update();
 
 }

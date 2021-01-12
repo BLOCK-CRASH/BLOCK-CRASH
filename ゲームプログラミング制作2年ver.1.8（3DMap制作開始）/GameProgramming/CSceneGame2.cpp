@@ -15,7 +15,7 @@ void CSceneGame2::Init() {
 
 	COUNTDOWN = 4 * 60;
 
-	GAMETIME = 61 * 60;
+	GAMETIME = 121 * 60;
 
 	mScene = EGAME2;
 
@@ -33,16 +33,15 @@ void CSceneGame2::Init() {
 
 	mBall.Load("sphere.obj", "sphere.mtl");
 
-	mStage.Load("StageEdit0108.obj", "StageEdit0108.mtl");
+	mStage.Load("StageEdit0111.obj", "StageEdit0111.mtl");
+	mStage.mMaterials[0].mDiffuse[3] = 0.5f;
 
 	//mStage.Load("STAGE(2)_Edit_OF_0102.obj", "STAGE(2)_Edit_OF_0102.mtl");
 
 	m3DPlayer.Load("3DPlayer.obj","3DPlayer.mtl");
 
-//	mDelete.Load("3DMapDeleteBlock.obj", "3DMapDeleteBlock.mtl");
-//	mDelete.mMaterials[0].mDiffuse[3] = 0.0f;
-
-	//mStage.Load("window.obj", "window.mtl");
+	mDelete.Load("3DMapDeleteBlock.obj", "3DMapDeleteBlock.mtl");
+	//mDelete.mMaterials[0].mDiffuse[3] = 0.0f;
 
 	//new CSpinItem(&mBoardR, CVector(-60.0f, 20.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
 	//new CSpinItem(&mBoardR, CVector(60.0f, 20.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
@@ -58,8 +57,8 @@ void CSceneGame2::Init() {
 	//new CItem(&mBoard, CVector(120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 80.0f), CVector(11.0, 11.0, 11.0));
 	//new CItem(&mBoard, CVector(-120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 80.0f), CVector(11.0, 11.0, 11.0));
 
-	new C3DMap(&mStage, CVector(0.0,0.0/*STAGE2の時だけ151*/,0.0), CVector(0.0,0.0,180.0), CVector(9.0, 9.0, 9.0));
-	new C3DDelete(&mDelete, CVector(0.0, 0.0, 0.0), CVector(0.0, 0.0, 180.0), CVector(15.0, 15.0, 15.0));
+	new C3DMap(&mStage, CVector(0.0,31.0/*STAGE2の時だけ151*/,0.0), CVector(0.0,0.0,180.0), CVector(7.0, 7.0, 7.0));
+	//new C3DDelete(&mDelete, CVector(0.0, 0.0, 0.0), CVector(0.0, 0.0, 180.0), CVector(15.0, 15.0, 15.0));
 	//new CMoveItem(&mBoard, CVector(600.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0));
 
 	//プレイヤー(板)
@@ -106,7 +105,6 @@ void CSceneGame2::Update() {
 
 			}
 
-
 		}
 
 	}
@@ -117,7 +115,7 @@ void CSceneGame2::Update() {
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める
 
-	e = CVector(0.0f, 150.0f, 70.0f)*mCamera.mMatrix;
+	e = CVector(0.0f, 150.0f, 400.0f)*mCamera.mMatrix;
 
 	//注視点を求める
 
@@ -141,10 +139,9 @@ void CSceneGame2::Update() {
 	//2D描画開始
 	Start2D(0, 800, 0, 600);
 
-
 	if (COUNTDOWN > 60){
 
-		COUNTDOWN--;
+		//COUNTDOWN--;
 
 		if (ResetF == true){
 
@@ -175,7 +172,7 @@ void CSceneGame2::Update() {
 
 			sprintf(buf, "%d", GAMETIME / 60);
 
-			CText::DrawString(buf, 680, 30, 30, 30);
+			CText::DrawString(buf, 640, 30, 30, 30);
 
 		}
 

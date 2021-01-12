@@ -136,19 +136,32 @@ void CResult::Update(){
 
 		}
 
-		if (TotalScore < 19999 && TotalScore > 10000){
+		if (TotalScore < 17499 && TotalScore > 10000){
 
 			CBlackText::DrawString("B", 500, 80, 17, 15);
 
 		}
 
-		if (TotalScore < 39999 && TotalScore > 20000) {
+		if (TotalScore < 24999 && TotalScore > 15000) {
 
 			CBlackText::DrawString("A", 500, 80, 20, 18);
 
 		}
 
+		if (TotalScore < 25000 && TotalScore > 30000) {
+
+			CBlackText::DrawString("S!", 500, 80, 20, 18);
+
+		}
+
+		if (TotalScore > 30001) {
+
+			CBlackText::DrawString("SS!!", 500, 80, 20, 18);
+
+		}
+
 	}
+
 
 	if (EffCouTime < -120){
 

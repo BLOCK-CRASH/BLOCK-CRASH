@@ -14,18 +14,7 @@ CRectangleクラス
 */
 class CRectangle {
 public:
-	//列挙型の定義
-	enum ETag {
-		EBLOCK,			//ブロック
-		EPLAYERBULLET,	//プレイヤー弾
-		EPLAYER,
-		EENEMYBULLET,
-		EENEMY,
-		ENEZUMIRODO,  //ネズミの道
-		ENEZUMIRODO2, //道２
-		ETITLE,
-	};
-	ETag mTag;	//列挙型の変数
+
 	//デフォルトコンストラクタ
 	CRectangle();
 

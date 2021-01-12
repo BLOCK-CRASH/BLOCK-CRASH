@@ -9,10 +9,7 @@ std::vector<CRectangle*> VectorRect;
 
 //デフォルトコンストラクタ
 CRectangle::CRectangle()
-: mTag(EBLOCK)	//初期値ブロック
-//37
-//, mEnabled(true)
-, mStatus(EDISABLED)
+:mStatus(EDISABLED)
 {
 	/*
 	可変長配列に自身のポインタを追加する

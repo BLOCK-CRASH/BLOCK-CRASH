@@ -45,8 +45,6 @@ public:
 
 	void Update();
 
-	void RotateUpdate();
-
 };
 
 class C3DDelete :public CCharacter{

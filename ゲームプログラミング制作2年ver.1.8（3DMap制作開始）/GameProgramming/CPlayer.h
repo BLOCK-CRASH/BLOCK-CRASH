@@ -47,7 +47,18 @@ public:
 
 class C3DPlayer :public CCharacter{
 public:
-	C3DPlayer():mColBody(0){}
+	C3DPlayer() :mColBody(0){
+
+		mMouseX = 1920 / 2;
+
+		mMouseY = 1080 / 2;
+
+		mpthis = this;
+
+		CInput::GetMousePos(&mMouseX, &mMouseY);
+
+	}
+
 	~C3DPlayer(){
 	
 		if (mColBody)
@@ -60,6 +71,8 @@ public:
 	CCollider *mColBody;
 	//CCollider mColBody;
 	static CCharacter *mpthis;
+	int mMouseX;
+	int mMouseY;
 	//çXêVèàóù
 	void Update();
 	void TaskCollision();
@@ -70,7 +83,9 @@ public:
 
 	static C3DCamera*mpthis;
 
-	C3DCamera(){
+	CCollider*mColBody;
+
+	C3DCamera():mColBody(0){
 
 		mMouseX = 1920 / 2;
 
@@ -79,6 +94,14 @@ public:
 		mpthis = this;
 
 		CInput::GetMousePos(&mMouseX, &mMouseY);
+
+	}
+
+	~C3DCamera(){
+
+		if (mColBody)
+			delete[] mColBody;
+
 	}
 
 	int mMouseX;

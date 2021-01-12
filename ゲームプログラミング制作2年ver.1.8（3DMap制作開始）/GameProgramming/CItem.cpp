@@ -48,7 +48,9 @@ CItem::CItem(CModel*model, CVector position, CVector rotation, CVector scale)
 
 	mEnabled = true;
 
-	//BDamageCount = 10;
+	BDamageCount = 10;
+
+	DefeatBonus = 500;
 
 	BMyScorePoint = 120;
 }
@@ -242,6 +244,25 @@ CDeleteBlock::~CDeleteBlock(){
 
 void CSpinItem::Collision(CCollider*sm, CCollider*y){}
 
+void CItem::Collision(CCollider*m, CCollider*y){
+
+	switch (m->mType)
+	{
+	case CCollider::ETRIANGLE:
+
+		if (y -> mType == CCollider::ESPHERE){
+
+			if (CCollider::CollisionTriangleSphere(m, y, &aj)){
+
+				BDamageCount--;
+
+			}
+
+		}
+		break;
+
+	}
+}
 
 void CExItem::Collision(CCollider*Bm, CCollider*y){
 
@@ -304,6 +325,12 @@ void CExItem::Collision(CCollider*Bm, CCollider*y){
 void CDeleteBlock::Collision(CCollider*Dm, CCollider*y){}
 //çXêVèàóù
 void CItem::Update(){
+
+	if (CItem::BDamageCount < 1){
+
+		mEnabled = false;
+
+	}
 
 	CCharacter::Update();
 

@@ -47,7 +47,7 @@ void CSceneGame::Init() {
 	new CSpinItem(&mBoardR, CVector(0.0f, -20.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0f,15.0f, 10.0));
 
 	/*ノーマルアイテムブロック----------------------------------------------------------------------------*/
-	new CItem(&mBoard, CVector(40.0f, 70.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(11.0, 11.0, 11.0));
+	new CItem(&mBoard, CVector(40.0f/*40.0*/, 70.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f/*45*/), CVector(11.0, 11.0, 11.0));
 	new CItem(&mBoard, CVector(-40.0f, 70.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(11.0, 11.0, 11.0));
 	new CItem(&mBoard, CVector(50.0f, -60.0f, 1.0f), CVector(0.0f, 0.0f, 40.0f), CVector(11.0, 11.0, 11.0));
 	new CItem(&mBoard, CVector(-50.0f, -60.0f, 1.0f), CVector(0.0f, 0.0f, 40.0f), CVector(11.0, 11.0, 11.0));
@@ -63,7 +63,7 @@ void CSceneGame::Init() {
 	new CMoveItem(&mBoard, CVector(140.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 110.0f), CVector(6.0, 6.0, 6.0));
 	new CMoveItem(&mBoard, CVector(-140.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, -110.0f), CVector(6.0, 6.0, 6.0));
 
-	/*マップブロック----------------------------------------------------------------------------*/
+	///*マップブロック----------------------------------------------------------------------------*/
 	new CObj(&mBoard, CVector(265.0f, 137.0f, 0.0f), CVector(0.0f, 0.0f, 75.0), CVector(15.0f, 120.0f, 10.0));
 	new CObj(&mBoard, CVector(-265.0f, 137.0f, 0.0f), CVector(0.0f, 0.0f, -75.0), CVector(15.0f, 120.0f, 10.0));
 	new CObj(&mBoard, CVector(-235.0f, -125.0f, 0.0f), CVector(0.0f, 0.0f, -10.0), CVector(20.0f, 170.0f, 10.0));
@@ -125,15 +125,10 @@ void CSceneGame::Update() {
 				mScene = ERESULT;
 
 			}
-
-
 		}
-
 	}
 
-
 	CBallPlayer::mAdjust.mZ = NULL;
-
 
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向

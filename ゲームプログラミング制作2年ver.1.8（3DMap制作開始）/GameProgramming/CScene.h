@@ -14,7 +14,8 @@ public:
 		EGAME2,//ステージ2
 		EGAME3,//ステージ3
 		ERESULT,//リザルト画面
-
+		ESTAY,//2D説明画面
+		ESTAY3D,//3D説明画面
 	};
 
 	//シーン変換
