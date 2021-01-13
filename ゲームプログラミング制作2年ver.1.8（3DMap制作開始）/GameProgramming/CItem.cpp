@@ -48,7 +48,7 @@ CItem::CItem(CModel*model, CVector position, CVector rotation, CVector scale)
 
 	mEnabled = true;
 
-	BDamageCount = 10;
+	BDamageCount = 6;
 
 	DefeatBonus = 500;
 
@@ -240,6 +240,13 @@ CDeleteBlock::~CDeleteBlock(){
 
 }
 /*----------------------------------------------------------------------------------------------------------------------------*/
+void CColorItem::init(){
+
+	//mRed.Load();
+
+}
+/*----------------------------------------------------------------------------------------------------------------------------*/
+
 //è’ìÀîªíË
 
 void CSpinItem::Collision(CCollider*sm, CCollider*y){}

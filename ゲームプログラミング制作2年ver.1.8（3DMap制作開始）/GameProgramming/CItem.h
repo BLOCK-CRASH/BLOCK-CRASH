@@ -12,7 +12,8 @@
 #include "CCollisionManager.h"
 //
 #include "CEffect.h"
-
+//
+#include "CModel.h"
 class CItem :public CCharacter{
 public:
 	CItem():mItemBody(0){}
@@ -80,8 +81,6 @@ public:
 	static bool RebirthF;
 
 	static CCharacter*mpthis;
-
-	static bool GameSwitch;
 
 	//衝突判定
 	//（コライダ1、コライダ2）
@@ -200,14 +199,147 @@ class CColoreItem:public CCharacter{
 public:
 
 
+
 };
 
-///////////////////////////////////////////////3Dで使う用のItem
-
-class C3DMoveItem :public CCharacter{
+class CColorItem :public CItem{
 
 public:
 
+	CModel mRed;
+	/*
+	
+	# Blender MTL File: 'None'
+	# Material Count: 1
+
+	newmtl Material
+	Ns 323.999994
+	Ka 0.0 0.0 0.0
+	Kd 1.0 0.0 0.0
+	Ks 0.0 0.0 0.0
+	Ke 0.0 0.0 0.0
+	Ni 1.450000
+	d 1.000000
+	illum 2
+	*/
+	CModel mBlue;
+	/*
+	
+# Blender MTL File: 'None'
+# Material Count: 1
+
+newmtl Material
+Ns 323.999994
+Ka 0.0 0.0 0.0
+Kd 0.0 0.0 1.0
+Ks 0.0 0.0 0.0
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 2
+*/
+
+	CModel mGreen;
+	/*
+	
+	# Blender MTL File: 'None'
+# Material Count: 1
+
+newmtl Material
+Ns 323.999994
+Ka 0.0 0.0 0.0
+Kd 0.0 0.65 0.0
+Ks 0.0 0.0 0.0
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 2
+*/
+
+	CModel mYellow;
+	/*
+	
+	# Blender MTL File: 'None'
+	# Material Count: 1
+
+	newmtl Material
+	Ns 323.999994
+	Ka 0.0 0.0 0.0
+	Kd 1.0 1.0 0.0
+	Ks 0.0 0.0 0.0
+	Ke 0.0 0.0 0.0
+	Ni 1.450000
+	d 1.000000
+	illum 2
+
+*/
+
+	void init();
+
+	void Update();
+
+	void TaskCollision();
+
+	void Collision();
+
+};
+///////////////////////////////////////////////3Dで使う用のItem
+
+class C3DMoveItem :public CMoveItem{
+
+public:
+
+	C3DMoveItem() :m3DMItemBody(0){}
+
+	~C3DMoveItem();
+	C3DMoveItem(CModel*model, CVector position, CVector rotation, CVector scale);
+
+	CCollider *m3DMItemBody;
+
+	static bool RebirthF;
+
+	static CCharacter*mpthis;
+
+	void Update();
+
+	void TaskCollision();
+
+	static int BStageCount;
+	bool B3DminusF;
+	//int BDamageCount;
+	int M3DMyScorePoint;
+
+
 };
 
+class C3DOrbitItem :public CSpinItem{
+public:
+
+	C3DOrbitItem() :m3DSItemBody(0){}
+
+	~C3DOrbitItem();
+	C3DOrbitItem(CModel*model, CVector position, CVector rotation, CVector scale);
+
+	CCollider *m3DSItemBody;
+
+	static bool RebirthF;
+
+	static CCharacter*mpthis;
+
+	//衝突判定
+	//（コライダ1、コライダ2）
+	void Collision(CCollider*sm, CCollider*y);
+
+	void Update();
+
+	int ItemCount;
+
+	void TaskCollision();
+
+	static int SStageCount;
+	bool S3DminusF;
+	//int SDamageCount;
+	int S3DMyScorePoint;
+
+};
 #endif

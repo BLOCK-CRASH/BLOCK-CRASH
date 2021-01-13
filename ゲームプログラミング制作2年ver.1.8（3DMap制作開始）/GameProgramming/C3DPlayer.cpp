@@ -7,7 +7,7 @@ CCharacter *C3DPlayer::mpthis = 0;
 //#define G (9.8f/60.0f)  //重力加速度
 //#define JUMPV0  (4.0f)  //ジャンプ初速
 C3DPlayer::C3DPlayer(CModel*model, CVector position, CVector rotation, CVector scale)
-:mColBody(0)
+:C3DPlayer()
 {
 	mpModel = model;
 	mPosition = position;
@@ -31,6 +31,8 @@ C3DPlayer::C3DPlayer(CModel*model, CVector position, CVector rotation, CVector s
 	janpspead = 0;
 
 	mpthis = this;
+
+	//mMouseX, mMouseY = 0;
 
 	mTag = CCharacter::EPLAYER;
 }
