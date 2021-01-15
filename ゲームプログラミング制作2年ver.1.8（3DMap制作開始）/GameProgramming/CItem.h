@@ -216,6 +216,7 @@ class CColorItem :public CItem{
 public:
 
 	CModel mRed;
+	int RCount = 0;//赤ブロックカウント
 	/*
 	
 	# Blender MTL File: 'None'
@@ -232,6 +233,7 @@ public:
 	illum 2
 	*/
 	CModel mBlue;
+	int BCount = 0;//青ブロックカウント
 	/*
 	
 # Blender MTL File: 'None'
@@ -249,6 +251,7 @@ illum 2
 */
 
 	CModel mGreen;
+	int GCount = 0;//緑ブロックカウント
 	/*
 	
 	# Blender MTL File: 'None'
@@ -266,6 +269,7 @@ illum 2
 */
 
 	CModel mYellow;
+	int YCount = 0;//黄色ブロックカウント
 	/*
 	
 	# Blender MTL File: 'None'
@@ -282,9 +286,21 @@ illum 2
 	illum 2
 
 */
-	bool ColorChangeF;//カラーチェンジフラグ//falseチェンジ無し//true色を今の色以外へ変更
+	bool ChangeF;//チェンジフラグ//falseチェンジ無し//true色を今の色以外へ変更
+
+	int COLORNUMBER;//カラーナンバー//0=Red,1=Bule,2=Green,3=Yellow
+
+	int PICKNUMBER;//選ばれるナンバー//0=Red,1=Bule,2=Green,3=Yellow
+
+	CModel mNowColor;//今のモデルの色
+
+	CModel mNextColor;//次に来るモデルの色
 
 	void Collision(CCollider*Cm, CCollider*y);
+
+	void ChangeColor();
+
+	void PickNumChange();//COLORNUMBERの厳選
 
 	void Init();
 

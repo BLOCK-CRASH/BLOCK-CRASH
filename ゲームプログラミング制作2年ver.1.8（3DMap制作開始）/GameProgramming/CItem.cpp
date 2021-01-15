@@ -250,8 +250,12 @@ void CColorItem::Init(){
 	mGreen.Load("cube.obj", "Green.mtl");//—Î
 	mYellow.Load("cube.obj", "Yellow.mtl");//‰©
 
-	
+	mNowColor = mRed, mBlue, mGreen, mYellow;
 
+	mNextColor = mRed, mBlue, mGreen, mYellow;
+	COLORNUMBER = rand() % 4;
+
+	COLORNUMBER = NULL;
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------*/
@@ -482,6 +486,51 @@ void CExItem::Update(){
 void CDeleteBlock::Update(){
 
 	CCharacter::Update();
+
+}
+
+void CColorItem::ChangeColor(){
+
+	ChangeF = false;
+
+	if (ChangeF == true){
+	
+		mNowColor = mNextColor;
+	
+	}
+
+}
+
+void CColorItem::PickNumChange(){
+
+	if (ChangeF == true){
+
+		COLORNUMBER	=rand()%4;//<-0,1,2,3‚©‚ç‘I‚Î‚ê‚é
+
+		if (COLORNUMBER == 0){
+
+			mNowColor = mRed;
+
+		}
+		if (COLORNUMBER == 1){
+
+			mNowColor = mBlue;
+
+		}
+		if (COLORNUMBER == 2){
+
+			mNowColor = mGreen;
+
+		}
+		if (COLORNUMBER == 3){
+
+			mNowColor = mYellow;
+
+		}
+
+
+	}
+
 
 }
 
