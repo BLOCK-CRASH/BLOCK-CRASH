@@ -143,6 +143,8 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 
 				if (y->mpParent->mTag == CCharacter::EBOMB){
 
+					new CEffect(y->mPosition*y->mMatrix*y->mpParent->mMatrix, 10.0f, 10.0f, TextureExp, 4, 4, 3);
+
 					CExItem::ReBomF = false;
 					minusF = false;
 					//minusF=true;

@@ -27,12 +27,16 @@ void CBillBoard::Set(CVector pos, float w, float h) {
 }
 
 void CBillBoard::Update() {
+	mRotation.mY = 180;
+	mRotation.mZ = 180;
+	mPosition.mZ = -20;
 	//カメラへの方向ベクトルの取得
-	CVector dir = Camera.mEye - mPosition;
-	//Y軸の回転値を求める
-	mRotation.mY = atan2f(dir.mX, dir.mZ) * 180.0f / M_PI;
-	//X軸の回転値を求める
-	mRotation.mX = asinf(-dir.mY / dir.Length()) * 180.0f / M_PI;
+	//CVector dir = Camera.mEye - mPosition;
+	////Y軸の回転値を求める
+	//mRotation.mY = atan2f(dir.mX, dir.mZ) * 180.0f / M_PI;
+	////X軸の回転値を求める
+	//mRotation.mX = asinf(-dir.mY / dir.Length()) * 180.0f / M_PI;
+
 	//行列の更新
 	CCharacter::Update();
 }

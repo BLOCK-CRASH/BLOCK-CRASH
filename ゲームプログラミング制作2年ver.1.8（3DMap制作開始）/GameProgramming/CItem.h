@@ -14,6 +14,9 @@
 #include "CEffect.h"
 //
 #include "CModel.h"
+/*
+ノーマルアイテム
+*/
 class CItem :public CCharacter{
 public:
 	CItem():mItemBody(0){}
@@ -42,7 +45,9 @@ public:
 	static int BMyScorePoint;
 
 };
-
+/*
+移動アイテム、フィーバー用の予定
+*/
 class CMoveItem :public CCharacter{
 public:
 	CMoveItem():mMItemBody(0){}
@@ -68,7 +73,9 @@ public:
 	static int MMyScorePoint;
 
 };
-
+/*
+回転アイテム
+*/
 class CSpinItem :public CCharacter{
 public:
 	CSpinItem():mSItemBody(0){}
@@ -97,7 +104,9 @@ public:
 	//int SDamageCount;
 	static int SMyScorePoint;
 };
-
+/*
+ボーナスアイテム、要素増やし予定
+*/
 class CBonus :public CCharacter{
 public:
 	CBonus():mBoBody(0){}
@@ -124,7 +133,9 @@ public:
 	static int BMyScorePoint;
 	int MoveTime;
 };
-
+/*
+爆弾
+*/
 class CExItem :public CCharacter{
 
 public:
@@ -170,7 +181,9 @@ public:
 	void Render();
 
 };
-
+/*
+s削除ブロック、ステージ内に入れるかも
+*/
 class CDeleteBlock :public CCharacter{
 
 public:
@@ -194,14 +207,10 @@ public:
 
 };
 
-class CColoreItem:public CCharacter{
-
-public:
-
-
-
-};
-
+/*
+変色アイテム、当たると色を変換
+揃えることで消える
+*/
 class CColorItem :public CItem{
 
 public:
@@ -273,8 +282,11 @@ illum 2
 	illum 2
 
 */
+	bool ColorChangeF;//カラーチェンジフラグ//falseチェンジ無し//true色を今の色以外へ変更
 
-	void init();
+	void Collision(CCollider*Cm, CCollider*y);
+
+	void Init();
 
 	void Update();
 
@@ -285,6 +297,10 @@ illum 2
 };
 ///////////////////////////////////////////////3Dで使う用のItem
 
+/*
+3D移動用アイテム
+フィーバー用、通常用
+*/
 class C3DMoveItem :public CMoveItem{
 
 public:
@@ -311,7 +327,10 @@ public:
 
 
 };
-
+/*
+撃破アイテム
+撃破することでいいことが起こる
+*/
 class C3DOrbitItem :public CSpinItem{
 public:
 

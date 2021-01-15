@@ -32,6 +32,6 @@ void CEffect::Update() {
 	CBillBoard::Update();
 	//I—¹”»’è
 	if (mFrame >= mFps * mRows * mCols) {
-//		mEnabled = false;
+		mEnabled = false;
 	}
 }
