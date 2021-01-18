@@ -505,7 +505,7 @@ void CColorItem::PickNumChange(){
 
 	if (ChangeF == true){
 
-		COLORNUMBER	=rand()%4;//<-0,1,2,3‚©‚ç‘I‚Î‚ê‚é
+		COLORNUMBER	=rand()%4;//<-----  0,1,2,3‚©‚ç‘I‚Î‚ê‚é
 
 		if (COLORNUMBER == 0){
 

@@ -48,13 +48,13 @@ void CSceneGame2::Init() {
 	//new CSpinItem(&mBoardR, CVector(110.0f, 30.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
 	//new CSpinItem(&mBoardR, CVector(-110.0f, 30.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
 
-	new C3DMap(&mStage, CVector(0.0,31.0/*STAGE2ÇÃéûÇæÇØ151*/,0.0), CVector(0.0,45.0,180.0), CVector(7.0, 7.0, 7.0));
+	new C3DMap(&mStage, CVector(0.0,31.0/*STAGE2ÇÃéûÇæÇØ151*/,0.0), CVector(0.0,0.0/*45*/,180.0), CVector(7.0, 7.0, 7.0));
 	new C3DDelete(&mDelete, CVector(0.0, 0.0, 0.0), CVector(0.0, 0.0, 180.0), CVector(23.0, 23.0, 23.0));
 	//new CMoveItem(&mBoard, CVector(600.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0));
 
 	//ÉvÉåÉCÉÑÅ[(î¬)
 
-	new C3DPlayer(&m3DPlayer, CVector(0.0, 0.0, 0.0), CVector(0.0, 0.0, 180.0), CVector(0.9, 0.9, 0.9));
+	new C3DPlayer(&m3DPlayer, CVector(0.0, 0.0, 0.0), CVector(0.0, 0.0, 180.0), CVector(1.1, 1.1, 1.1));
 
 	////ã 
 	new CBallPlayer(&mBall, CVector(0.0f, 50.0f, 0.0f), CVector(), CVector(5.0f, 5.0f, 5.0));

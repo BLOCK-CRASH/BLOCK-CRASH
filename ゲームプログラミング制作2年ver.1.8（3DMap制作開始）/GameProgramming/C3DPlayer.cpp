@@ -32,8 +32,6 @@ C3DPlayer::C3DPlayer(CModel*model, CVector position, CVector rotation, CVector s
 
 	mpthis = this;
 
-	//mMouseX, mMouseY = 0;
-
 	mTag = CCharacter::EPLAYER;
 }
 
@@ -42,47 +40,77 @@ C3DPlayer::C3DPlayer(CModel*model, CVector position, CVector rotation, CVector s
 #define MOUSE_S 3
 void C3DPlayer::Update(){
 
+	static int mMouseCount = 0;
+	++mMouseCount %= MOUSE_S;
+
+	if (mMouseCount == 0){
+
+		CInput::SetMousePos(mMouseX, mMouseY);
+
+	}
+
+	//ç¿ïWéÊìæ
+
+	int mx, my;
+
+	float m(10.0);
+
+	CInput::GetMousePos(&mx, &my);
+
+	if (my < mMouseY){
+
+		mRotation.mX -= (mMouseY - my) / m;
+
+	}
+
+	if (mMouseY < my){
+
+		mRotation.mX -= (mMouseY - my) / m;
+
+	}
+
+	if (mx < mMouseX){
+
+		mRotation.mY += (mMouseX - mx) / m;
+
+	}
+
+	if (mMouseX < mx){
+
+		mRotation.mY += (mMouseX - mx) / m;
+
+	}
+
+
+
+	CCharacter::Update();
+}
+
+void C3DCamera::Update(){
+
 	//static int mMouseCount = 0;
 	//++mMouseCount %= MOUSE_S;
 
 	//if (mMouseCount == 0){
-
+	//
 	//	CInput::SetMousePos(mMouseX, mMouseY);
-
 	//}
-
 	////ç¿ïWéÊìæ
-
 	//int mx, my;
-
 	//float m(10.0);
-
 	//CInput::GetMousePos(&mx, &my);
-
 	//if (my < mMouseY){
-
 	//	mRotation.mX -= (mMouseY - my) / m;
-
 	//}
-
 	//if (mMouseY < my){
-
 	//	mRotation.mX -= (mMouseY - my) / m;
-
 	//}
-
 	//if (mx < mMouseX){
-
 	//	mRotation.mY += (mMouseX - mx) / m;
-
 	//}
-
 	//if (mMouseX < mx){
-
 	//	mRotation.mY += (mMouseX - mx) / m;
-
 	//}
-
 
 	if (CKey::Push(VK_LBUTTON)){
 
@@ -108,34 +136,6 @@ void C3DPlayer::Update(){
 
 	}
 
-	CCharacter::Update();
-}
-
-void C3DCamera::Update(){
-
-	static int mMouseCount = 0;
-	++mMouseCount %= MOUSE_S;
-
-	if (mMouseCount == 0){
-	
-		CInput::SetMousePos(mMouseX, mMouseY);
-	}
-	//ç¿ïWéÊìæ
-	int mx, my;
-	float m(10.0);
-	CInput::GetMousePos(&mx, &my);
-	if (my < mMouseY){
-		mRotation.mX -= (mMouseY - my) / m;
-	}
-	if (mMouseY < my){
-		mRotation.mX -= (mMouseY - my) / m;
-	}
-	if (mx < mMouseX){
-		mRotation.mY += (mMouseX - mx) / m;
-	}
-	if (mMouseX < mx){
-		mRotation.mY += (mMouseX - mx) / m;
-	}
 	CCharacter::Update();
 
 }

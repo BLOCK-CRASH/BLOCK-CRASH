@@ -193,7 +193,7 @@ void C3DMap::Update(){
 	//	ZF = true;
 	//}
 
-	mRotation.mZ += 0.1;
+	//mRotation.mZ += 0.1;
 
 	CCharacter::Update();
 
