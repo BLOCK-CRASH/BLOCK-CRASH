@@ -12,7 +12,7 @@ int CMoveItem::MMyScorePoint = 0;
 int CSpinItem::SMyScorePoint = 0;
 int CBonus::BMyScorePoint = 0;
 int CExItem::BomCutScore = 0;
-
+int CColorItem::CMyScorePoint = 0;
 
 int CExItem::BomTime = 0;
 float CExItem::BBoundNum = 0;
@@ -242,18 +242,12 @@ CDeleteBlock::~CDeleteBlock(){
 /*----------------------------------------------------------------------------------------------------------------------------*/
 void CColorItem::Init(){
 
-	//ÉâÉìÉ_ÉÄïœêî
-	//rand()%4<-0,1,2,3Ç©ÇÁëIÇŒÇÍÇÈ
-
 	mRed.Load("cube.obj", "Red.mtl");//ê‘
 	mBlue.Load("cube.obj", "Blue.mtl");//ê¬
 	mGreen.Load("cube.obj", "Green.mtl");//óŒ
 	mYellow.Load("cube.obj", "Yellow.mtl");//â©
 
-	mNowColor = mRed, mBlue, mGreen, mYellow;
-
-	mNextColor = mRed, mBlue, mGreen, mYellow;
-	COLORNUMBER = rand() % 4;
+	//mNextColor = mRed, mBlue, mGreen, mYellow;
 
 	COLORNUMBER = NULL;
 }
@@ -483,6 +477,30 @@ void CExItem::Update(){
 	CCharacter::Update();
 }
 
+void CColorItem::Collision(CCollider*Cm, CCollider*y){
+
+	switch (Cm->mType)
+	{
+	case CCollider::ETRIANGLE:
+
+		if (y->mType == CCollider::ESPHERE){
+
+			if (CCollider::CollisionTriangleSphere(Cm, y, &aj)){
+
+				COLORNUMBER = rand() % 4;
+
+				ChangeColor();
+
+			}
+
+		}
+		break;
+
+	}
+
+
+}
+
 void CDeleteBlock::Update(){
 
 	CCharacter::Update();
@@ -491,49 +509,55 @@ void CDeleteBlock::Update(){
 
 void CColorItem::ChangeColor(){
 
-	ChangeF = false;
+	if (COLORNUMBER==0){
+	
+		CColorItem::mpModel = &mRed;
+	
+	}
 
-	if (ChangeF == true){
-	
-		mNowColor = mNextColor;
-	
+	if (COLORNUMBER == 1){
+
+		CColorItem::mpModel = &mBlue;
+
+	}
+	if (COLORNUMBER == 2){
+
+		CColorItem::mpModel = &mGreen;
+
+	}
+	if (COLORNUMBER == 3){
+
+		CColorItem::mpModel = &mYellow;
+
 	}
 
 }
 
-void CColorItem::PickNumChange(){
+void CColorItem::Update(){
 
-	if (ChangeF == true){
+	if (YCount == 4){
 
-		COLORNUMBER	=rand()%4;//<-----  0,1,2,3Ç©ÇÁëIÇŒÇÍÇÈ
-
-		if (COLORNUMBER == 0){
-
-			mNowColor = mRed;
-
-		}
-		if (COLORNUMBER == 1){
-
-			mNowColor = mBlue;
-
-		}
-		if (COLORNUMBER == 2){
-
-			mNowColor = mGreen;
-
-		}
-		if (COLORNUMBER == 3){
-
-			mNowColor = mYellow;
-
-		}
-
+		CMyScorePoint = 5000;
 
 	}
 
+	if (RCount == 4){
+
+		CMyScorePoint = 4000;
+
+	}
+	if (YCount == 4){
+
+		CMyScorePoint = 5000;
+
+	}
+	if (YCount == 4){
+
+		CMyScorePoint = 5000;
+
+	}
 
 }
-
 void CItem::TaskCollision(){
 
 	//for (int i = 0; i < ARRAYSIZE(mItemBody); i++){

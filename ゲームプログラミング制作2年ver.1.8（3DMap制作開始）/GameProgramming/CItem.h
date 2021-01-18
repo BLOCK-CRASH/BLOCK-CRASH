@@ -286,13 +286,11 @@ illum 2
 	illum 2
 
 */
+	static int CMyScorePoint;
+
 	bool ChangeF;//チェンジフラグ//falseチェンジ無し//true色を今の色以外へ変更
 
 	int COLORNUMBER;//カラーナンバー//0=Red,1=Bule,2=Green,3=Yellow
-
-	int PICKNUMBER;//選ばれるナンバー//0=Red,1=Bule,2=Green,3=Yellow
-
-	CModel mNowColor;//今のモデルの色
 
 	CModel mNextColor;//次に来るモデルの色
 
@@ -300,15 +298,13 @@ illum 2
 
 	void ChangeColor();
 
-	void PickNumChange();//COLORNUMBERの厳選
-
 	void Init();
 
 	void Update();
 
 	void TaskCollision();
 
-	void Collision();
+	//void Collision();
 
 };
 ///////////////////////////////////////////////3Dで使う用のItem

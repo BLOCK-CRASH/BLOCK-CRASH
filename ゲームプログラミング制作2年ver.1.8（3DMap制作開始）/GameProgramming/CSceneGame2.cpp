@@ -33,12 +33,12 @@ void CSceneGame2::Init() {
 
 	mBall.Load("sphere.obj", "sphere.mtl");
 
-	mStage.Load("StageEdit0111.obj", "StageEdit0111.mtl");
+	mStage.Load("StageEdit0118.obj", "StageEdit0118.mtl");
 	mStage.mMaterials[0].mDiffuse[3] = 0.5f;
 
 	//mStage.Load("STAGE(2)_Edit_OF_0102.obj", "STAGE(2)_Edit_OF_0102.mtl");
 
-	m3DPlayer.Load("3DPlayer.obj","3DPlayer.mtl");
+	m3DPlayer.Load("3DPlayer0118.obj","3DPlayer0118.mtl");
 
 	mDelete.Load("3DMapDeleteBlock.obj", "3DMapDeleteBlock.mtl");
 	mDelete.mMaterials[0].mDiffuse[3] = 0.0f;
