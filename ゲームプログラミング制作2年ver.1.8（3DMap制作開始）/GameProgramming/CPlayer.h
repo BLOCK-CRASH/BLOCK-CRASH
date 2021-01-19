@@ -12,12 +12,26 @@
 #include "CInput.h"
 class CPlayer :public CCharacter{
 public:
-	CPlayer():mColBody(0){}
+	CPlayer():mColBody(0){
+	
+		mMouseX = 1920 / 2;
+
+		mMouseY = 1080 / 2;
+
+		mpthis = this;
+
+		CInput::GetMousePos(&mMouseX, &mMouseY);
+	
+	}
+
 	~CPlayer()
 	{
 		if (mColBody)
 			delete[] mColBody;
 	}
+	int mMouseX;
+	int mMouseY;
+
 	float janpspead;
 	CPlayer(CModel*model, CVector position, CVector rotation, CVector scale);
 	CCollider *mColBody;
@@ -27,23 +41,6 @@ public:
 	void Collision(CCollider*m, CCollider*y);
 	void TaskCollision();
 };
-class CBottomPlayer :public CPlayer{
-public:
-	CBottomPlayer():mColBody(0){}
-	~CBottomPlayer(){
-	
-		if (mColBody)
-			delete[] mColBody;
-	}
-	CBottomPlayer(CModel*model, CVector position, CVector rotation, CVector scale);
-	CCollider *mColBody;
-	static CCharacter *mpthis;
-	//çXêVèàóù
-	void Update();
-	void Collision(CCollider*m,CCollider*y);
-	void TaskCollision();
-};
-
 
 class C3DPlayer :public CCharacter{
 public:

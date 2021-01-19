@@ -27,6 +27,8 @@ public:
 
 	~CSceneGame();
 
+	CModel m2DPlayer;
+
 	CModel mItem;
 
 	CModel mBoardR;

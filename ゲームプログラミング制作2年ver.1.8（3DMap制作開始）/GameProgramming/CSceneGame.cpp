@@ -37,9 +37,11 @@ void CSceneGame::Init() {
 	mBomb.Load("Bomb.obj", "Bomb.mtl");
 
 	mDelete.Load("cube.obj", "cube.mtl");
+
+	m2DPlayer.Load("2DPlayer0118.obj", "2DPlayer0118.mtl");
 	//mDelete.mMaterials[0].mDiffuse[3] = 0.0f;
 	
-	///*スピンアイテムブロック----------------------------------------------------------------------------*/
+	/*スピンアイテムブロック----------------------------------------------------------------------------*/
 	//new CSpinItem(&mBoardR, CVector(-60.0f, 20.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(8.0f, 8.0f, 5.0));
 	//new CSpinItem(&mBoardR, CVector(60.0f, 20.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(8.0f, 8.0f, 5.0));
 	//new CSpinItem(&mBoardR, CVector(110.0f, 70.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(8.0f, 8.0f, 5.0));
@@ -76,8 +78,7 @@ void CSceneGame::Init() {
 	new CObj(&mBoard, CVector(-195.0f, 135.0f, 0.0f), CVector(0.0f, 0.0f, -40.0), CVector(20.0f, 20.0f, 10.0));
 
 	//プレイヤー(板)
-	new CPlayer(&mBoard, CVector(0.0f, 120.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 3.0f, 1.0));
-	new CBottomPlayer(&mBoard, CVector(0.0f, -110.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0));
+	new CPlayer(&m2DPlayer, CVector(0.0f, 120.0f, 0.0f), CVector(0.0f, 90.0f, 90.0f), CVector(1.0, 1.0, 1.0));
 	//玉
 	new CBallPlayer(&mBall, CVector(0.0f, 50.0f, 0.0f), CVector(), CVector(5.0f, 5.0f, 5.0));
 	new CExItem(&mBomb, CVector(0.0f/*100*/, 300.0f, 0.0f), CVector(), CVector(10.0f, 10.0f, 10.0));
@@ -138,7 +139,7 @@ void CSceneGame::Update() {
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める
-	e = CVector(0.0f, 5.0f, -300.0f);////0.0,0.0,-300
+	e = CVector(0.0f, 5.0f, -700.0f);////0.0,0.0,-300
 	//注視点を求める
 	c = CVector(0.0f, 0.0f, 0.0f);
 	//上方向を求める
