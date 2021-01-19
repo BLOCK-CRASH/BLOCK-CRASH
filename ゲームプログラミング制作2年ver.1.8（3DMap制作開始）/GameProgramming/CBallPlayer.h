@@ -55,6 +55,8 @@ public:
 
 	static int SScoreBox;//スコア箱(スピン
 
+	static int MScoreBox;//スコア箱(移動
+
 	static bool GoF;//スタート重力フラグ	
 
 	static bool BallF;//ボールおんおふぅ

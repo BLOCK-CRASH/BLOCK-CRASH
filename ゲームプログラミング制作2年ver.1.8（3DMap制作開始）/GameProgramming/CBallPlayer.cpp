@@ -16,6 +16,7 @@ float CBallPlayer::ScoreMore = 0;//‰ÁŽZ”Žš
 int CBallPlayer::ScoreBox = 0;//ƒXƒRƒA” 
 int CBallPlayer::BScoreBox = 0;
 int CBallPlayer::SScoreBox = 0;
+int CBallPlayer::MScoreBox = 0;
 
 int CBallPlayer::FeverCount = 0;
 
@@ -56,6 +57,8 @@ CVector(1.0,1.0,1.0), scale.mX){
 	mpthis = this;
 
 	BALLtime = 3 * 60;
+
+	FeverCount = 20;
 
 	minusF = true;
 }
@@ -100,9 +103,16 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 
 				if (y->mpParent->mTag == CCharacter::EITEM){
 
-					ScoreMore + 0.1;
+					//ScoreMore + 0.1;
 
-					ScoreBox = ScoreBox + CItem::BMyScorePoint;
+					//PlusF = true;
+
+					if (PlusF == false){
+					
+						ScoreBox = ScoreBox + CItem::BMyScorePoint;
+						ScoreBox = ScoreBox + CMoveItem::MMyScorePoint;
+						PlusF = true;
+					}
 
 					ScorePulsF = false;
 
@@ -172,6 +182,12 @@ void CBallPlayer::Update(){
 
 	ColF = true;
 
+	PlusF = false;
+
+	CBallPlayer::BScoreBox = CItem::BMyScorePoint;
+	CBallPlayer::SScoreBox = CSpinItem::SMyScorePoint;
+	CBallPlayer::MScoreBox = CMoveItem::MMyScorePoint;
+
 	CBallPlayer::mAdjust = CVector(0.0, 0.0, 0.0);
 	
 	if (GoF == false){
@@ -196,15 +212,6 @@ void CBallPlayer::Update(){
 
 	}
 
-	if (ScorePulsF == false){
-
-		CBallPlayer::BScoreBox = CItem::BMyScorePoint*CBallPlayer::ScoreMore;
-		CBallPlayer::SScoreBox = CSpinItem::SMyScorePoint*CBallPlayer::ScoreMore;
-
-		ScorePulsF = true;
-
-	}
-
 	if (minusF == false){
 
 		ScoreBox = ScoreBox - CExItem::BomCutScore;
@@ -212,15 +219,15 @@ void CBallPlayer::Update(){
 
 	}
 
-	//if (CBallPlayer::FeverCount > 19){
+	if (CBallPlayer::FeverCount > 19){
 
-	//	if (CKey::Once('F')){
+		if (CKey::Once('F')){
 
-	//		CMoveItem::FeverF = true;
+			CMoveItem::FeverF = true;
 
-	//	}
+		}
 
-	//}
+	}
 
 	mPosition = mPosition + mAdjust + jumpspeed;
 

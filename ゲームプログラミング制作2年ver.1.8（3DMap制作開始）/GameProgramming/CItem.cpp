@@ -31,7 +31,7 @@ CItem::CItem(CModel*model, CVector position, CVector rotation, CVector scale)
 	mpModel = model;
 	mPosition = position;
 	mRotation = rotation;
-	mScale = CVector(10.0, 10.0, 10.0);
+	mScale = scale;
 	//モデルの三角形の数分、コライダの配列を作成します
 	mItemBody = new CCollider[model->mTriangles.size()];
 	for (int i = 0; i < model->mTriangles.size(); i++){
@@ -411,12 +411,6 @@ void CItem::Update(){
 
 void CMoveItem::Update(){
 
-	if (CKey::Once('F')){
-
-		CMoveItem::FeverF = true;
-
-	}
-
 	if (CMoveItem::FeverF == true){
 
 		FeverTime--;
@@ -431,23 +425,26 @@ void CMoveItem::Update(){
 
 		if (RebirthF == true){
 
-			mPosition.mX -= 2;
+			mPosition.mX -= 2.2;
 
 		}
 
 		if (mPosition.mX > 1000){
 
-			mEnabled = false;
+			mPosition.mX = -500;
+
+			//mEnabled = false;
 		}
 
 	}
 
-	if (FeverTime < 0){
+	if (FeverTime <= 0){
 
 		FeverF = false;
 
-		FeverTime = 15 * 60;
+		//FeverTime = 5 * 60;
 
+		mEnabled = false;
 	}
 
 	CCharacter::Update();
