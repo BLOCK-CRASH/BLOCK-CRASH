@@ -28,6 +28,8 @@ void CSceneGame::Init() {
 	CBlackText::mBFont.Load("font.tga");
 	CText::mFont.SetRowCol(1, 4096 / 64);
 
+	mStage1.Load("2DStage0119.obj", "2DStage0119.mtl");
+
 	mBoardR.Load("cubeRotate.obj", "cubeRotate.mtl");
 
 	mBoard.Load("cube.obj", "cube.mtl");
@@ -66,16 +68,18 @@ void CSceneGame::Init() {
 	//new CMoveItem(&mBoard, CVector(-140.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, -110.0f), CVector(6.0, 6.0, 6.0));
 
 	///*マップブロック----------------------------------------------------------------------------*/
-	new CObj(&mBoard, CVector(265.0f, 137.0f, 0.0f), CVector(0.0f, 0.0f, 75.0), CVector(15.0f, 120.0f, 10.0));
-	new CObj(&mBoard, CVector(-265.0f, 137.0f, 0.0f), CVector(0.0f, 0.0f, -75.0), CVector(15.0f, 120.0f, 10.0));
-	new CObj(&mBoard, CVector(-235.0f, -125.0f, 0.0f), CVector(0.0f, 0.0f, -10.0), CVector(20.0f, 170.0f, 10.0));
-	new CObj(&mBoard, CVector(235.0f, -125.0f, 0.0f), CVector(0.0f, 0.0f, 10.0), CVector(20.0f, 170.0f, 10.0));
-	new CObj(&mBoard, CVector(195.0f, -160.0f, 0.0f), CVector(0.0f, 0.0f, -20.0), CVector(20.0f, 40.0f, 10.0));
-	new CObj(&mBoard, CVector(-195.0f, -160.0f, 0.0f), CVector(0.0f, 0.0f, 20.0), CVector(20.0f, 40.0f, 10.0));
-	new CObj(&mBoard, CVector(-235.0f, -120.0f, 0.0f), CVector(0.0f, 0.0f, -115.0), CVector(20.0f, 95.0f, 10.0));
-	new CObj(&mBoard, CVector(235.0f, -120.0f, 0.0f), CVector(0.0f, 0.0f, 115.0), CVector(20.0f, 95.0f, 10.0));
-	new CObj(&mBoard, CVector(195.0f, 135.0f, 0.0f), CVector(0.0f, 0.0f, 40.0), CVector(20.0f, 20.0f, 10.0));
-	new CObj(&mBoard, CVector(-195.0f, 135.0f, 0.0f), CVector(0.0f, 0.0f, -40.0), CVector(20.0f, 20.0f, 10.0));
+	//new CObj(&mBoard, CVector(265.0f, 137.0f, 0.0f), CVector(0.0f, 0.0f, 75.0), CVector(15.0f, 120.0f, 10.0));
+	//new CObj(&mBoard, CVector(-265.0f, 137.0f, 0.0f), CVector(0.0f, 0.0f, -75.0), CVector(15.0f, 120.0f, 10.0));
+	//new CObj(&mBoard, CVector(-235.0f, -125.0f, 0.0f), CVector(0.0f, 0.0f, -10.0), CVector(20.0f, 170.0f, 10.0));
+	//new CObj(&mBoard, CVector(235.0f, -125.0f, 0.0f), CVector(0.0f, 0.0f, 10.0), CVector(20.0f, 170.0f, 10.0));
+	//new CObj(&mBoard, CVector(195.0f, -160.0f, 0.0f), CVector(0.0f, 0.0f, -20.0), CVector(20.0f, 40.0f, 10.0));
+	//new CObj(&mBoard, CVector(-195.0f, -160.0f, 0.0f), CVector(0.0f, 0.0f, 20.0), CVector(20.0f, 40.0f, 10.0));
+	//new CObj(&mBoard, CVector(-235.0f, -120.0f, 0.0f), CVector(0.0f, 0.0f, -115.0), CVector(20.0f, 95.0f, 10.0));
+	//new CObj(&mBoard, CVector(235.0f, -120.0f, 0.0f), CVector(0.0f, 0.0f, 115.0), CVector(20.0f, 95.0f, 10.0));
+	//new CObj(&mBoard, CVector(195.0f, 135.0f, 0.0f), CVector(0.0f, 0.0f, 40.0), CVector(20.0f, 20.0f, 10.0));
+	//new CObj(&mBoard, CVector(-195.0f, 135.0f, 0.0f), CVector(0.0f, 0.0f, -40.0), CVector(20.0f, 20.0f, 10.0));
+
+	new CObj(&mStage1, CVector(0.0f, 100.0f, 0.0f), CVector(0.0f, 90.0f, 90.0), CVector(35.0f, 35.0f, 35.0));
 
 	//プレイヤー(板)
 	new CPlayer(&m2DPlayer, CVector(0.0f, 120.0f, 0.0f), CVector(0.0f, 90.0f, 90.0f), CVector(1.0, 1.0, 1.0));
@@ -85,13 +89,13 @@ void CSceneGame::Init() {
 
 /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
-	new CDeleteBlock(&mDelete, CVector(0.0f, -260.0f, 0.0f), CVector(), CVector(200.0f, 10.0f, 10.0));
-	new CDeleteBlock(&mDelete, CVector(0.0f, 230.0f, 0.0f), CVector(), CVector(200.0f, 10.0f, 10.0));
-	new CDeleteBlock(&mDelete, CVector(250.0f, 0.0f, 0.0f), CVector(0.0,0.0,90.0), CVector(200.0f, 10.0f, 10.0));
-	new CDeleteBlock(&mDelete, CVector(-250.0f, 0.0f, 0.0f), CVector(0.0, 0.0, 90.0), CVector(200.0f, 10.0f, 10.0));
-	new CDeleteBlock(&mDelete, CVector(0.0f, 360.0f, 0.0f), CVector(0.0, 0.0, 0.0), CVector(200.0f, 10.0f, 10.0));
-	new CDeleteBlock(&mDelete, CVector(-50.0f, 310.0f, 0.0f), CVector(0.0, 0.0, 90.0), CVector(40.0f, 10.0f, 10.0));
-	new CDeleteBlock(&mDelete, CVector(50.0f, 310.0f, 0.0f), CVector(0.0, 0.0, 90.0), CVector(40.0f, 10.0f, 10.0));
+	//new CDeleteBlock(&mDelete, CVector(0.0f, -260.0f, 0.0f), CVector(), CVector(200.0f, 10.0f, 10.0));
+	//new CDeleteBlock(&mDelete, CVector(0.0f, 230.0f, 0.0f), CVector(), CVector(200.0f, 10.0f, 10.0));
+	//new CDeleteBlock(&mDelete, CVector(250.0f, 0.0f, 0.0f), CVector(0.0,0.0,90.0), CVector(200.0f, 10.0f, 10.0));
+	//new CDeleteBlock(&mDelete, CVector(-250.0f, 0.0f, 0.0f), CVector(0.0, 0.0, 90.0), CVector(200.0f, 10.0f, 10.0));
+	//new CDeleteBlock(&mDelete, CVector(0.0f, 360.0f, 0.0f), CVector(0.0, 0.0, 0.0), CVector(200.0f, 10.0f, 10.0));
+	//new CDeleteBlock(&mDelete, CVector(-50.0f, 310.0f, 0.0f), CVector(0.0, 0.0, 90.0), CVector(40.0f, 10.0f, 10.0));
+	//new CDeleteBlock(&mDelete, CVector(50.0f, 310.0f, 0.0f), CVector(0.0, 0.0, 90.0), CVector(40.0f, 10.0f, 10.0));
 
 
 

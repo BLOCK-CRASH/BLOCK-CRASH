@@ -13,6 +13,7 @@ public:
 
 	//コライダの追加
 	CCollider*mpCollider;
+	int mColsize;
 	//コンストラクタで初期設定
 	CObj(CModel*model, const CVector&position,
 		const CVector&rotation, const CVector&scale);

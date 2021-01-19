@@ -12,7 +12,9 @@
 #include "CInput.h"
 class CPlayer :public CCharacter{
 public:
-	CPlayer():mColBody(0){
+	CPlayer()
+		:mColBody(0)
+	{
 	
 		mMouseX = 1920 / 2;
 
@@ -31,7 +33,7 @@ public:
 	}
 	int mMouseX;
 	int mMouseY;
-
+	int mColsize;
 	float janpspead;
 	CPlayer(CModel*model, CVector position, CVector rotation, CVector scale);
 	CCollider *mColBody;

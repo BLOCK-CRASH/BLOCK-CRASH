@@ -41,6 +41,8 @@ public:
 
 	CModel mDelete;//ステルスで表示
 
+	CModel mStage1;
+
 	bool mEnable;
 
 	bool ResetF;

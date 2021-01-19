@@ -9,14 +9,18 @@ CPlayer::CPlayer(CModel*model, CVector position, CVector rotation, CVector scale
 	mPosition = position;
 	mRotation = rotation;
 	mScale = scale;
+	CCharacter::Update();
 	//モデルの三角形の数分、コライダの配列を作成します
 	mColBody = new CCollider[model->mTriangles.size()];
+	mColsize = model->mTriangles.size();
 	for (int i = 0; i < model->mTriangles.size(); i++){
 		//コライダを三角形コライダで設定していきます
 		mColBody[i].SetTriangle(this,
 			model->mTriangles[i].mV[0],
 			model->mTriangles[i].mV[1],
 			model->mTriangles[i].mV[2]);
+		
+		mColBody[i].ChangePriority();
 	}
 
 	janpspead = 0;
@@ -58,36 +62,18 @@ void CPlayer::Update(){
 
 	}
 
+
 	CCharacter::Update();
 }
 
 
 void CPlayer::TaskCollision(){
 
-	mColBody[0].ChangePriority();
-	mColBody[1].ChangePriority();
-	mColBody[2].ChangePriority();
-	mColBody[3].ChangePriority();
-	mColBody[4].ChangePriority();
-	mColBody[5].ChangePriority();
-	mColBody[6].ChangePriority();
-	mColBody[7].ChangePriority();
-	mColBody[8].ChangePriority();
-	mColBody[9].ChangePriority();
-	mColBody[10].ChangePriority();
-	mColBody[11].ChangePriority();
+	for (int c = 0; c < mColsize; c++){
 
-	CCollisionManager::Get()->Collision(&mColBody[0]);
-	CCollisionManager::Get()->Collision(&mColBody[1]);
-	CCollisionManager::Get()->Collision(&mColBody[2]);
-	CCollisionManager::Get()->Collision(&mColBody[3]);
-	CCollisionManager::Get()->Collision(&mColBody[4]);
-	CCollisionManager::Get()->Collision(&mColBody[5]);
-	CCollisionManager::Get()->Collision(&mColBody[6]);
-	CCollisionManager::Get()->Collision(&mColBody[7]);
-	CCollisionManager::Get()->Collision(&mColBody[8]);
-	CCollisionManager::Get()->Collision(&mColBody[9]);
-	CCollisionManager::Get()->Collision(&mColBody[10]);
-	CCollisionManager::Get()->Collision(&mColBody[11]);
+		mColBody[c].ChangePriority();
+
+	}
+
 
 }
