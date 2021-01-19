@@ -58,19 +58,6 @@ void CPlayer::Update(){
 
 	}
 
-	//if (mx < mMouseX){
-
-	//	mRotation.mY += (mMouseX - mx) / m;
-
-	//}
-
-	//if (mMouseX < mx){
-
-	//	mRotation.mY += (mMouseX - mx) / m;
-
-	//}
-
-
 	CCharacter::Update();
 }
 
