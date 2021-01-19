@@ -29,6 +29,7 @@ public:
 		EBOMB,//爆発ブロック
 		EMOVEBONUS,//移動ボーナスブロック
 		EDELETE,//削除ブロック
+		ECOLOR//色変えブロック
 	};
 	ETag mTag;
 //	CCharacter *mpParent;	//親

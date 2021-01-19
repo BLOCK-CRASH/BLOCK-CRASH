@@ -14,6 +14,10 @@
 #include "CEffect.h"
 //
 #include "CModel.h"
+//
+#include "CScene.h"
+//
+#include "CKey.h"
 /*
 ノーマルアイテム
 */
@@ -44,6 +48,8 @@ public:
 	int DefeatBonus;//撃破ボーナス
 	static int BMyScorePoint;
 
+	int mColsize;
+
 };
 /*
 移動アイテム、フィーバー用の予定
@@ -59,11 +65,15 @@ public:
 
 	static bool RebirthF;
 
+	static bool FeverF;//フィーバーフラグfalseでなしtrueでフィーバー突入
+
 	static CCharacter*mpthis;
 
 	void Update();
 
 	int ItemCount;
+
+	int FeverTime;
 
 	void TaskCollision();
 
@@ -71,6 +81,8 @@ public:
 	bool BminusF;
 	//int BDamageCount;
 	static int MMyScorePoint;
+
+	int mColsize;
 
 };
 /*
@@ -103,6 +115,9 @@ public:
 	bool SminusF;
 	//int SDamageCount;
 	static int SMyScorePoint;
+
+	int mColsize;
+
 };
 /*
 ボーナスアイテム、要素増やし予定
@@ -132,6 +147,9 @@ public:
 	int MDamageCount;
 	static int BMyScorePoint;
 	int MoveTime;
+
+	int mColsize;
+
 };
 /*
 爆弾
@@ -205,18 +223,41 @@ public:
 
 	void Update();
 
+	int mColsize;
+
 };
 
 /*
 変色アイテム、当たると色を変換
 揃えることで消える
 */
-class CColorItem :public CItem{
+class CColorItem :public CCharacter{
 
 public:
 
+	CVector aj;
+
+	CModel mYellow;
+	int YCount = 0;//黄色ブロックカウントMaxで20000
+	/*
+
+	# Blender MTL File: 'None'
+	# Material Count: 1
+
+	newmtl Material
+	Ns 323.999994
+	Ka 0.0 0.0 0.0
+	Kd 1.0 1.0 0.0
+	Ks 0.0 0.0 0.0
+	Ke 0.0 0.0 0.0
+	Ni 1.450000
+	d 1.000000
+	illum 2
+
+	*/
+
 	CModel mRed;
-	int RCount = 0;//赤ブロックカウント
+	int RCount = 0;//赤ブロックカウントMaxで9500
 	/*
 	
 	# Blender MTL File: 'None'
@@ -233,7 +274,7 @@ public:
 	illum 2
 	*/
 	CModel mBlue;
-	int BCount = 0;//青ブロックカウント
+	int BCount = 0;//青ブロックカウントMaxで7000
 	/*
 	
 # Blender MTL File: 'None'
@@ -251,7 +292,7 @@ illum 2
 */
 
 	CModel mGreen;
-	int GCount = 0;//緑ブロックカウント
+	int GCount = 0;//緑ブロックカウントMaxで6000
 	/*
 	
 	# Blender MTL File: 'None'
@@ -268,29 +309,15 @@ d 1.000000
 illum 2
 */
 
-	CModel mYellow;
-	int YCount = 0;//黄色ブロックカウント
-	/*
-	
-	# Blender MTL File: 'None'
-	# Material Count: 1
+	CColorItem(CModel*model, CVector position, CVector rotation, CVector scale);
 
-	newmtl Material
-	Ns 323.999994
-	Ka 0.0 0.0 0.0
-	Kd 1.0 1.0 0.0
-	Ks 0.0 0.0 0.0
-	Ke 0.0 0.0 0.0
-	Ni 1.450000
-	d 1.000000
-	illum 2
-
-*/
 	static int CMyScorePoint;
 
 	bool ChangeF;//チェンジフラグ//falseチェンジ無し//true色を今の色以外へ変更
 
 	int COLORNUMBER;//カラーナンバー//0=Red,1=Bule,2=Green,3=Yellow
+
+	CCollider*mColorbody;
 
 	CModel mNextColor;//次に来るモデルの色
 
@@ -303,6 +330,8 @@ illum 2
 	void Update();
 
 	void TaskCollision();
+
+	int mColsize;
 
 	//void Collision();
 
@@ -337,6 +366,7 @@ public:
 	//int BDamageCount;
 	int M3DMyScorePoint;
 
+	int mColsize;
 
 };
 /*
@@ -371,6 +401,8 @@ public:
 	bool S3DminusF;
 	//int SDamageCount;
 	int S3DMyScorePoint;
+
+	int mColsize;
 
 };
 #endif

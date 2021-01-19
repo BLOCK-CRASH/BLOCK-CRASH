@@ -19,15 +19,52 @@
 #include "CTask.h"
 //
 #include "CKey.h"
+//
+#include "CRectangle.h"
+
+/*
+フィーバーゲージ
+*/
+
+//extern CTexture テクスチャ名;
+
+class CGage :public CRectangle{
+
+	void Render(){
+
+		if (mEnabled){
+
+			CRectangle::Render();
+
+		}
+
+	}
+
+};
+
+
 /*
 ゲームのシーン
 */
+
 class CSceneGame : public CScene {
 public:
+
+
 
 	~CSceneGame();
 
 	CModel m2DPlayer;
+
+	CModel mRe2DPlayer;
+
+	CModel mColorItemR;//初期赤
+
+	CModel mColorItemY;//初期黄色
+
+	CModel mColorItemG;//初期赤
+
+	CModel mColorItemB;//初期青
 
 	CModel mItem;
 

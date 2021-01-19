@@ -44,6 +44,40 @@ public:
 	void TaskCollision();
 };
 
+class CRePlayer :public CCharacter{
+public:
+	CRePlayer()
+		:mColBody(0)
+	{
+
+		mMouseX = 1920 / 2;
+
+		mMouseY = 1080 / 2;
+
+		mpthis = this;
+
+		CInput::GetMousePos(&mMouseX, &mMouseY);
+
+	}
+
+	~CRePlayer()
+	{
+		if (mColBody)
+			delete[] mColBody;
+	}
+	int mMouseX;
+	int mMouseY;
+	int mColsize;
+	float janpspead;
+	CRePlayer(CModel*model, CVector position, CVector rotation, CVector scale);
+	CCollider *mColBody;
+	static CCharacter *mpthis;
+	//çXêVèàóù
+	void Update();
+	void Collision(CCollider*m, CCollider*y);
+	void TaskCollision();
+};
+
 class C3DPlayer :public CCharacter{
 public:
 	C3DPlayer() :mColBody(0){

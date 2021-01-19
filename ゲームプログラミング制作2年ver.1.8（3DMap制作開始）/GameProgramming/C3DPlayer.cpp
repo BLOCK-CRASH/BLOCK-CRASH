@@ -151,3 +151,29 @@ void C3DPlayer::TaskCollision(){
 	}
 
 }
+/*void CColorItem::Collision(CCollider*Cm, CCollider*y){
+
+	switch (Cm->mType)
+	{
+	case CCollider::ETRIANGLE:
+
+		if (y->mType == CCollider::ESPHERE){
+
+			if (CCollider::CollisionTriangleSphere(Cm, y, &aj)){
+
+				if (y->mTag == CCharacter::EBALL){
+
+					ChangeF = true;
+
+					if (ChangeF == true){
+
+						ChangeColor();
+					}
+					ChangeF = false;
+				}
+			}
+		}
+		break;
+	}
+}
+*/

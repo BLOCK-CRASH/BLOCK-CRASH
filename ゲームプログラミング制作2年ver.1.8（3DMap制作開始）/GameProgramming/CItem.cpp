@@ -7,6 +7,7 @@ CCharacter*CBonus::mpthis = 0;
 CCharacter*CExItem::mpthis = 0;
 CCharacter*CDeleteBlock::mpthis = 0;
 
+
 int CItem::BMyScorePoint = 0;
 int CMoveItem::MMyScorePoint = 0;
 int CSpinItem::SMyScorePoint = 0;
@@ -19,6 +20,7 @@ float CExItem::BBoundNum = 0;
 
 bool::CSpinItem::RebirthF = false;
 bool::CMoveItem::RebirthF = false;
+bool::CMoveItem::FeverF = false;
 
 bool::CExItem::jumpBF = false;
 bool::CExItem::ReBomF = true;//////////////リスポーンフラグtrueなら存在falseならリスポーン
@@ -61,7 +63,7 @@ CMoveItem::CMoveItem(CModel*model, CVector position, CVector rotation, CVector s
 	mpModel = model;
 	mPosition = position;
 	mRotation = rotation;
-	mScale = CVector(7.0, 7.0, 7.0);
+	mScale = scale;
 	//モデルの三角形の数分、コライダの配列を作成します
 	mMItemBody = new CCollider[model->mTriangles.size()];
 	for (int i = 0; i < model->mTriangles.size(); i++){
@@ -72,13 +74,13 @@ CMoveItem::CMoveItem(CModel*model, CVector position, CVector rotation, CVector s
 			model->mTriangles[i].mV[2]);
 
 	}
+	FeverTime = 60 * 60;
+
 	mTag = CCharacter::EITEM;
 
 	BminusF = 0;
 
 	mpthis = this;
-
-	mEnabled = true;
 
 	MMyScorePoint = 100;
 }
@@ -202,6 +204,32 @@ CDeleteBlock::CDeleteBlock(CModel*model, CVector position, CVector rotation, CVe
 	mpthis = this;
 
 }
+
+CColorItem::CColorItem(CModel*model, CVector position, CVector rotation, CVector scale)
+:mColorbody(){
+
+	mpModel = model;
+	mPosition = position;
+	mRotation = rotation;
+	mScale = scale/*CVector(10.0, 10.0, 10.0);*/;
+	//モデルの三角形の数分、コライダの配列を作成します
+	mColorbody = new CCollider[model->mTriangles.size()];
+	for (int i = 0; i < model->mTriangles.size(); i++){
+		//コライダを三角形コライダで設定していきます
+		mColorbody[i].SetTriangle(this,
+			model->mTriangles[i].mV[0],
+			model->mTriangles[i].mV[1],
+			model->mTriangles[i].mV[2]);
+
+	}
+
+	mTag = CCharacter::ECOLOR;
+
+	CMyScorePoint = 0;
+
+	ChangeF = false;
+}
+
 /*----------------------------------------------------------------------------------------------------------------------------*/
 CItem::~CItem(){
 
@@ -242,10 +270,14 @@ CDeleteBlock::~CDeleteBlock(){
 /*----------------------------------------------------------------------------------------------------------------------------*/
 void CColorItem::Init(){
 
+	
+
 	mRed.Load("cube.obj", "Red.mtl");//赤
 	mBlue.Load("cube.obj", "Blue.mtl");//青
 	mGreen.Load("cube.obj", "Green.mtl");//緑
 	mYellow.Load("cube.obj", "Yellow.mtl");//黄
+
+	//new CColorItem(&mRed, CVector(0.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(11.0, 11.0, 11.0));
 
 	//mNextColor = mRed, mBlue, mGreen, mYellow;
 
@@ -336,7 +368,32 @@ void CExItem::Collision(CCollider*Bm, CCollider*y){
 	}
 }
 
+void CColorItem::Collision(CCollider*Cm, CCollider*y){
 
+	switch (Cm->mType)
+	{
+	case CCollider::ETRIANGLE:
+
+		if (y->mType == CCollider::ESPHERE){
+
+			if (CCollider::CollisionTriangleSphere(Cm, y, &aj)){
+
+				if (y->mTag == CCharacter::EBALL){
+
+					ChangeF = true;
+
+					if (ChangeF == true){
+
+						ChangeColor();
+					}
+					ChangeF = false;
+				}
+			}
+		}
+		break;
+	}
+
+}
 
 void CDeleteBlock::Collision(CCollider*Dm, CCollider*y){}
 //更新処理
@@ -354,31 +411,42 @@ void CItem::Update(){
 
 void CMoveItem::Update(){
 
-	BminusF = true;
+	if (CKey::Once('F')){
 
-	if (RebirthF == false){
-
-		mPosition.mX++;
+		CMoveItem::FeverF = true;
 
 	}
 
-	if (RebirthF == true){
+	if (CMoveItem::FeverF == true){
 
-		mPosition.mX--;
+		FeverTime--;
+
+		BminusF = true;
+
+		if (RebirthF == false){
+
+			mPosition.mX += 2.1;
+
+		}
+
+		if (RebirthF == true){
+
+			mPosition.mX -= 2;
+
+		}
+
+		if (mPosition.mX > 1000){
+
+			mEnabled = false;
+		}
 
 	}
 
-	if (mPosition.mX > 200){
+	if (FeverTime < 0){
 
-		mPosition.mX = -200;
+		FeverF = false;
 
-		//mPosition.mX--;
-
-	}
-
-	if (mPosition.mX < -200){
-
-		mPosition.mX = 200;
+		FeverTime = 15 * 60;
 
 	}
 
@@ -477,30 +545,6 @@ void CExItem::Update(){
 	CCharacter::Update();
 }
 
-void CColorItem::Collision(CCollider*Cm, CCollider*y){
-
-	switch (Cm->mType)
-	{
-	case CCollider::ETRIANGLE:
-
-		if (y->mType == CCollider::ESPHERE){
-
-			if (CCollider::CollisionTriangleSphere(Cm, y, &aj)){
-
-				COLORNUMBER = rand() % 4;
-
-				ChangeColor();
-
-			}
-
-		}
-		break;
-
-	}
-
-
-}
-
 void CDeleteBlock::Update(){
 
 	CCharacter::Update();
@@ -508,54 +552,75 @@ void CDeleteBlock::Update(){
 }
 
 void CColorItem::ChangeColor(){
-
-	if (COLORNUMBER==0){
 	
-		CColorItem::mpModel = &mRed;
+	ChangeF = false;
+
+	if (ChangeF == true){
 	
+		if (COLORNUMBER == COLORNUMBER){
+
+			COLORNUMBER = rand() % 4;
+
+			if (COLORNUMBER == 0){
+
+				CColorItem::mpModel = &mRed;
+
+			}
+			if (COLORNUMBER == 1){
+
+				CColorItem::mpModel = &mBlue;
+
+			}
+			if (COLORNUMBER == 2){
+
+				CColorItem::mpModel = &mGreen;
+
+			}
+			if (COLORNUMBER == 3){
+
+				CColorItem::mpModel = &mYellow;
+
+			}
+
+		}
 	}
 
-	if (COLORNUMBER == 1){
-
-		CColorItem::mpModel = &mBlue;
-
-	}
-	if (COLORNUMBER == 2){
-
-		CColorItem::mpModel = &mGreen;
-
-	}
-	if (COLORNUMBER == 3){
-
-		CColorItem::mpModel = &mYellow;
-
-	}
-
+	CCharacter::Update();
 }
 
 void CColorItem::Update(){
 
 	if (YCount == 4){
 
-		CMyScorePoint = 5000;
+		mEnabled = false;
+
+		CMyScorePoint = 20000;
 
 	}
 
 	if (RCount == 4){
 
-		CMyScorePoint = 4000;
+		mEnabled = false;
+
+		CMyScorePoint = 9500;
 
 	}
-	if (YCount == 4){
+	if (BCount == 4){
 
-		CMyScorePoint = 5000;
+		mEnabled = false;
 
-	}
-	if (YCount == 4){
-
-		CMyScorePoint = 5000;
+		CMyScorePoint = 7000;
 
 	}
+	if (GCount == 4){
+
+		mEnabled = false;
+
+		CMyScorePoint = 6000;
+
+	}
+
+	CCharacter::Update();
 
 }
 void CItem::TaskCollision(){
@@ -708,6 +773,37 @@ void CDeleteBlock::TaskCollision(){
 	CCollisionManager::Get()->Collision(&mDelete[9]);
 	CCollisionManager::Get()->Collision(&mDelete[10]);
 	CCollisionManager::Get()->Collision(&mDelete[11]);
+
+}
+
+void CColorItem::TaskCollision(){
+
+	mColorbody[0].ChangePriority();
+	mColorbody[1].ChangePriority();
+	mColorbody[2].ChangePriority();
+	mColorbody[3].ChangePriority();
+	mColorbody[4].ChangePriority();
+	mColorbody[5].ChangePriority();
+	mColorbody[6].ChangePriority();
+	mColorbody[7].ChangePriority();
+	mColorbody[8].ChangePriority();
+	mColorbody[9].ChangePriority();
+	mColorbody[10].ChangePriority();
+	mColorbody[11].ChangePriority();
+
+	CCollisionManager::Get()->Collision(&mColorbody[0]);
+	CCollisionManager::Get()->Collision(&mColorbody[1]);
+	CCollisionManager::Get()->Collision(&mColorbody[2]);
+	CCollisionManager::Get()->Collision(&mColorbody[3]);
+	CCollisionManager::Get()->Collision(&mColorbody[4]);
+	CCollisionManager::Get()->Collision(&mColorbody[5]);
+	CCollisionManager::Get()->Collision(&mColorbody[6]);
+	CCollisionManager::Get()->Collision(&mColorbody[7]);
+	CCollisionManager::Get()->Collision(&mColorbody[8]);
+	CCollisionManager::Get()->Collision(&mColorbody[9]);
+	CCollisionManager::Get()->Collision(&mColorbody[10]);
+	CCollisionManager::Get()->Collision(&mColorbody[11]);
+
 
 }
 

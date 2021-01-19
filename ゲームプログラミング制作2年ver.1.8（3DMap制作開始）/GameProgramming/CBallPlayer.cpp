@@ -17,6 +17,8 @@ int CBallPlayer::ScoreBox = 0;//ÉXÉRÉAî†
 int CBallPlayer::BScoreBox = 0;
 int CBallPlayer::SScoreBox = 0;
 
+int CBallPlayer::FeverCount = 0;
+
 extern std::shared_ptr<CTexture>TextureExp;
 
 CVector CBallPlayer::jumpspeed = CVector(0.0, 0.0, 0.0);
@@ -40,6 +42,8 @@ CVector(1.0,1.0,1.0), scale.mX){
 	BoundNum = 0.75;
 	
 	CBallPlayer::BallCol.mType = CCollider::ESPHERE;
+
+	mTag == CCharacter::EBALL;
 
 	BallHP = 6;
 
@@ -85,6 +89,13 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 					jumpspeed = mAdjust.Normalize()*BoundNum;
 
 					ColF = false;
+				}
+
+				if (y->mpParent->mTag == CCharacter::EITEM ||
+					y->mpParent->mTag == CCharacter::ESPINITEM){
+
+					FeverCount++;
+
 				}
 
 				if (y->mpParent->mTag == CCharacter::EITEM){
@@ -200,6 +211,16 @@ void CBallPlayer::Update(){
 		minusF = true;
 
 	}
+
+	//if (CBallPlayer::FeverCount > 19){
+
+	//	if (CKey::Once('F')){
+
+	//		CMoveItem::FeverF = true;
+
+	//	}
+
+	//}
 
 	mPosition = mPosition + mAdjust + jumpspeed;
 

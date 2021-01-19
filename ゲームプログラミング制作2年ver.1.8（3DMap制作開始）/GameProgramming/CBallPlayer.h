@@ -23,6 +23,8 @@ public:
 
 	int BALLtime;
 
+	static int FeverCount;//フィーバーカウント溜まってFキーでフィーバータイム
+
 	CCollider BallCol;
 	
 	static CCharacter*mpthis;
