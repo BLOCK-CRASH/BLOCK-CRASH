@@ -40,7 +40,7 @@ void CSceneGame::Init() {
 
 	mDelete.Load("cube.obj", "cube.mtl");
 
-	m2DPlayer.Load("2DPlayer0118.obj", "2DPlayer0118.mtl");
+	m2DPlayer.Load("2DPlayer0119.obj", "2DPlayer0119.mtl");
 	//mDelete.mMaterials[0].mDiffuse[3] = 0.0f;
 	
 	/*スピンアイテムブロック----------------------------------------------------------------------------*/
@@ -79,10 +79,10 @@ void CSceneGame::Init() {
 	//new CObj(&mBoard, CVector(195.0f, 135.0f, 0.0f), CVector(0.0f, 0.0f, 40.0), CVector(20.0f, 20.0f, 10.0));
 	//new CObj(&mBoard, CVector(-195.0f, 135.0f, 0.0f), CVector(0.0f, 0.0f, -40.0), CVector(20.0f, 20.0f, 10.0));
 
-	new CObj(&mStage1, CVector(0.0f, 100.0f, 0.0f), CVector(0.0f, 90.0f, 90.0), CVector(35.0f, 35.0f, 35.0));
+	new CObj(&mStage1, CVector(0.0f, 100.0f, 0.0f), CVector(90.0f, 90.0f, 90.0), CVector(35.0f, 35.0f, 35.0));
 
 	//プレイヤー(板)
-	new CPlayer(&m2DPlayer, CVector(0.0f, 120.0f, 0.0f), CVector(0.0f, 90.0f, 90.0f), CVector(1.0, 1.0, 1.0));
+	new CPlayer(&m2DPlayer, CVector(0.0f, 120.0f, 0.0f), CVector(0.0f, 0.0f, 90.0f), CVector(1.0, 1.0, 1.0));
 	//玉
 	new CBallPlayer(&mBall, CVector(0.0f, 50.0f, 0.0f), CVector(), CVector(5.0f, 5.0f, 5.0));
 	new CExItem(&mBomb, CVector(0.0f/*100*/, 300.0f, 0.0f), CVector(), CVector(10.0f, 10.0f, 10.0));
