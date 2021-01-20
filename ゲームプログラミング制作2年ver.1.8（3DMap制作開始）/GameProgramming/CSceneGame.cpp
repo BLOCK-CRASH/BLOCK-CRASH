@@ -236,7 +236,7 @@ void CSceneGame::Update() {
 	if (CBallPlayer::FeverCount > 19
 		&& CMoveItem::FeverF == false){
 
-		CText::DrawString("PUSH F KEY!!", 400, 40, 18, 20);
+		CText::DrawString("PUSH F KEY!!", 320, 40, 18, 20);
 
 	}
 	CText::DrawString("SUTAG.1", 20, 20, 10, 12);
