@@ -22,8 +22,21 @@ bool::CSpinItem::RebirthF = false;
 bool::CMoveItem::RebirthF = false;
 bool::CMoveItem::FeverF = false;
 
+bool::CColorItem::ChangeF = false;
+
+bool::CColorItem::RBF = false;
+bool::CColorItem::BGF = false;
+bool::CColorItem::GYF = false;
+bool::CColorItem::YRF = false;
+
 bool::CExItem::jumpBF = false;
 bool::CExItem::ReBomF = true;//////////////リスポーンフラグtrueなら存在falseならリスポーン
+
+CModel CColorItem::mRed;
+CModel CColorItem::mBlue;
+CModel CColorItem::mGreen;
+CModel CColorItem::mYellow;
+//CModel * CColorItem::mpModel;
 /*--------------------------------------------------------*/
 CItem::CItem(CModel*model, CVector position, CVector rotation, CVector scale)
 :mItemBody(0)
@@ -74,7 +87,7 @@ CMoveItem::CMoveItem(CModel*model, CVector position, CVector rotation, CVector s
 			model->mTriangles[i].mV[2]);
 
 	}
-	FeverTime = 60 * 60;
+	FeverTime = 5 * 60;
 
 	mTag = CCharacter::EITEM;
 
@@ -223,6 +236,11 @@ CColorItem::CColorItem(CModel*model, CVector position, CVector rotation, CVector
 
 	}
 
+	RBF = false;
+	BGF = false;
+	GYF = false;
+	YRF = false;
+
 	mTag = CCharacter::ECOLOR;
 
 	CMyScorePoint = 0;
@@ -267,10 +285,15 @@ CDeleteBlock::~CDeleteBlock(){
 		delete[]mDelete;
 
 }
+CColorItem::~CColorItem(){
+
+	if (mColorbody)
+		delete[]mColorbody;
+
+
+}
 /*----------------------------------------------------------------------------------------------------------------------------*/
 void CColorItem::Init(){
-
-	
 
 	mRed.Load("cube.obj", "Red.mtl");//赤
 	mBlue.Load("cube.obj", "Blue.mtl");//青
@@ -280,8 +303,6 @@ void CColorItem::Init(){
 	//new CColorItem(&mRed, CVector(0.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(11.0, 11.0, 11.0));
 
 	//mNextColor = mRed, mBlue, mGreen, mYellow;
-
-	COLORNUMBER = NULL;
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------*/
@@ -378,16 +399,38 @@ void CColorItem::Collision(CCollider*Cm, CCollider*y){
 
 			if (CCollider::CollisionTriangleSphere(Cm, y, &aj)){
 
-				if (y->mTag == CCharacter::EBALL){
+				ChangeF = true;
 
-					ChangeF = true;
+				if (ChangeF == true){
 
-					if (ChangeF == true){
+					if (CColorItem::mpModel == &mRed){
 
-						ChangeColor();
+						RBF = true;
+
 					}
-					ChangeF = false;
+
+					if (CColorItem::mpModel == &mBlue){
+
+						BGF = true;
+
+					}
+
+					if (CColorItem::mpModel == &mGreen){
+
+						GYF = true;
+
+					}
+
+					if (CColorItem::mpModel == &mYellow){
+
+						YRF = true;
+
+					}
+
+					//ChangeF = false;
+
 				}
+
 			}
 		}
 		break;
@@ -429,7 +472,7 @@ void CMoveItem::Update(){
 
 		}
 
-		if (mPosition.mX > 1000){
+		if (mPosition.mX == 1000){
 
 			mPosition.mX = -500;
 
@@ -438,13 +481,20 @@ void CMoveItem::Update(){
 
 	}
 
-	if (FeverTime <= 0){
+	if (FeverTime < 0){
 
 		FeverF = false;
 
-		//FeverTime = 5 * 60;
+		if (FeverF == false){
 
-		mEnabled = false;
+			mEnabled = false;
+
+		}
+
+		else if (FeverF == true){}
+
+		//CTaskManager::Get()->Delete();
+
 	}
 
 	CCharacter::Update();
@@ -516,7 +566,7 @@ void CExItem::Update(){
 	
 		CExItem::mPosition = mPosition + BjumpSpeed;
 
-		CExItem::BjumpSpeed = CVector(0.0, -0.2, 0.0);
+		CExItem::BjumpSpeed = CVector(0.0, -0.4, 0.0);
 
 		CExItem::jumpBF = true;
 	}
@@ -550,42 +600,36 @@ void CDeleteBlock::Update(){
 
 void CColorItem::ChangeColor(){
 	
-	ChangeF = false;
-
-	if (ChangeF == true){
-	
-		if (COLORNUMBER == COLORNUMBER){
-
-			COLORNUMBER = rand() % 4;
-
-			if (COLORNUMBER == 0){
-
-				CColorItem::mpModel = &mRed;
-
-			}
-			if (COLORNUMBER == 1){
-
-				CColorItem::mpModel = &mBlue;
-
-			}
-			if (COLORNUMBER == 2){
-
-				CColorItem::mpModel = &mGreen;
-
-			}
-			if (COLORNUMBER == 3){
-
-				CColorItem::mpModel = &mYellow;
-
-			}
-
-		}
-	}
 
 	CCharacter::Update();
+
 }
 
 void CColorItem::Update(){
+
+	if (CColorItem::mpModel == &mRed){
+		
+		RCount + 1;
+	
+	}
+
+	if (CColorItem::mpModel == &mBlue){
+
+		BCount + 1;
+
+	}
+
+	if (CColorItem::mpModel == &mGreen){
+
+		GCount + 1;
+
+	}
+
+	if (CColorItem::mpModel == &mYellow){
+
+		YCount + 1;
+
+	}
 
 	if (YCount == 4){
 

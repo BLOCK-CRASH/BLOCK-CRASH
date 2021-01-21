@@ -31,13 +31,18 @@ void CSceneGame::Init() {
 	CBlackText::mBFont.Load("font.tga");
 	CText::mFont.SetRowCol(1, 4096 / 64);
 
-	mColorItemR.Load("cube.obj", "Red.mtl");
+	//mColorItemR.Load("cube.obj", "Red.mtl");
 
-	mColorItemY.Load("cube.obj", "Yellow.mtl");
+	//mColorItemY.Load("cube.obj", "Yellow.mtl");
 
-	mColorItemG.Load("cube.obj", "Green.mtl");
+	//mColorItemG.Load("cube.obj", "Green.mtl");
 
-	mColorItemB.Load("cube.obj", "Blue.mtl");
+	//mColorItemB.Load("cube.obj", "Blue.mtl");
+
+	CColorItem::mRed.Load("cube.obj", "Red.mtl");//赤
+	CColorItem::mBlue.Load("cube.obj", "Blue.mtl");//青
+	CColorItem::mGreen.Load("cube.obj", "Green.mtl");//緑
+	CColorItem::mYellow.Load("cube.obj", "Yellow.mtl");//黄
 
 	mStage1.Load("2DStage0119.obj", "2DStage0119.mtl");
 
@@ -59,13 +64,20 @@ void CSceneGame::Init() {
 	
 	/*スピンアイテムブロック----------------------------------------------------------------------------*/
 	new CSpinItem(&mBoardR, CVector(250.0f, 200.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(14.0f, 14.0f, 14.0));
+	new CSpinItem(&mBoardR, CVector(-250.0f, 200.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(14.0f, 14.0f, 14.0));
+
 	//new CSpinItem(&mBoardR, CVector(60.0f, 20.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(8.0f, 8.0f, 5.0));
 	//new CSpinItem(&mBoardR, CVector(110.0f, 70.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(8.0f, 8.0f, 5.0));
 	//new CSpinItem(&mBoardR, CVector(-110.0f, 70.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(8.0f, 8.0f, 5.0));
 	//new CSpinItem(&mBoardR, CVector(0.0f, -20.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0f,15.0f, 10.0));
 
 	/*ノーマルアイテムブロック----------------------------------------------------------------------------*/
-	//new CItem(&mBoard, CVector(40.0f/*40.0*/, 70.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f/*45*/), CVector(11.0, 11.0, 11.0));
+	new CItem(&mBoard, CVector(0.0f/*40.0*/, -50.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f/*45*/), CVector(11.0, 11.0, 11.0));
+	new CItem(&mBoard, CVector(0.0f/*40.0*/, -40.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f/*45*/), CVector(11.0, 11.0, 11.0));
+	new CItem(&mBoard, CVector(0.0f/*40.0*/, -30.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f/*45*/), CVector(11.0, 11.0, 11.0));
+	new CItem(&mBoard, CVector(0.0f/*40.0*/, -20.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f/*45*/), CVector(11.0, 11.0, 11.0));
+
+	
 	//new CItem(&mBoard, CVector(-40.0f, 70.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(11.0, 11.0, 11.0));
 	//new CItem(&mBoard, CVector(50.0f, -60.0f, 1.0f), CVector(0.0f, 0.0f, 40.0f), CVector(11.0, 11.0, 11.0));
 	//new CItem(&mBoard, CVector(-50.0f, -60.0f, 1.0f), CVector(0.0f, 0.0f, 40.0f), CVector(11.0, 11.0, 11.0));
@@ -73,7 +85,10 @@ void CSceneGame::Init() {
 	//new CItem(&mBoard, CVector(-120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 65.0f), CVector(11.0, 11.0, 11.0));
 	/*カラーアイテムブロック----------------------------------------------------------------------------*/
 
-	//new CColorItem(&mRed, CVector(0.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(11.0, 11.0, 11.0));
+	new CColorItem(&CColorItem::mRed, CVector(0.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(11.0, 11.0, 11.0));
+	//new CColorItem(&CColorItem::mBlue, CVector(20.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(11.0, 11.0, 11.0));
+	//new CColorItem(&CColorItem::mGreen, CVector(40.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(11.0, 11.0, 11.0));
+	//new CColorItem(&CColorItem::mYellow, CVector(60.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(11.0, 11.0, 11.0));
 
 	///*移動アイテムブロック----------------------------------------------------------------------------*/
 	
@@ -157,6 +172,25 @@ void CSceneGame::Update() {
 		}
 	}
 
+
+	if (CColorItem::RBF == true){
+		CColorItem::mRed = CColorItem::mBlue;
+		CColorItem::RBF = false;
+	}
+	if (CColorItem::BGF == true){
+		CColorItem::mBlue = CColorItem::mGreen;
+		CColorItem::BGF = false;
+	}
+	if (CColorItem::GYF == true){
+		CColorItem::mGreen = CColorItem::mYellow;
+		CColorItem::GYF = false;
+	}
+	if (CColorItem::YRF == true){
+		CColorItem::mYellow = CColorItem::mRed;
+		CColorItem::YRF = false;
+	}
+
+	//CColorItem::ChangeColor();
 
 	CBallPlayer::mAdjust.mZ = NULL;
 

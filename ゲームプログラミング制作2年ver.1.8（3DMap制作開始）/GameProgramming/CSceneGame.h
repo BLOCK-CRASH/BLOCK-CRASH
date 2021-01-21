@@ -50,8 +50,6 @@ class CGage :public CRectangle{
 class CSceneGame : public CScene {
 public:
 
-
-
 	~CSceneGame();
 
 	CModel m2DPlayer;
@@ -79,6 +77,11 @@ public:
 	CModel mDelete;//ステルスで表示
 
 	CModel mStage1;
+
+	//CModel mBlue;//青のマテリアル
+	//CModel mGreen;//緑のマテリアル
+	//CModel mRed;//赤のマテリアル
+	//CModel mYellow;//黄のマテリアル
 
 	bool mEnable;
 

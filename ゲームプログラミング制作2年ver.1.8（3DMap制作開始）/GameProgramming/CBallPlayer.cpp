@@ -44,7 +44,7 @@ CVector(1.0,1.0,1.0), scale.mX){
 	
 	CBallPlayer::BallCol.mType = CCollider::ESPHERE;
 
-	mTag == CCharacter::EBALL;
+	mTag = CCharacter::EBALL;
 
 	BallHP = 6;
 
@@ -58,7 +58,7 @@ CVector(1.0,1.0,1.0), scale.mX){
 
 	BALLtime = 3 * 60;
 
-	FeverCount = 20;
+	FeverCount = 0;
 
 	minusF = true;
 }
@@ -225,6 +225,7 @@ void CBallPlayer::Update(){
 
 			CMoveItem::FeverF = true;
 
+			FeverCount = 0;
 		}
 
 	}

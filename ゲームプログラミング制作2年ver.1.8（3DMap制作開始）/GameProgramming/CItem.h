@@ -79,7 +79,6 @@ public:
 
 	static int BStageCount;
 	bool BminusF;
-	//int BDamageCount;
 	static int MMyScorePoint;
 
 	int mColsize;
@@ -237,7 +236,11 @@ public:
 
 	CVector aj;
 
-	CModel mYellow;
+static CModel mBlue;//青のマテリアル
+static CModel mGreen;//緑のマテリアル
+static CModel mRed;//赤のマテリアル
+static CModel mYellow;//黄のマテリアル
+
 	int YCount = 0;//黄色ブロックカウントMaxで20000
 	/*
 
@@ -256,7 +259,6 @@ public:
 
 	*/
 
-	CModel mRed;
 	int RCount = 0;//赤ブロックカウントMaxで9500
 	/*
 	
@@ -273,7 +275,7 @@ public:
 	d 1.000000
 	illum 2
 	*/
-	CModel mBlue;
+	
 	int BCount = 0;//青ブロックカウントMaxで7000
 	/*
 	
@@ -291,7 +293,6 @@ d 1.000000
 illum 2
 */
 
-	CModel mGreen;
 	int GCount = 0;//緑ブロックカウントMaxで6000
 	/*
 	
@@ -309,17 +310,28 @@ d 1.000000
 illum 2
 */
 
+
 	CColorItem(CModel*model, CVector position, CVector rotation, CVector scale);
+
+	~CColorItem();
 
 	static int CMyScorePoint;
 
-	bool ChangeF;//チェンジフラグ//falseチェンジ無し//true色を今の色以外へ変更
+	static bool ChangeF;//チェンジフラグ//falseチェンジ無し//true色を今の色以外へ変更
 
-	int COLORNUMBER;//カラーナンバー//0=Red,1=Bule,2=Green,3=Yellow
+	static bool RBF;//赤から青へのフラグ//falseチェンジ無し//true色を今の色以外へ変更
+
+	static bool BGF;//青から緑へのフラグ//falseチェンジ無し//true色を今の色以外へ変更
+
+	static bool GYF;//緑から黄色へのフラグ//falseチェンジ無し//true色を今の色以外へ変更
+	
+	static bool YRF;//黄色から赤へのフラグ//falseチェンジ無し//true色を今の色以外へ変更
+
+	//static int COLORNUMBER;//カラーナンバー//0=Red,1=Bule,2=Green,3=Yellow
 
 	CCollider*mColorbody;
 
-	CModel mNextColor;//次に来るモデルの色
+	//static CModel *mpModel;
 
 	void Collision(CCollider*Cm, CCollider*y);
 
