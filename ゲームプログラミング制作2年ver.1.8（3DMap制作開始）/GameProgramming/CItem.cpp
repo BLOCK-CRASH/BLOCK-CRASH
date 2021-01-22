@@ -15,6 +15,11 @@ int CBonus::BMyScorePoint = 0;
 int CExItem::BomCutScore = 0;
 int CColorItem::CMyScorePoint = 0;
 
+int CColorItem::RCount = 0;
+int CColorItem::BCount = 0;
+int CColorItem::GCount = 0;
+int CColorItem::YCount = 0;
+
 int CExItem::BomTime = 0;
 float CExItem::BBoundNum = 0;
 
@@ -241,6 +246,11 @@ CColorItem::CColorItem(CModel*model, CVector position, CVector rotation, CVector
 	GYF = false;
 	YRF = false;
 
+	RCount = 0;
+	BCount = 0;
+	GCount = 0;
+	YCount = 0;
+
 	mTag = CCharacter::ECOLOR;
 
 	CMyScorePoint = 0;
@@ -302,7 +312,7 @@ void CColorItem::Init(){
 
 	//new CColorItem(&mRed, CVector(0.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(11.0, 11.0, 11.0));
 
-	//mNextColor = mRed, mBlue, mGreen, mYellow;
+	mNextColor = mYellow;
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------*/
@@ -404,28 +414,38 @@ void CColorItem::Collision(CCollider*Cm, CCollider*y){
 				if (ChangeF == true){
 
 					if (CColorItem::mpModel == &mRed){
-
+					
+						//RCount - 1;
+						BCount + 1;
 						RBF = true;
 
 					}
 
 					if (CColorItem::mpModel == &mBlue){
-
+						
+						//BCount - 1;
+						GCount + 1;
 						BGF = true;
 
 					}
 
 					if (CColorItem::mpModel == &mGreen){
-
+						
+						//GCount - 1;
+						YCount + 1;
 						GYF = true;
 
 					}
 
 					if (CColorItem::mpModel == &mYellow){
 
+						//YCount - 1;
+						RCount + 1;
 						YRF = true;
 
 					}
+
+					CColorItem::ChangeColor();
 
 					//ChangeF = false;
 
@@ -476,7 +496,7 @@ void CMoveItem::Update(){
 
 			mPosition.mX = -500;
 
-			//mEnabled = false;
+		
 		}
 
 	}
@@ -600,6 +620,23 @@ void CDeleteBlock::Update(){
 
 void CColorItem::ChangeColor(){
 	
+	if (CColorItem::RBF == true){
+		CColorItem::mpModel = &mBlue;
+		CColorItem::RBF = false;
+	}
+	if (CColorItem::BGF == true){
+		CColorItem::mpModel = &mGreen;
+		CColorItem::BGF = false;
+	}
+	if (CColorItem::GYF == true){
+		CColorItem::mpModel = &mYellow;
+		CColorItem::GYF = false;
+	}
+	if (CColorItem::YRF == true){
+		CColorItem::mpModel = &mRed;
+		CColorItem::YRF = false;
+	}
+
 
 	CCharacter::Update();
 
@@ -607,38 +644,13 @@ void CColorItem::ChangeColor(){
 
 void CColorItem::Update(){
 
-	if (CColorItem::mpModel == &mRed){
-		
-		RCount + 1;
-	
-	}
-
-	if (CColorItem::mpModel == &mBlue){
-
-		BCount + 1;
-
-	}
-
-	if (CColorItem::mpModel == &mGreen){
-
-		GCount + 1;
-
-	}
-
-	if (CColorItem::mpModel == &mYellow){
-
-		YCount + 1;
-
-	}
-
-	if (YCount == 4){
+	if (YCount == 1){
 
 		mEnabled = false;
 
 		CMyScorePoint = 20000;
 
 	}
-
 	if (RCount == 4){
 
 		mEnabled = false;

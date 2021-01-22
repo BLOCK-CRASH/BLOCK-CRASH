@@ -58,7 +58,7 @@ CVector(1.0,1.0,1.0), scale.mX){
 
 	BALLtime = 3 * 60;
 
-	FeverCount = 0;
+	FeverCount = 20;
 
 	minusF = true;
 }
@@ -133,6 +133,7 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 				if (y->mpParent->mTag == CCharacter::EMOVEBONUS){
 
 					ScoreBox = ScoreBox + CBonus::BMyScorePoint;
+					FeverCount + 2;
 
 				}
 

@@ -63,8 +63,8 @@ void CSceneGame::Init() {
 	//mDelete.mMaterials[0].mDiffuse[3] = 0.0f;
 	
 	/*スピンアイテムブロック----------------------------------------------------------------------------*/
-	new CSpinItem(&mBoardR, CVector(250.0f, 200.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(14.0f, 14.0f, 14.0));
-	new CSpinItem(&mBoardR, CVector(-250.0f, 200.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(14.0f, 14.0f, 14.0));
+	//new CSpinItem(&mBoardR, CVector(250.0f, 200.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(14.0f, 14.0f, 14.0));
+	//new CSpinItem(&mBoardR, CVector(-250.0f, 200.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(14.0f, 14.0f, 14.0));
 
 	//new CSpinItem(&mBoardR, CVector(60.0f, 20.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(8.0f, 8.0f, 5.0));
 	//new CSpinItem(&mBoardR, CVector(110.0f, 70.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(8.0f, 8.0f, 5.0));
@@ -72,23 +72,23 @@ void CSceneGame::Init() {
 	//new CSpinItem(&mBoardR, CVector(0.0f, -20.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0f,15.0f, 10.0));
 
 	/*ノーマルアイテムブロック----------------------------------------------------------------------------*/
-	new CItem(&mBoard, CVector(0.0f/*40.0*/, -50.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f/*45*/), CVector(11.0, 11.0, 11.0));
-	new CItem(&mBoard, CVector(0.0f/*40.0*/, -40.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f/*45*/), CVector(11.0, 11.0, 11.0));
-	new CItem(&mBoard, CVector(0.0f/*40.0*/, -30.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f/*45*/), CVector(11.0, 11.0, 11.0));
-	new CItem(&mBoard, CVector(0.0f/*40.0*/, -20.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f/*45*/), CVector(11.0, 11.0, 11.0));
+	//new CItem(&mBoard, CVector(0.0f/*40.0*/, -50.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f/*45*/), CVector(11.0, 11.0, 11.0));
+	//new CItem(&mBoard, CVector(0.0f/*40.0*/, -40.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f/*45*/), CVector(11.0, 11.0, 11.0));
+	//new CItem(&mBoard, CVector(0.0f/*40.0*/, -30.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f/*45*/), CVector(11.0, 11.0, 11.0));
+	//new CItem(&mBoard, CVector(0.0f/*40.0*/, -20.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f/*45*/), CVector(11.0, 11.0, 11.0));
 
-	
 	//new CItem(&mBoard, CVector(-40.0f, 70.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(11.0, 11.0, 11.0));
 	//new CItem(&mBoard, CVector(50.0f, -60.0f, 1.0f), CVector(0.0f, 0.0f, 40.0f), CVector(11.0, 11.0, 11.0));
 	//new CItem(&mBoard, CVector(-50.0f, -60.0f, 1.0f), CVector(0.0f, 0.0f, 40.0f), CVector(11.0, 11.0, 11.0));
 	//new CItem(&mBoard, CVector(120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 65.0f), CVector(11.0, 11.0, 11.0));
 	//new CItem(&mBoard, CVector(-120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 65.0f), CVector(11.0, 11.0, 11.0));
+
 	/*カラーアイテムブロック----------------------------------------------------------------------------*/
 
-	new CColorItem(&CColorItem::mRed, CVector(0.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(11.0, 11.0, 11.0));
-	//new CColorItem(&CColorItem::mBlue, CVector(20.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(11.0, 11.0, 11.0));
-	//new CColorItem(&CColorItem::mGreen, CVector(40.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(11.0, 11.0, 11.0));
-	//new CColorItem(&CColorItem::mYellow, CVector(60.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(11.0, 11.0, 11.0));
+	new CColorItem(&CColorItem::mGreen, CVector(0.0f, 200.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(20.0, 20.0, 15.0));
+	//new CColorItem(&CColorItem::mYellow, CVector(-250.0f, -200.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
+	//new CColorItem(&CColorItem::mYellow, CVector(250.0f, 200.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
+	//new CColorItem(&CColorItem::mYellow, CVector(250.0f, -200.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
 
 	///*移動アイテムブロック----------------------------------------------------------------------------*/
 	
@@ -108,7 +108,7 @@ void CSceneGame::Init() {
 	new CMoveItem(&mBoard, CVector(-700.0f, 100.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 20.0));
 
 	///*ボーナスアイテムブロック----------------------------------------------------------------------------*/
-	//new CBonus(&mBoard, CVector(600.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0));
+	new CBonus(&mBoard, CVector(600.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0));
 
 	new CObj(&mStage1, CVector(0.0f, 0.0f, 0.0f), CVector(90.0f, 90.0f, 90.0), CVector(40.0f, 40.0f, 40.0));
 
@@ -118,7 +118,7 @@ void CSceneGame::Init() {
 	
 	//玉
 	new CBallPlayer(&mBall, CVector(0.0f, 0.0f, 0.0f), CVector(), CVector(9.0f, 9.0f, 9.0));
-	new CExItem(&mBomb, CVector(0.0f/*100*/, 450.0f, 0.0f), CVector(), CVector(20.0f, 20.0f, 20.0));
+	//new CExItem(&mBomb, CVector(0.0f/*100*/, 450.0f, 0.0f), CVector(), CVector(20.0f, 20.0f, 20.0));
 
 /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -173,22 +173,6 @@ void CSceneGame::Update() {
 	}
 
 
-	if (CColorItem::RBF == true){
-		CColorItem::mRed = CColorItem::mBlue;
-		CColorItem::RBF = false;
-	}
-	if (CColorItem::BGF == true){
-		CColorItem::mBlue = CColorItem::mGreen;
-		CColorItem::BGF = false;
-	}
-	if (CColorItem::GYF == true){
-		CColorItem::mGreen = CColorItem::mYellow;
-		CColorItem::GYF = false;
-	}
-	if (CColorItem::YRF == true){
-		CColorItem::mYellow = CColorItem::mRed;
-		CColorItem::YRF = false;
-	}
 
 	//CColorItem::ChangeColor();
 

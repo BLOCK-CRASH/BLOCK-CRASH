@@ -241,7 +241,7 @@ static CModel mGreen;//緑のマテリアル
 static CModel mRed;//赤のマテリアル
 static CModel mYellow;//黄のマテリアル
 
-	int YCount = 0;//黄色ブロックカウントMaxで20000
+static	int YCount;//黄色ブロックカウントMaxで20000
 	/*
 
 	# Blender MTL File: 'None'
@@ -259,7 +259,7 @@ static CModel mYellow;//黄のマテリアル
 
 	*/
 
-	int RCount = 0;//赤ブロックカウントMaxで9500
+static	int RCount;//赤ブロックカウントMaxで9500
 	/*
 	
 	# Blender MTL File: 'None'
@@ -276,7 +276,7 @@ static CModel mYellow;//黄のマテリアル
 	illum 2
 	*/
 	
-	int BCount = 0;//青ブロックカウントMaxで7000
+static	int BCount;//青ブロックカウントMaxで7000
 	/*
 	
 # Blender MTL File: 'None'
@@ -293,7 +293,7 @@ d 1.000000
 illum 2
 */
 
-	int GCount = 0;//緑ブロックカウントMaxで6000
+static int GCount;//緑ブロックカウントMaxで6000
 	/*
 	
 	# Blender MTL File: 'None'
@@ -330,6 +330,8 @@ illum 2
 	//static int COLORNUMBER;//カラーナンバー//0=Red,1=Bule,2=Green,3=Yellow
 
 	CCollider*mColorbody;
+
+	CModel mNextColor;
 
 	//static CModel *mpModel;
 
