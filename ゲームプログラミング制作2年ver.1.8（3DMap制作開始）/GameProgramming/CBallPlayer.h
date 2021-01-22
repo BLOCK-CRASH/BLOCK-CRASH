@@ -57,6 +57,8 @@ public:
 
 	static int MScoreBox;//スコア箱(移動
 
+	static int CScoreBox;//スコア箱(色
+
 	static bool GoF;//スタート重力フラグ	
 
 	static bool BallF;//ボールおんおふぅ

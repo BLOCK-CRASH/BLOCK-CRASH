@@ -14,9 +14,10 @@ int CBallPlayer::BallHP = 0;
 float CBallPlayer::BoundNum = 0;
 float CBallPlayer::ScoreMore = 0;//加算数字
 int CBallPlayer::ScoreBox = 0;//スコア箱
-int CBallPlayer::BScoreBox = 0;
-int CBallPlayer::SScoreBox = 0;
-int CBallPlayer::MScoreBox = 0;
+int CBallPlayer::BScoreBox = 0; // スコア箱(ノーマル
+int CBallPlayer::SScoreBox = 0;//スコア箱(スピン
+int CBallPlayer::MScoreBox = 0;//スコア箱(移動
+int CBallPlayer::CScoreBox = 0;//スコア箱(色
 
 int CBallPlayer::FeverCount = 0;
 
@@ -82,8 +83,8 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 
 				if (ColF == true){
 
-					if (BoundNum < 1.3){
-						BoundNum += 0.05;
+					if (BoundNum < 1.75){
+						BoundNum += 0.8;
 					}
 					else{
 						BoundNum = BoundNum;
@@ -139,7 +140,7 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 
 				if (y->mpParent->mTag == CCharacter::EDELETE){
 
-					mPosition.mY = 50.0;
+					mPosition.mY = 80.0;
 
 					mPosition.mX = 0.0;
 
@@ -155,7 +156,6 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 				}
 
 			}
-
 
 		}
 
@@ -188,6 +188,7 @@ void CBallPlayer::Update(){
 	CBallPlayer::BScoreBox = CItem::BMyScorePoint;
 	CBallPlayer::SScoreBox = CSpinItem::SMyScorePoint;
 	CBallPlayer::MScoreBox = CMoveItem::MMyScorePoint;
+	CBallPlayer::CScoreBox = CColorItem::CMyScorePoint;
 
 	CBallPlayer::mAdjust = CVector(0.0, 0.0, 0.0);
 	

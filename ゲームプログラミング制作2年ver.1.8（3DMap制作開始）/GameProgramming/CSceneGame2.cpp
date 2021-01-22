@@ -43,10 +43,14 @@ void CSceneGame2::Init() {
 	mDelete.Load("3DMapDeleteBlock.obj", "3DMapDeleteBlock.mtl");
 	mDelete.mMaterials[0].mDiffuse[3] = 0.0f;
 
+
+
 	//new CSpinItem(&mBoardR, CVector(-60.0f, 20.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
 	//new CSpinItem(&mBoardR, CVector(60.0f, 20.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
 	//new CSpinItem(&mBoardR, CVector(110.0f, 30.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
 	//new CSpinItem(&mBoardR, CVector(-110.0f, 30.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
+
+	new CCamera();
 
 	new C3DMap(&mStage, CVector(0.0,31.0/*STAGE2‚ÌŽž‚¾‚¯151*/,0.0), CVector(0.0,0.0/*45*/,180.0), CVector(7.0, 7.0, 7.0));
 	new C3DDelete(&mDelete, CVector(0.0, 0.0, 0.0), CVector(0.0, 0.0, 180.0), CVector(23.0, 23.0, 23.0));

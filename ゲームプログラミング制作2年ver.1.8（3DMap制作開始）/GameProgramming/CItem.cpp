@@ -92,7 +92,7 @@ CMoveItem::CMoveItem(CModel*model, CVector position, CVector rotation, CVector s
 			model->mTriangles[i].mV[2]);
 
 	}
-	FeverTime = 5 * 60;
+	FeverTime = 15 * 60;
 
 	mTag = CCharacter::EITEM;
 
@@ -246,10 +246,10 @@ CColorItem::CColorItem(CModel*model, CVector position, CVector rotation, CVector
 	GYF = false;
 	YRF = false;
 
-	RCount = 0;
-	BCount = 0;
-	GCount = 0;
-	YCount = 0;
+	RCount = 3;
+	BCount = 3;
+	GCount = 3;
+	YCount = 3;
 
 	mTag = CCharacter::ECOLOR;
 
@@ -399,6 +399,7 @@ void CExItem::Collision(CCollider*Bm, CCollider*y){
 	}
 }
 
+#define COLORCOUNT_CHANGR 1//当たればその色のカウントを増減させる
 void CColorItem::Collision(CCollider*Cm, CCollider*y){
 
 	switch (Cm->mType)
@@ -413,34 +414,38 @@ void CColorItem::Collision(CCollider*Cm, CCollider*y){
 
 				if (ChangeF == true){
 
-					if (CColorItem::mpModel == &mRed){
-					
-						//RCount - 1;
-						BCount + 1;
+					if (CColorItem::mpModel == &mRed)//当たった時のmpModelが赤だった場合
+					{
+						YCount = YCount + COLORCOUNT_CHANGR;
+						RCount = RCount - COLORCOUNT_CHANGR;
+						//BCount + 1;
 						RBF = true;
 
 					}
 
-					if (CColorItem::mpModel == &mBlue){
-						
-						//BCount - 1;
-						GCount + 1;
+					if (CColorItem::mpModel == &mBlue)//当たった時のmpModelが青だった場合
+					{
+						RCount = RCount + COLORCOUNT_CHANGR;
+						BCount = BCount - COLORCOUNT_CHANGR;
+						//GCount + 1;
 						BGF = true;
 
 					}
 
-					if (CColorItem::mpModel == &mGreen){
-						
-						//GCount - 1;
-						YCount + 1;
+					if (CColorItem::mpModel == &mGreen)//当たった時のmpModelが緑だった場合
+					{
+						BCount = BCount + COLORCOUNT_CHANGR;
+						GCount = GCount - COLORCOUNT_CHANGR;
+						//YCount + 1;
 						GYF = true;
 
 					}
 
 					if (CColorItem::mpModel == &mYellow){
 
-						//YCount - 1;
-						RCount + 1;
+						GCount = GCount + COLORCOUNT_CHANGR;
+						YCount = YCount - COLORCOUNT_CHANGR;
+						//RCount + 1;
 						YRF = true;
 
 					}
@@ -481,33 +486,32 @@ void CMoveItem::Update(){
 		BminusF = true;
 
 		if (RebirthF == false){
-
+		
 			mPosition.mX += 2.1;
 
 		}
 
-		if (RebirthF == true){
-
-			mPosition.mX -= 2.2;
-
-		}
-
-		if (mPosition.mX == 1000){
-
-			mPosition.mX = -500;
-
+		if (CMoveItem::FeverTime > 0){
 		
+			if (mPosition.mX == 1000){
+
+				mPosition.mX = -500;
+
+			}
+
 		}
 
 	}
 
 	if (FeverTime < 0){
 
+		mPosition.mX += 2.1;
+
 		FeverF = false;
 
 		if (FeverF == false){
 
-			mEnabled = false;
+			//mEnabled = false;
 
 		}
 
@@ -527,13 +531,13 @@ void CSpinItem::Update(){
 
 	if (RebirthF == false){
 
-		mRotation.mZ++;
+		mRotation.mZ += 1.3;
 
 	}
 	
 	if (RebirthF == true){
 
-		mRotation.mZ--;
+		mRotation.mZ -= 1.3;
 
 	}
 
@@ -644,28 +648,28 @@ void CColorItem::ChangeColor(){
 
 void CColorItem::Update(){
 
-	if (YCount == 1){
+	if (YCount == 0){
 
 		mEnabled = false;
 
 		CMyScorePoint = 20000;
 
 	}
-	if (RCount == 4){
+	if (RCount == 0){
 
 		mEnabled = false;
 
 		CMyScorePoint = 9500;
 
 	}
-	if (BCount == 4){
+	if (BCount == 0){
 
 		mEnabled = false;
 
 		CMyScorePoint = 7000;
 
 	}
-	if (GCount == 4){
+	if (GCount == 0){
 
 		mEnabled = false;
 

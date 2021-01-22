@@ -31,14 +31,6 @@ void CSceneGame::Init() {
 	CBlackText::mBFont.Load("font.tga");
 	CText::mFont.SetRowCol(1, 4096 / 64);
 
-	//mColorItemR.Load("cube.obj", "Red.mtl");
-
-	//mColorItemY.Load("cube.obj", "Yellow.mtl");
-
-	//mColorItemG.Load("cube.obj", "Green.mtl");
-
-	//mColorItemB.Load("cube.obj", "Blue.mtl");
-
 	CColorItem::mRed.Load("cube.obj", "Red.mtl");//赤
 	CColorItem::mBlue.Load("cube.obj", "Blue.mtl");//青
 	CColorItem::mGreen.Load("cube.obj", "Green.mtl");//緑
@@ -63,8 +55,9 @@ void CSceneGame::Init() {
 	//mDelete.mMaterials[0].mDiffuse[3] = 0.0f;
 	
 	/*スピンアイテムブロック----------------------------------------------------------------------------*/
-	//new CSpinItem(&mBoardR, CVector(250.0f, 200.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(14.0f, 14.0f, 14.0));
-	//new CSpinItem(&mBoardR, CVector(-250.0f, 200.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(14.0f, 14.0f, 14.0));
+	new CSpinItem(&mBoardR, CVector(150.0f, 200.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0f, 20.0f, 14.0));
+	new CSpinItem(&mBoardR, CVector(-150.0f, 200.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0f, 20.0f, 14.0));
+	new CSpinItem(&mBoardR, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0f, 20.0f, 14.0));
 
 	//new CSpinItem(&mBoardR, CVector(60.0f, 20.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(8.0f, 8.0f, 5.0));
 	//new CSpinItem(&mBoardR, CVector(110.0f, 70.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(8.0f, 8.0f, 5.0));
@@ -85,10 +78,10 @@ void CSceneGame::Init() {
 
 	/*カラーアイテムブロック----------------------------------------------------------------------------*/
 
-	new CColorItem(&CColorItem::mGreen, CVector(0.0f, 200.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(20.0, 20.0, 15.0));
-	//new CColorItem(&CColorItem::mYellow, CVector(-250.0f, -200.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
-	//new CColorItem(&CColorItem::mYellow, CVector(250.0f, 200.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
-	//new CColorItem(&CColorItem::mYellow, CVector(250.0f, -200.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
+	new CColorItem(&CColorItem::mRed, CVector(-250.0f, 200.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(20.0, 20.0, 15.0));
+	new CColorItem(&CColorItem::mBlue, CVector(-250.0f, -200.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
+	new CColorItem(&CColorItem::mGreen, CVector(250.0f, 200.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
+	new CColorItem(&CColorItem::mYellow, CVector(250.0f, -200.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
 
 	///*移動アイテムブロック----------------------------------------------------------------------------*/
 	
@@ -117,7 +110,7 @@ void CSceneGame::Init() {
 	new CRePlayer(&m2DPlayer, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 90.0f), CVector(0.7, 0.7, 0.7));
 	
 	//玉
-	new CBallPlayer(&mBall, CVector(0.0f, 0.0f, 0.0f), CVector(), CVector(9.0f, 9.0f, 9.0));
+	new CBallPlayer(&mBall, CVector(0.0f, 80.0f, 0.0f), CVector(), CVector(9.0f, 9.0f, 9.0));
 	//new CExItem(&mBomb, CVector(0.0f/*100*/, 450.0f, 0.0f), CVector(), CVector(20.0f, 20.0f, 20.0));
 
 /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
