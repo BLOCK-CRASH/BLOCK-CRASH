@@ -24,8 +24,10 @@ public:
 		EPOINT,	//ポイント
 		EPLAYER,//プレイヤー
 		EBALL, //ボールプレイヤー
+		EDAMMYBALL,//ダミーボール
 		EITEM,//普通ブロック
 		ESPINITEM,//回転ブロック
+		EMOVEITEM,//フィーバーアイテム
 		EBOMB,//爆発ブロック
 		EMOVEBONUS,//移動ボーナスブロック
 		EDELETE,//削除ブロック

@@ -15,10 +15,15 @@ int CBonus::BMyScorePoint = 0;
 int CExItem::BomCutScore = 0;
 int CColorItem::CMyScorePoint = 0;
 
-int CColorItem::RCount = 0;
-int CColorItem::BCount = 0;
-int CColorItem::GCount = 0;
-int CColorItem::YCount = 0;
+int CColorItem::YScore = 0;
+int CColorItem::RScore = 0;
+int CColorItem::BScore = 0;
+int CColorItem::GScore = 0;
+
+float CColorItem::RCount = 0;
+float CColorItem::BCount = 0;
+float CColorItem::GCount = 0;
+float CColorItem::YCount = 0;
 
 int CExItem::BomTime = 0;
 float CExItem::BBoundNum = 0;
@@ -33,6 +38,7 @@ bool::CColorItem::RBF = false;
 bool::CColorItem::BGF = false;
 bool::CColorItem::GYF = false;
 bool::CColorItem::YRF = false;
+bool::CColorItem::ScorePulsF = false;
 
 bool::CExItem::jumpBF = false;
 bool::CExItem::ReBomF = true;//////////////リスポーンフラグtrueなら存在falseならリスポーン
@@ -41,7 +47,9 @@ CModel CColorItem::mRed;
 CModel CColorItem::mBlue;
 CModel CColorItem::mGreen;
 CModel CColorItem::mYellow;
-//CModel * CColorItem::mpModel;
+
+CVector CExItem::mAdjust = CVector(0.0, 0.0, 0.0);
+
 /*--------------------------------------------------------*/
 CItem::CItem(CModel*model, CVector position, CVector rotation, CVector scale)
 :mItemBody(0)
@@ -100,7 +108,7 @@ CMoveItem::CMoveItem(CModel*model, CVector position, CVector rotation, CVector s
 
 	mpthis = this;
 
-	MMyScorePoint = 100;
+	MMyScorePoint = 200;
 }
 
 CSpinItem::CSpinItem(CModel*model, CVector position, CVector rotation, CVector scale)
@@ -246,10 +254,10 @@ CColorItem::CColorItem(CModel*model, CVector position, CVector rotation, CVector
 	GYF = false;
 	YRF = false;
 
-	RCount = 3;
-	BCount = 3;
-	GCount = 3;
-	YCount = 3;
+	RCount = 2.5;
+	BCount = 2.5;
+	GCount = 2.5;
+	YCount = 2.5;
 
 	mTag = CCharacter::ECOLOR;
 
@@ -302,6 +310,7 @@ CColorItem::~CColorItem(){
 
 
 }
+
 /*----------------------------------------------------------------------------------------------------------------------------*/
 void CColorItem::Init(){
 
@@ -309,8 +318,6 @@ void CColorItem::Init(){
 	mBlue.Load("cube.obj", "Blue.mtl");//青
 	mGreen.Load("cube.obj", "Green.mtl");//緑
 	mYellow.Load("cube.obj", "Yellow.mtl");//黄
-
-	//new CColorItem(&mRed, CVector(0.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(11.0, 11.0, 11.0));
 
 	mNextColor = mYellow;
 }
@@ -350,6 +357,8 @@ void CExItem::Collision(CCollider*Bm, CCollider*y){
 
 		if (y->mType == CCollider::ETRIANGLE){
 
+			mRotation.mZ*-1;
+
 			if (CCollider::CollisionTriangleSphere(y, Bm, &mAdjust)){
 
 				if (BomColF == true){
@@ -357,10 +366,15 @@ void CExItem::Collision(CCollider*Bm, CCollider*y){
 						mAdjust.mZ = NULL;
 
 						if (BBoundNum < 0.75){
-							BBoundNum += 0.02;
+
+							BBoundNum += 0.15;
+
 						}
+
 						else{
+
 							BBoundNum = BBoundNum;
+
 						}
 					
 					BjumpSpeed = mAdjust.Normalize()*BBoundNum;
@@ -378,7 +392,6 @@ void CExItem::Collision(CCollider*Bm, CCollider*y){
 					BomGoF = true;
 
 				}
-
 			}
 		}
 
@@ -388,9 +401,9 @@ void CExItem::Collision(CCollider*Bm, CCollider*y){
 
 				if (y->mpParent->mTag == CCharacter::EBALL){
 
-					//mEnabled = false;
 					ReBomF = false;
 					ReBomF = true;
+
 				}
 
 			}
@@ -399,7 +412,6 @@ void CExItem::Collision(CCollider*Bm, CCollider*y){
 	}
 }
 
-#define COLORCOUNT_CHANGR 1//当たればその色のカウントを増減させる
 void CColorItem::Collision(CCollider*Cm, CCollider*y){
 
 	switch (Cm->mType)
@@ -410,52 +422,50 @@ void CColorItem::Collision(CCollider*Cm, CCollider*y){
 
 			if (CCollider::CollisionTriangleSphere(Cm, y, &aj)){
 
-				ChangeF = true;
+				if (y->mpParent->mTag == CCharacter::EBALL){
+				
+					ChangeF = true;
 
-				if (ChangeF == true){
+					if (ChangeF == true){
 
-					if (CColorItem::mpModel == &mRed)//当たった時のmpModelが赤だった場合
-					{
-						YCount = YCount + COLORCOUNT_CHANGR;
-						RCount = RCount - COLORCOUNT_CHANGR;
-						//BCount + 1;
-						RBF = true;
+						if (CColorItem::mpModel == &mRed)//当たった時のmpModelが赤だった場合
+						{
+							BCount = BCount - 1;
+							RCount = RCount + 1;
+							RBF = true;
+
+						}
+
+						if (CColorItem::mpModel == &mBlue)//当たった時のmpModelが青だった場合
+						{
+							GCount = GCount - 1;
+							BCount = BCount + 1;
+							BGF = true;
+
+						}
+
+						if (CColorItem::mpModel == &mGreen)//当たった時のmpModelが緑だった場合
+						{
+							YCount = YCount - 1;
+							GCount = GCount + 1;
+
+							GYF = true;
+
+						}
+
+						if (CColorItem::mpModel == &mYellow){
+
+							RCount = RCount - 1;
+							YCount = YCount + 1;
+							YRF = true;
+
+						}
+
+						CColorItem::ChangeColor();
 
 					}
-
-					if (CColorItem::mpModel == &mBlue)//当たった時のmpModelが青だった場合
-					{
-						RCount = RCount + COLORCOUNT_CHANGR;
-						BCount = BCount - COLORCOUNT_CHANGR;
-						//GCount + 1;
-						BGF = true;
-
-					}
-
-					if (CColorItem::mpModel == &mGreen)//当たった時のmpModelが緑だった場合
-					{
-						BCount = BCount + COLORCOUNT_CHANGR;
-						GCount = GCount - COLORCOUNT_CHANGR;
-						//YCount + 1;
-						GYF = true;
-
-					}
-
-					if (CColorItem::mpModel == &mYellow){
-
-						GCount = GCount + COLORCOUNT_CHANGR;
-						YCount = YCount - COLORCOUNT_CHANGR;
-						//RCount + 1;
-						YRF = true;
-
-					}
-
-					CColorItem::ChangeColor();
-
-					//ChangeF = false;
 
 				}
-
 			}
 		}
 		break;
@@ -577,6 +587,8 @@ void CBonus::Update(){
 
 void CExItem::Update(){
 
+	mRotation.mZ += 0.7;
+
 	if (BomGoF == true){
 
 		BomTime--;
@@ -648,34 +660,71 @@ void CColorItem::ChangeColor(){
 
 void CColorItem::Update(){
 
-	if (YCount == 0){
+	ScorePulsF = false;
+
+	if (YCount < 0){
+
+		ScorePulsF = true;
+
+		if (ScorePulsF == true){
+
+			CMyScorePoint = YScore;
+
+			mEnabled = false;
+
+			ScorePulsF = false;
+
+		}
+
+	}
+	if (RCount < 0){
+
+		ScorePulsF = true;
+
+		if (ScorePulsF == true){
+
+			CMyScorePoint = RScore;
 
 		mEnabled = false;
 
-		CMyScorePoint = 20000;
+			ScorePulsF = false;
+
+		}
 
 	}
-	if (RCount == 0){
+	if (BCount < 0){
+		
+		ScorePulsF = true;
+
+		if (ScorePulsF == true){
+
+			CMyScorePoint = BScore;
+
+			mEnabled = false;
+
+		ScorePulsF = false;
+
+		}
+
+	}
+	if (GCount < 0){
+
+		ScorePulsF = true;
+
+		if (ScorePulsF == true){
+
+			CMyScorePoint = GScore;
 
 		mEnabled = false;
 
-		CMyScorePoint = 9500;
-
+		}
 	}
-	if (BCount == 0){
 
-		mEnabled = false;
+	//if (YCount == 0 || RCount == 0 || BCount == 0 || GCount == 0){
 
-		CMyScorePoint = 7000;
+	//	ScorePulsF = false;
 
-	}
-	if (GCount == 0){
-
-		mEnabled = false;
-
-		CMyScorePoint = 6000;
-
-	}
+	//}
 
 	CCharacter::Update();
 

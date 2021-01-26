@@ -6,7 +6,14 @@ bool::CBallPlayer::ColF = false;
 bool::CBallPlayer::PlusF = false;
 bool::CBallPlayer::ScorePulsF = true;
 bool::CBallPlayer::GoF = true;
-bool::CBallPlayer::BallF = false;
+
+
+//bool::CBallPlayer::BF = false;//(ノーマル:trueで点数追加falseで無効
+//bool::CBallPlayer::SF = false;//(スピン:trueで点数追加falseで無効
+//bool::CBallPlayer::MF = false;//(移動:trueで点数追加falseで無効
+bool::CBallPlayer::CF = false;//(色:trueで点数追加falseで無効
+//bool::CBallPlayer::BMF = false;//(ボーナス:trueで点数追加falseで無効
+//bool::CBallPlayer::BOF = false;//(ボム:trueで減点falseで無効
 
 CCharacter *CBallPlayer::mpthis = 0;
 int CBallPlayer::BallHP = 0;
@@ -19,6 +26,11 @@ int CBallPlayer::SScoreBox = 0;//スコア箱(スピン
 int CBallPlayer::MScoreBox = 0;//スコア箱(移動
 int CBallPlayer::CScoreBox = 0;//スコア箱(色
 
+//int CBallPlayer::RCount = 0;//赤ブロックHP
+//int CBallPlayer::BCount = 0;//青ブロックHP
+//int CBallPlayer::GCount = 0;//緑ブロックHP
+//int CBallPlayer::YCount = 0;//黄ブロックHP
+
 int CBallPlayer::FeverCount = 0;
 
 extern std::shared_ptr<CTexture>TextureExp;
@@ -28,8 +40,6 @@ CVector CBallPlayer::mAdjust = CVector(0.0, 0.0, 0.0);
 CBallPlayer::CBallPlayer(CModel*model, CVector position, CVector rotation, CVector scale)
 :BallCol(this, CVector(), CVector(),
 CVector(1.0,1.0,1.0), scale.mX){
-
-	mTag = CCharacter::EBALL;
 
 	mpModel = model;
 	
@@ -47,9 +57,11 @@ CVector(1.0,1.0,1.0), scale.mX){
 
 	mTag = CCharacter::EBALL;
 
-	BallHP = 6;
+	BallHP = 5;
 
 	GoF = false;
+
+	//BF, SF, MF, CF = false;
 
 	ScoreMore = 1.0;
 
@@ -61,7 +73,7 @@ CVector(1.0,1.0,1.0), scale.mX){
 
 	FeverCount = 20;
 
-	minusF = true;
+	minusF = false;
 }
 
 CBallPlayer::~CBallPlayer(){
@@ -83,57 +95,60 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 
 				if (ColF == true){
 
-					if (BoundNum < 1.75){
-						BoundNum += 0.8;
+					if (BoundNum < 3.0){
+
+						Boundf = true;
+
+						if (Boundf == true){
+						
+							BoundNum = BoundNum + 0.2;
+
+							Boundf = false;
+						}
+
 					}
+
 					else{
+
 						BoundNum = BoundNum;
+
 					}
 					
 					jumpspeed = mAdjust.Normalize()*BoundNum;
 
 					ColF = false;
+
 				}
 
-				if (y->mpParent->mTag == CCharacter::EITEM ||
-					y->mpParent->mTag == CCharacter::ESPINITEM){
+				if (y->mpParent->mTag == CCharacter::EITEM){ 
+
+					ScoreBox = CBallPlayer::ScoreBox + CItem::BMyScorePoint;
+
+					FeverCount++;
+
+				}
+					//ScorePulsF = false;
+
+				if (y->mpParent->mTag == CCharacter::ESPINITEM){
+
+					ScoreBox = CBallPlayer::ScoreBox + CSpinItem::SMyScorePoint;
 
 					FeverCount++;
 
 				}
 
-				if (y->mpParent->mTag == CCharacter::EITEM){
+				if (y->mpParent->mTag == CCharacter::EMOVEITEM){
 
-					//ScoreMore + 0.1;
-
-					//PlusF = true;
-
-					if (PlusF == false){
-					
-						ScoreBox = ScoreBox + CItem::BMyScorePoint;
-						ScoreBox = ScoreBox + CMoveItem::MMyScorePoint;
-						PlusF = true;
-					}
-
-					ScorePulsF = false;
-
-				}
-				if (y->mpParent->mTag == CCharacter::ESPINITEM){
-
-					ScoreMore + 0.1;
-
-					ScoreBox = ScoreBox + CSpinItem::SMyScorePoint;
-				}
-				if (y->mpParent->mTag == CCharacter::EBOMB){
-
-					ScoreBox = ScoreBox-CExItem::BomCutScore;
+					ScoreBox = CBallPlayer::ScoreBox + CMoveItem::MMyScorePoint;
 
 				}
 
+				if (y->mpParent->mTag == CCharacter::ECOLOR){}
 
 				if (y->mpParent->mTag == CCharacter::EMOVEBONUS){
 
 					ScoreBox = ScoreBox + CBonus::BMyScorePoint;
+
 					FeverCount + 2;
 
 				}
@@ -149,8 +164,6 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 					jumpF = false;
 
 					BallHP = BallHP - 1;
-
-					BallF = true;
 
 					GoF = false;
 				}
@@ -168,8 +181,7 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 					new CEffect(y->mPosition*y->mMatrix*y->mpParent->mMatrix, 10.0f, 10.0f, TextureExp, 4, 4, 3);
 
 					CExItem::ReBomF = false;
-					minusF = false;
-					//minusF=true;
+					minusF=true;
 				}
 			}
 		}
@@ -183,8 +195,6 @@ void CBallPlayer::Update(){
 
 	ColF = true;
 
-	PlusF = false;
-
 	CBallPlayer::BScoreBox = CItem::BMyScorePoint;
 	CBallPlayer::SScoreBox = CSpinItem::SMyScorePoint;
 	CBallPlayer::MScoreBox = CMoveItem::MMyScorePoint;
@@ -194,7 +204,7 @@ void CBallPlayer::Update(){
 	
 	if (GoF == false){
 
-		if (CBallPlayer::BallHP){
+		if (CBallPlayer::BallHP > 0){
 
 			if (BALLtime < 0 && CKey::Once(' ')){
 
@@ -214,23 +224,14 @@ void CBallPlayer::Update(){
 
 	}
 
-	if (minusF == false){
+
+	if (minusF == true){
 
 		ScoreBox = ScoreBox - CExItem::BomCutScore;
-		minusF = true;
+		minusF = false;
 
 	}
 
-	if (CBallPlayer::FeverCount > 19){
-
-		if (CKey::Once('F')){
-
-			CMoveItem::FeverF = true;
-
-			FeverCount = 0;
-		}
-
-	}
 
 	mPosition = mPosition + mAdjust + jumpspeed;
 

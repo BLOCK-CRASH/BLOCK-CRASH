@@ -10,10 +10,21 @@ public:
 	{
 		ETITEL,//タイトル
 		EMENU,//セレクト
-		EGAME1,//ステージ
+		EGAME1_WAVE1,//ステージ1のウェーブ1
+		EGAME1_WAVE2,//ステージ1のウェーブ2
+		EGAME1_WAVE3,//ステージ1のウェーブ3
+
 		EGAME2,//ステージ2
+
+
 		EGAME3,//ステージ3
-		ERESULT,//リザルト画面
+
+
+		ESTAGE1_RESULT,//リザルト画面
+		ESTAGE2_RESULT,//リザルト画面
+		ESTAGE3_RESULT,//リザルト画面
+
+
 		ESTAY,//2D説明画面
 		ESTAY3D,//3D説明画面
 	};

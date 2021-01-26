@@ -1,6 +1,7 @@
 #include "CResult.h"
 #include "CKey.h"
 #include "CSceneGame.h"
+#include "CSceneGame_Wave2.h"
 #include "CTitle.h"
 
 void CResult::Init(){
@@ -17,7 +18,7 @@ void CResult::Init(){
 	CText::mFont.SetRowCol(1, 4096 / 64);
 
 	//タイトル設定
-	mScene = ERESULT;
+	mScene = ESTAGE1_RESULT;
 
 }
 
@@ -38,7 +39,9 @@ void CResult::Update(){
 	CText::DrawString("GAME  SET!!", 300, 500, 12, 14);
 	CText::DrawString("RUNK", 200, 80, 16, 14);
 
-	CText::DrawString("YOU SCORE  ....", 140, 400, 12, 14);////////////////////////得点
+	CText::DrawString("WAVE1 SCORE  ....", 110, 400, 12, 14);////////////////////////得点
+	CText::DrawString("WAVE2 SCORE  ....", 110, 350, 12, 14);////////////////////////得点
+	CText::DrawString("WAVE3 SCORE  ....", 110, 300, 12, 14);////////////////////////得点
 	CText::DrawString("TOTAL[        ]", 160, 180, 19, 21);////////////////////////残機数
 
 	
@@ -66,9 +69,13 @@ void CResult::Update(){
 	}
 
 	if (EScoreffF == false){
-
-		sprintf(buf, "%d", CBallPlayer::ScoreBox);
+		//CSceneGame_Wave2::Stage1_Wave2Score
+		sprintf(buf, "%d", CSceneGame::Stage1_Wave1Score);
 		CBlackText::DrawString(buf, 550, 400, 17, 19);
+
+		sprintf(buf, "%d", CSceneGame_Wave2::Stage1_Wave2Score);
+		CBlackText::DrawString(buf, 550, 400, 17, 19);
+
 
 	}
 
@@ -76,10 +83,21 @@ void CResult::Update(){
 //残機数処理
 /*-----------------------------------------------------------------------------------------------------*/
 
-
-	CText::DrawString("LIFE BONUS ....", 140, 330, 12, 14);////////////////////////残機数
+	CText::DrawString("LIFE BONUS ....", 140, 320, 12, 14);////////////////////////残機数
 	sprintf(buf, "%d", CBallPlayer::BallHP);
-	CText::DrawString(buf, 550, 330, 17, 19);
+	CText::DrawString(buf, 550, 320, 17, 19);
+
+/*-----------------------------------------------------------------------------------------------------*/
+//残機数処理
+/*-----------------------------------------------------------------------------------------------------*/
+
+	CText::DrawString("COLOR BONUS ....", 140, 240, 12, 14);////////////////////////残機数
+
+
+
+		sprintf(buf, "%d", CColorItem::CMyScorePoint);
+		CBlackText::DrawString(buf, 550, 230, 17, 19);
+
 
 /*-----------------------------------------------------------------------------------------------------*/
 //合計点処理
@@ -113,6 +131,7 @@ void CResult::Update(){
 
 			TotalScore = CBallPlayer::BallHP*CBallPlayer::ScoreBox;////////////////////////BallHP*合計点
 
+			TotalScore = TotalScore + CColorItem::CMyScorePoint;
 		}
 
 	}
@@ -136,7 +155,7 @@ void CResult::Update(){
 
 		}
 
-		if (TotalScore < 17499 && TotalScore > 10000){
+		if (TotalScore < 14999 && TotalScore > 10000){
 
 			CBlackText::DrawString("B", 500, 80, 17, 15);
 

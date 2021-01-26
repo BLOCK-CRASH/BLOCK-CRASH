@@ -21,7 +21,8 @@
 #include "CKey.h"
 //
 #include "CRectangle.h"
-
+//
+#include "CDammyBallPlayer.h"
 /*
 フィーバーゲージ
 */
@@ -45,6 +46,7 @@ class CGage :public CRectangle{
 
 /*
 ゲームのシーン
+ステージ1のウェーブ1
 */
 
 class CSceneGame : public CScene {
@@ -72,16 +74,15 @@ public:
 
 	CModel mBall;
 	
+	CModel mDammyBall;
+
 	CModel mBomb;
 
 	CModel mDelete;//ステルスで表示
 
 	CModel mStage1;
 
-	//CModel mBlue;//青のマテリアル
-	//CModel mGreen;//緑のマテリアル
-	//CModel mRed;//赤のマテリアル
-	//CModel mYellow;//黄のマテリアル
+	int WAVE1GAMETIME;//ウェーブ1制限時間
 
 	bool mEnable;
 
@@ -89,7 +90,27 @@ public:
 	
 	bool Result;
 
-	static int GAMETIME;
+	bool BigTime;
+
+	bool DammyRenf;
+
+	int RedCount;
+
+	int BuleCount;
+
+	int GreenCount;
+
+	int YellowCount;
+
+	static int Stage1_Wave1Score;
+
+	static int YScore;
+
+	static int RScore;
+
+	static int BScore;
+
+	static int GScore;
 
 	static int COUNTDOWN;
 
@@ -127,6 +148,14 @@ public:
 	CModel mDelete;
 
 	C3DCamera mCamera;
+
+	static int YScore;
+
+	static int RScore;
+
+	static int BScore;
+
+	static int GScore;
 
 	bool mEnable;
 

@@ -167,7 +167,7 @@ public:
 
 	CVector BjumpSpeed;
 
-	CVector mAdjust;
+	static CVector mAdjust;
 
 	static bool jumpBF;
 
@@ -234,6 +234,8 @@ class CColorItem :public CCharacter{
 
 public:
 
+	static bool ScorePulsF;
+
 	CVector aj;
 
 static CModel mBlue;//青のマテリアル
@@ -241,7 +243,8 @@ static CModel mGreen;//緑のマテリアル
 static CModel mRed;//赤のマテリアル
 static CModel mYellow;//黄のマテリアル
 
-static	int YCount;//黄色ブロックカウントMaxで20000
+static	float YCount;//黄色ブロックカウントMaxで20000
+static int YScore;
 	/*
 
 	# Blender MTL File: 'None'
@@ -259,7 +262,9 @@ static	int YCount;//黄色ブロックカウントMaxで20000
 
 	*/
 
-static	int RCount;//赤ブロックカウントMaxで9500
+static	float RCount;//赤ブロックカウントMaxで9500
+static int RScore;
+
 	/*
 	
 	# Blender MTL File: 'None'
@@ -276,7 +281,9 @@ static	int RCount;//赤ブロックカウントMaxで9500
 	illum 2
 	*/
 	
-static	int BCount;//青ブロックカウントMaxで7000
+static	float BCount;//青ブロックカウントMaxで7000
+static int BScore;
+
 	/*
 	
 # Blender MTL File: 'None'
@@ -293,7 +300,9 @@ d 1.000000
 illum 2
 */
 
-static int GCount;//緑ブロックカウントMaxで6000
+static float GCount;//緑ブロックカウントMaxで6000
+static int GScore;
+
 	/*
 	
 	# Blender MTL File: 'None'

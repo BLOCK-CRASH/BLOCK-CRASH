@@ -109,7 +109,7 @@ void CMenu::Update(){
 
 	if (Y==370&&CKey::Once(VK_RETURN))
 	{
-		mScene = EGAME1;
+		mScene = EGAME1_WAVE1;
 	}
 
 	if (Y == 300 && CKey::Once(VK_RETURN))

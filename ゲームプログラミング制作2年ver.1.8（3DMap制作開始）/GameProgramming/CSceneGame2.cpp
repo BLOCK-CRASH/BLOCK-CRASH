@@ -101,7 +101,7 @@ void CSceneGame2::Update() {
 
 			if (CKey::Once(VK_RETURN)){
 
-				mScene = ERESULT;
+				mScene = ESTAGE2_RESULT;
 
 			}
 

@@ -1,5 +1,6 @@
 #include "CSceneManager.h"
 #include "CSceneGame.h"
+#include "CSceneGame_Wave2.h"
 #include "CTitle.h"
 #include "CMenu.h"
 #include "CResult.h"
@@ -51,19 +52,25 @@ void CSceneManager::Update() {
 
 			break;
 
-		case CScene::EGAME1:
+		case CScene::EGAME1_WAVE1://ステージ1のウェーブ1
 			mpScene = new CSceneGame();
 			mpScene->Init();
 
 			break;
 		
+		case CScene::EGAME1_WAVE2://ステージ1のウェーブ2
+			mpScene = new CSceneGame_Wave2();
+			mpScene->Init();
+
+			break;
+
 		case CScene::EGAME2:
 			mpScene = new CSceneGame2();
 			mpScene->Init();
 
 			break;
 
-		case CScene::ERESULT:
+		case CScene::ESTAGE1_RESULT:
 
 			mpScene = new CResult();
 			mpScene->Init();

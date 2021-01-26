@@ -41,6 +41,8 @@ public:
 
 	bool minusF;
 
+	bool Boundf;//バウンドフラグtrueで加算falseで無効
+
 	static int BallHP;
 
 	static float BoundNum;	
@@ -59,9 +61,25 @@ public:
 
 	static int CScoreBox;//スコア箱(色
 
+	//static int RCount;	//赤ブロックHP
+	//static int BCount; //青ブロックHP
+	//static int GCount; //緑ブロックHP
+	//static int YCount; //黄ブロックHP
+
+	//static bool BF; //スコアフラグ(ノーマル
+
+	//static bool SF;//スコアフラグ(スピン
+
+	//static bool MF;//スコアフラグ(移動
+
+	static bool CF;//スコアフラグ(色
+
+	//static bool BMF;
+
+	//static bool BOF;//スコアフラグ(爆弾
+
 	static bool GoF;//スタート重力フラグ	
 
-	static bool BallF;//ボールおんおふぅ
 
 	CBallPlayer(CModel*model, CVector position, CVector rotation, CVector scale);
 
