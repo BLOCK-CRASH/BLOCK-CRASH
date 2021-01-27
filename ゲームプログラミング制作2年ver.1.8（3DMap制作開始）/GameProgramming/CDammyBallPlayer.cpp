@@ -54,7 +54,7 @@ CVector(1.0, 1.0, 1.0), scale.mX){
 
 CDammyBallPlayer::~CDammyBallPlayer(){
 
-	CCollisionManager::Get()->Remove(this);
+	CTaskManager::Get()->Remove(this);
 	mpthis = 0;
 
 }
@@ -70,6 +70,7 @@ void CDammyBallPlayer::Collision(CCollider*Dammy, CCollider*y){
 
 			if (CCollider::CollisionTriangleSphere(y, Dammy, &mDAdjust)){
 
+
 				if (DColF == true){
 
 					if (DBoundNum < 3.0){
@@ -81,6 +82,8 @@ void CDammyBallPlayer::Collision(CCollider*Dammy, CCollider*y){
 							DBoundNum = DBoundNum + 0.05;
 
 							BMinusF = false;
+
+							DammyHP--;
 
 						}
 
@@ -148,7 +151,7 @@ void CDammyBallPlayer::Update(){
 
 		if (CDammyBallPlayer::DammyHP > 0){
 
-			if (/*DammyBallTime < 0 && */CKey::Once('D')){
+			if (CKey::Once('D')){
 
 				DammyGoF = true;
 

@@ -21,8 +21,11 @@ public:
 
 
 		ESTAGE1_RESULT,//リザルト画面
+
 		ESTAGE2_RESULT,//リザルト画面
+
 		ESTAGE3_RESULT,//リザルト画面
+
 
 
 		ESTAY,//2D説明画面

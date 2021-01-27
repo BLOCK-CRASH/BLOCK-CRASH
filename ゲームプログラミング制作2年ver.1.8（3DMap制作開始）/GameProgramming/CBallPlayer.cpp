@@ -94,7 +94,7 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 
 						if (Boundf == true){
 						
-							BoundNum = BoundNum + 0.2;
+							BoundNum = BoundNum + 0.05;
 
 							Boundf = false;
 						}

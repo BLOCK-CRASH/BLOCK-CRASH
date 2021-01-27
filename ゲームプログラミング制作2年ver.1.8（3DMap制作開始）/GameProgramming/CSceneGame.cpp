@@ -25,18 +25,15 @@ void CSceneGame::Init() {
 
 	COUNTDOWN = 4 * 60;
 
-	WAVE1GAMETIME = 21 * 60;
+	Attention = 1 * 60;
+
+	WAVE1GAMETIME = 50 * 60;
 
 	mScene = EGAME1_WAVE1;
 
 	Result = false;
 
 	BigTime = true;
-
-	CColorItem::RCount - 1;
-	CColorItem::BCount - 1;
-	CColorItem::GCount - 1;
-	CColorItem::YCount - 1;
 
 	YScore = 20000;//黄色けしボーナス
 	RScore = 10000;//赤けしボーナス
@@ -59,6 +56,8 @@ void CSceneGame::Init() {
 	mBoardR.Load("cubeRotate.obj", "cubeRotate.mtl");
 
 	mBoard.Load("cube.obj", "cube.mtl");
+
+	mMove.Load("cube.obj", "movecube.mtl");
 
 	mBall.Load("sphere.obj", "sphere.mtl");
 
@@ -87,20 +86,20 @@ void CSceneGame::Init() {
 
 	///*移動アイテムブロック----------------------------------------------------------------------------*/
 
-	new CMoveItem(&mBoard, CVector(-2000.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(15.0,15.0,5.0));
-	new CMoveItem(&mBoard, CVector(-1900.0f, 100.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0, 15.0, 5.0));
-	new CMoveItem(&mBoard, CVector(-1800.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(15.0, 15.0, 5.0));
-	new CMoveItem(&mBoard, CVector(-1700.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0, 15.0, 5.0));
-	new CMoveItem(&mBoard, CVector(-1600.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(15.0, 15.0, 5.0));
-	new CMoveItem(&mBoard, CVector(-1500.0f, 100.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0, 15.0, 5.0));
-	new CMoveItem(&mBoard, CVector(-1400.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(15.0, 15.0, 5.0));
-	new CMoveItem(&mBoard, CVector(-1300.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0, 15.0, 5.0));
-	new CMoveItem(&mBoard, CVector(-1200.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(15.0, 15.0, 5.0));
-	new CMoveItem(&mBoard, CVector(-1100.0f, 100.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0, 15.0, 5.0));
-	new CMoveItem(&mBoard, CVector(-1000.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(15.0, 15.0, 5.0));
-	new CMoveItem(&mBoard, CVector(-900.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0, 15.0, 5.0));
-	new CMoveItem(&mBoard, CVector(-800.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(15.0, 15.0, 5.0));
-	new CMoveItem(&mBoard, CVector(-700.0f, 100.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0, 15.0, 5.0));
+	new CMoveItem(&mMove, CVector(-2000.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(15.0, 15.0, 5.0));
+	new CMoveItem(&mMove, CVector(-1900.0f, 100.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0, 15.0, 5.0));
+	new CMoveItem(&mMove, CVector(-1800.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(15.0, 15.0, 5.0));
+	new CMoveItem(&mMove, CVector(-1700.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0, 15.0, 5.0));
+	new CMoveItem(&mMove, CVector(-1600.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(15.0, 15.0, 5.0));
+	new CMoveItem(&mMove, CVector(-1500.0f, 100.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0, 15.0, 5.0));
+	new CMoveItem(&mMove, CVector(-1400.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(15.0, 15.0, 5.0));
+	new CMoveItem(&mMove, CVector(-1300.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0, 15.0, 5.0));
+	new CMoveItem(&mMove, CVector(-1200.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(15.0, 15.0, 5.0));
+	new CMoveItem(&mMove, CVector(-1100.0f, 100.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0, 15.0, 5.0));
+	new CMoveItem(&mMove, CVector(-1000.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(15.0, 15.0, 5.0));
+	new CMoveItem(&mMove, CVector(-900.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0, 15.0, 5.0));
+	new CMoveItem(&mMove, CVector(-800.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(15.0, 15.0, 5.0));
+	new CMoveItem(&mMove, CVector(-700.0f, 100.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0, 15.0, 5.0));
 
 	/*ノーマルアイテムブロック----------------------------------------------------------------------------*/
 	new CItem(&mBoard, CVector(150.0f/*40.0*/, -75.0f, 0.0f), CVector(0.0f, 0.0f, -30.0f/*45*/), CVector(11.0, 11.0, 11.0));
@@ -121,10 +120,21 @@ void CSceneGame::Init() {
 
 	/*カラーアイテムブロック----------------------------------------------------------------------------*/
 
+	CColorItem::RCount = 2;
+	CColorItem::BCount = 2;
+	CColorItem::GCount = 2;
+	CColorItem::YCount = 2;
+
 	new CColorItem(&CColorItem::mRed, CVector(0.0f, 200.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
-	//new CColorItem(&CColorItem::mBlue, CVector(0.0f, -200.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
 	new CColorItem(&CColorItem::mGreen, CVector(0.0f, -200.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
+
+	CColorItem::RCount = CColorItem::RCount - 1;
+
+	CColorItem::GCount = CColorItem::GCount - 1;
+
 	//new CColorItem(&CColorItem::mYellow, CVector(-250.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
+	//new CColorItem(&CColorItem::mBlue, CVector(0.0f, -200.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
+
 
 	///*ボーナスアイテムブロック----------------------------------------------------------------------------*/
 	//new CBonus(&mBoard, CVector(600.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0));
@@ -209,6 +219,7 @@ void CSceneGame::Update() {
 
 					CColorItem::ScorePulsF = false;
 
+
 		}
 
 	}
@@ -262,7 +273,7 @@ void CSceneGame::Update() {
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める
-	e = CVector(0.0f, 0.0f, -850.0f);////0.0,0.0,-300
+	e = CVector(0.0f, 0.0f, -550.0f);////0.0,0.0,-300
 	//注視点を求める
 	c = CVector(0.0f, 0.0f, 0.0f);
 	//上方向を求める
@@ -280,7 +291,7 @@ void CSceneGame::Update() {
 	//2D描画開始
 	Start2D(0, 800, 0, 600);
 
-	if (COUNTDOWN > 60){
+	if (COUNTDOWN > 0){//最初のカウントダウン
 
 		COUNTDOWN--;
 
@@ -288,26 +299,58 @@ void CSceneGame::Update() {
 		
 			char buf[10];
 
-			sprintf(buf, "%d", COUNTDOWN / 60);
+			if (COUNTDOWN > 61){
+			
+				sprintf(buf, "%d", COUNTDOWN / 60);
 
-			CText::DrawString(buf, 400, 500, 30, 30);
+				CText::DrawString(buf, 400, 500, 30, 30);
+
+			}
+
+			if (COUNTDOWN < 60 && COUNTDOWN > 0){
+
+				CText::DrawString("GO!!", 300, 500, 30, 30);
+
+			}
+
 
 		}
 
 	}
 
-	else if (COUNTDOWN > 0){
+	/*---------------------------------------------------------------------------------------*/
 
-		COUNTDOWN--;
+	//ステージ、ウェーブ名
+	CText::DrawString("SUTAG1", 10, 585, 12, 14);
+	CText::DrawString("WAVE 1", 10, 555, 12, 14);
 
-			CText::DrawString("GO!!", 300, 500, 30, 30);
-		}
+	//フィーバーゲージ
+	if (CBallPlayer::FeverCount > 19
+		&& CMoveItem::FeverF == false){
+
+		CText::DrawString("PUSH F KEY!!", 24, 50, 12, 14);
+
+	}
+
+	//現在スコア
+	char buf[100];
+
+	CText::DrawString("SCORE", 40, 20, 12, 14);
+
+	sprintf(buf, "%d", CSceneGame::Stage1_Wave1Score);
+
+	CBlackText::DrawString(buf, 200, 20, 10, 12);
+
+/*---------------------------------------------------------------------------------------*/
+
+	//タイム処理
 
 	if (COUNTDOWN <= 0){
-	
+
 		WAVE1GAMETIME--;
 
-		if (WAVE1GAMETIME > 601){
+	}
+		if (WAVE1GAMETIME > 601){//ウェーブごとの時間
 
 			BigTime = false;
 
@@ -317,13 +360,15 @@ void CSceneGame::Update() {
 
 				sprintf(buf, "%d", WAVE1GAMETIME / 60);
 
-				CText::DrawString(buf, 680, 550, 30, 30);
+				CText::DrawString(buf, 680, 540, 20, 20);
+
+				CText::DrawString("WAVE1TIME",620, 575, 10, 16);
 
 			}
 
 		}
 
-		if (WAVE1GAMETIME > 61 && WAVE1GAMETIME < 600){
+		if (WAVE1GAMETIME > 61 && WAVE1GAMETIME < 600){//ウェーブごとの時間、大文字
 
 			BigTime = true;
 
@@ -339,40 +384,40 @@ void CSceneGame::Update() {
 
 		}
 
-		if (WAVE1GAMETIME < 60){
+/*--------------------------------------------------------------------------------------*/
 
-			CText::DrawString("TIME UP!", 300, 500, 14, 16);
-			CText::DrawString("LET'S NEXT WAVE", 260, 400, 10, 12);
+	if (WAVE1GAMETIME < 60){
 
-			//今のトータルスコア
+		//時間切れ
+		CText::DrawString("TIME UP!", 300, 500, 14, 16);
+		CText::DrawString("LET'S NEXT WAVE", 260, 400, 10, 12);
+		CText::DrawString("PUSH ENTER KEY", 260, 330, 10, 12);
 
-			CText::DrawString("PUSH ENTER KEY", 260, 330, 10, 12);
-
-
-		}
 
 	}
 
 	if (CBallPlayer::BallHP == 0){
 
-		CBallPlayer::BallHP = 0;
-
 		CText::DrawString("GAME OVER...", 280, 400, 15, 18);
+
+		if (CSceneGame::WAVE1GAMETIME < 61){
+
+			Result = false;
+
+			mEnable = false;
+
+			if (Result == false){
+
+				if (CKey::Once(VK_RETURN)){
+
+					mScene = ESTAGE1_RESULT;
+
+				}
+			}
+		}
+
 	}
 
-	if (CBallPlayer::FeverCount > 19
-		&& CMoveItem::FeverF == false){
-
-		CText::DrawString("PUSH F KEY!!", 24, 50, 12, 14);
-
-	}
-	CText::DrawString("SUTAG.1", 20, 20, 10, 12);
-
-	char buf[100];
-
-	sprintf(buf, "%d", CSceneGame::Stage1_Wave1Score);
-
-	CBlackText::DrawString(buf, 200, 20, 10, 12);
 
 	CTaskManager::Get()->Delete();
 
@@ -400,14 +445,3 @@ CSceneGame::~CSceneGame() {
 	CCollisionManager::Get()->Destory();
 
 }
-///*マップブロック----------------------------------------------------------------------------*/
-//new CObj(&mBoard, CVector(265.0f, 137.0f, 0.0f), CVector(0.0f, 0.0f, 75.0), CVector(15.0f, 120.0f, 10.0));
-//new CObj(&mBoard, CVector(-265.0f, 137.0f, 0.0f), CVector(0.0f, 0.0f, -75.0), CVector(15.0f, 120.0f, 10.0));
-//new CObj(&mBoard, CVector(-235.0f, -125.0f, 0.0f), CVector(0.0f, 0.0f, -10.0), CVector(20.0f, 170.0f, 10.0));
-//new CObj(&mBoard, CVector(235.0f, -125.0f, 0.0f), CVector(0.0f, 0.0f, 10.0), CVector(20.0f, 170.0f, 10.0));
-//new CObj(&mBoard, CVector(195.0f, -160.0f, 0.0f), CVector(0.0f, 0.0f, -20.0), CVector(20.0f, 40.0f, 10.0));
-//new CObj(&mBoard, CVector(-195.0f, -160.0f, 0.0f), CVector(0.0f, 0.0f, 20.0), CVector(20.0f, 40.0f, 10.0));
-//new CObj(&mBoard, CVector(-235.0f, -120.0f, 0.0f), CVector(0.0f, 0.0f, -115.0), CVector(20.0f, 95.0f, 10.0));
-//new CObj(&mBoard, CVector(235.0f, -120.0f, 0.0f), CVector(0.0f, 0.0f, 115.0), CVector(20.0f, 95.0f, 10.0));
-//new CObj(&mBoard, CVector(195.0f, 135.0f, 0.0f), CVector(0.0f, 0.0f, 40.0), CVector(20.0f, 20.0f, 10.0));
-//new CObj(&mBoard, CVector(-195.0f, 135.0f, 0.0f), CVector(0.0f, 0.0f, -40.0), CVector(20.0f, 20.0f, 10.0));

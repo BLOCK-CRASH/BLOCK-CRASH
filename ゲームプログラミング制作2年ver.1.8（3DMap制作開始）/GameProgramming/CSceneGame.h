@@ -72,8 +72,12 @@ public:
 
 	CModel mBoard;
 
+	CModel mMove;
+
 	CModel mBall;
 	
+	int Attention;
+
 	CModel mDammyBall;
 
 	CModel mBomb;

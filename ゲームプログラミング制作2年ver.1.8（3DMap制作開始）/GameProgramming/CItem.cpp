@@ -204,7 +204,7 @@ CVector(1.0,1.0,1.0), scale.mX){
 
 	BomCutScore = 500;
 
-	BomTime = 60 * 60;
+	BomTime = 91 * 60;
 }
 
 CDeleteBlock::CDeleteBlock(CModel*model, CVector position, CVector rotation, CVector scale)
@@ -249,15 +249,10 @@ CColorItem::CColorItem(CModel*model, CVector position, CVector rotation, CVector
 
 	}
 
-	RBF = false;
-	BGF = false;
-	GYF = false;
-	YRF = false;
-
-	RCount = 2.5;
-	BCount = 2.5;
-	GCount = 2.5;
-	YCount = 2.5;
+	RBF = false;//赤から青へ変わるフラグ
+	BGF = false;//青から緑へ変わるフラグ
+	GYF = false;//緑から色へ変わるフラグ
+	YRF = false;//黄色から赤へ変わるフラグ
 
 	mTag = CCharacter::ECOLOR;
 
@@ -430,33 +425,24 @@ void CColorItem::Collision(CCollider*Cm, CCollider*y){
 
 						if (CColorItem::mpModel == &mRed)//当たった時のmpModelが赤だった場合
 						{
-							BCount = BCount - 1;
-							RCount = RCount + 1;
 							RBF = true;
 
 						}
 
 						if (CColorItem::mpModel == &mBlue)//当たった時のmpModelが青だった場合
 						{
-							GCount = GCount - 1;
-							BCount = BCount + 1;
 							BGF = true;
 
 						}
 
 						if (CColorItem::mpModel == &mGreen)//当たった時のmpModelが緑だった場合
 						{
-							YCount = YCount - 1;
-							GCount = GCount + 1;
-
 							GYF = true;
 
 						}
 
 						if (CColorItem::mpModel == &mYellow){
 
-							RCount = RCount - 1;
-							YCount = YCount + 1;
 							YRF = true;
 
 						}
@@ -594,8 +580,6 @@ void CExItem::Update(){
 
 		mPosition = CVector(0.0f, 301.0f, 0.0f);
 
-		BomTime + 4000;
-
 		ReBomF = true;
 
 	}
@@ -614,18 +598,34 @@ void CDeleteBlock::Update(){
 void CColorItem::ChangeColor(){
 	
 	if (CColorItem::RBF == true){
+
+		BCount = BCount - 1;
+		RCount = RCount + 1;
+
 		CColorItem::mpModel = &mBlue;
 		CColorItem::RBF = false;
 	}
 	if (CColorItem::BGF == true){
+
+		GCount = GCount - 1;
+		BCount = BCount + 1;
+
 		CColorItem::mpModel = &mGreen;
 		CColorItem::BGF = false;
 	}
 	if (CColorItem::GYF == true){
+
+		YCount = YCount - 1;
+		GCount = GCount + 1;
+
 		CColorItem::mpModel = &mYellow;
 		CColorItem::GYF = false;
 	}
 	if (CColorItem::YRF == true){
+
+		RCount = RCount - 1;
+		YCount = YCount + 1;
+
 		CColorItem::mpModel = &mRed;
 		CColorItem::YRF = false;
 	}
@@ -639,62 +639,25 @@ void CColorItem::Update(){
 
 	ScorePulsF = false;
 
-	if (YCount < 0){
-
-		ScorePulsF = true;
-
-		if (ScorePulsF == true){
-
-			CMyScorePoint = YScore;
-
-			mEnabled = false;
-
-			ScorePulsF = false;
-
-		}
-
-	}
-	if (RCount < 0){
-
-		ScorePulsF = true;
-
-		if (ScorePulsF == true){
-
-			CMyScorePoint = RScore;
+	if (YCount == 0){
 
 		mEnabled = false;
 
-			ScorePulsF = false;
+	}
+	if (RCount == 0){
 
-		}
+		mEnabled = false;
 
 	}
-	if (BCount < 0){
+	if (BCount == 0){
 		
-		ScorePulsF = true;
-
-		if (ScorePulsF == true){
-
-			CMyScorePoint = BScore;
-
-			mEnabled = false;
-
-		ScorePulsF = false;
-
-		}
+		mEnabled = false;
 
 	}
-	if (GCount < 0){
-
-		ScorePulsF = true;
-
-		if (ScorePulsF == true){
-
-			CMyScorePoint = GScore;
+	if (GCount == 0){
 
 		mEnabled = false;
 
-		}
 	}
 
 	//if (YCount == 0 || RCount == 0 || BCount == 0 || GCount == 0){
