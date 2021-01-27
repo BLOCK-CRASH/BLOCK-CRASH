@@ -211,6 +211,17 @@ void CBallPlayer::Update(){
 		}
 	}
 
+	if (CBallPlayer::FeverCount > 19){
+
+		if (CKey::Once('F')){
+
+			CMoveItem::FeverF = true;
+
+			CBallPlayer::FeverCount = 0;
+		}
+
+	}
+
 	if (jumpF == true){
 
 		mPosition = mPosition + jumpspeed;

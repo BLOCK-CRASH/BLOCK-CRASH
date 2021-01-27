@@ -100,7 +100,7 @@ CMoveItem::CMoveItem(CModel*model, CVector position, CVector rotation, CVector s
 			model->mTriangles[i].mV[2]);
 
 	}
-	FeverTime = 15 * 60;
+	FeverTime = 20 * 60;
 
 	mTag = CCharacter::EITEM;
 
@@ -493,41 +493,18 @@ void CMoveItem::Update(){
 
 		FeverTime--;
 
-		BminusF = true;
-
-		if (RebirthF == false){
+		if (FeverTime > 0){
 		
-			mPosition.mX += 2.1;
+			mPosition.mX += 2.3;
 
-		}
-
-		if (CMoveItem::FeverTime > 0){
-		
-			if (mPosition.mX == 1000){
-
-				mPosition.mX = -500;
-
-			}
-
+			mRotation.mZ += 0.25;
 		}
 
 	}
 
 	if (FeverTime < 0){
 
-		mPosition.mX += 2.1;
-
 		FeverF = false;
-
-		if (FeverF == false){
-
-			//mEnabled = false;
-
-		}
-
-		else if (FeverF == true){}
-
-		//CTaskManager::Get()->Delete();
 
 	}
 
