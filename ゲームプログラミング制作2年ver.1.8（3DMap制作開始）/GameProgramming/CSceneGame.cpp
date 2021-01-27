@@ -33,7 +33,7 @@ void CSceneGame::Init() {
 
 	BigTime = true;
 
-	RedCount = CColorItem::RCount - 1;
+	CColorItem::RCount - 1;
 	CColorItem::BCount - 1;
 	CColorItem::GCount - 1;
 	CColorItem::YCount - 1;
@@ -139,6 +139,8 @@ void CSceneGame::Init() {
 	new CBallPlayer(&mBall, CVector(0.0f, 80.0f, 0.0f), CVector(), CVector(9.0f, 9.0f, 9.0));
 	new CExItem(&mBomb, CVector(0.0f/*100*/, 450.0f, 0.0f), CVector(), CVector(20.0f, 20.0f, 20.0));
 
+	new CDammyBallPlayer(&mDammyBall, CVector(200.0, 50.0, 0.0), CVector(), CVector(5.0, 5.0, 5.0));
+
 /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 	new CDeleteBlock(&mDelete, CVector(-320.0f, -320.0f, 0.0f), CVector(0.0, 0.0, -45.0), CVector(100.0f, 10.0f, 10.0));
@@ -191,18 +193,6 @@ void CSceneGame::Update() {
 
 			}
 		}
-	}
-
-	if (CKey::Push('D')){
-
-		DammyRenf = true;
-
-		if (DammyRenf == true){
-
-			new CDammyBallPlayer(&mDammyBall, CVector(200.0, 50.0, 0.0), CVector(), CVector(5.0, 5.0, 5.0));
-
-		}
-
 	}
 
 	if (CBallPlayer::FeverCount > 19){
@@ -277,6 +267,7 @@ void CSceneGame::Update() {
 	//CColorItem::ChangeColor();
 
 	CBallPlayer::mAdjust.mZ = NULL;
+	CDammyBallPlayer::mDAdjust.mZ = NULL;
 	CExItem::mAdjust.mZ = NULL;
 
 	//カメラのパラメータを作成する

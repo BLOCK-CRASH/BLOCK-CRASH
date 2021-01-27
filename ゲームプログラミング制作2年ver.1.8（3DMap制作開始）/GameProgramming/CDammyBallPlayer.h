@@ -31,17 +31,19 @@ public:
 
 	static CVector jumpspeed;
 
-	static	CVector mAdjust;
+	static	CVector mDAdjust;
 
-	static bool jumpF;
+	bool jumpF;
 
-	static bool ColF;
+	bool DColF;
 
 	static bool PlusF;
 
 	bool minusF;//点数
 
-	bool BMinusF;//ダミー減速用フラグ
+	bool BMinusF;//バウンド加速フラグ
+
+	bool DammyRenf;
 
 	static int DammyHP;
 
@@ -61,11 +63,11 @@ public:
 
 	static int DammyCScoreBox;//スコア箱(色
 
-	static bool DammyGoF;//スタート重力フラグ	
+	bool DammyGoF;//スタート重力フラグ	
 
 	CDammyBallPlayer(CModel*model, CVector position, CVector rotation, CVector scale);
 
-	void CCollision(CCollider*Dammy, CCollider*y);
+	void Collision(CCollider*Dammy, CCollider*y);
 
 	void TaskCollision();
 

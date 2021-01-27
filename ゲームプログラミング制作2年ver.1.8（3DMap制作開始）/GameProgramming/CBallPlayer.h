@@ -33,11 +33,11 @@ public:
 
 	static	CVector mAdjust;
 
-	static bool jumpF;
+	bool jumpF;
 
-	static bool ColF;
+	bool ColF;
 
-	static bool PlusF;
+	bool PlusF;
 
 	bool minusF;
 
@@ -78,7 +78,7 @@ public:
 
 	//static bool BOF;//スコアフラグ(爆弾
 
-	static bool GoF;//スタート重力フラグ	
+	bool GoF;//スタート重力フラグ	
 
 
 	CBallPlayer(CModel*model, CVector position, CVector rotation, CVector scale);

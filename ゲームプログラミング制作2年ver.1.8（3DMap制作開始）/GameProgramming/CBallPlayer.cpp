@@ -1,12 +1,7 @@
 #include "CBallPlayer.h"
 #include "CKey.h"
 
-bool::CBallPlayer::jumpF = false;
-bool::CBallPlayer::ColF = false;
-bool::CBallPlayer::PlusF = false;
 bool::CBallPlayer::ScorePulsF = true;
-bool::CBallPlayer::GoF = true;
-
 
 //bool::CBallPlayer::BF = false;//(ノーマル:trueで点数追加falseで無効
 //bool::CBallPlayer::SF = false;//(スピン:trueで点数追加falseで無効
@@ -60,8 +55,6 @@ CVector(1.0,1.0,1.0), scale.mX){
 	BallHP = 5;
 
 	GoF = false;
-
-	//BF, SF, MF, CF = false;
 
 	ScoreMore = 1.0;
 

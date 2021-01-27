@@ -1,5 +1,5 @@
-#ifndef CSCENEGAME_H
-#define CSCENEGAME_H
+#ifndef CSCENEGAME_WAVE2_H
+#define CSCENEGAME_WAVE2_H
 #include "CScene.h"
 //
 #include "CModel.h"
@@ -21,15 +21,14 @@
 #include "CKey.h"
 //
 #include "CRectangle.h"
-//
-#include "CDammyBallPlayer.h"
+
 /*
 フィーバーゲージ
 */
 
 //extern CTexture テクスチャ名;
 
-class CGage :public CRectangle{
+class CGage_Wave2 :public CRectangle{
 
 	void Render(){
 
@@ -46,13 +45,13 @@ class CGage :public CRectangle{
 
 /*
 ゲームのシーン
-ステージ1のウェーブ1
+ステージ1のウェーブ2
 */
 
-class CSceneGame : public CScene {
+class CSceneGame_Wave2 : public CScene {
 public:
 
-	~CSceneGame();
+	~CSceneGame_Wave2();
 
 	CModel m2DPlayer;
 
@@ -73,8 +72,6 @@ public:
 	CModel mBoard;
 
 	CModel mBall;
-	
-	CModel mDammyBall;
 
 	CModel mBomb;
 
@@ -82,25 +79,18 @@ public:
 
 	CModel mStage1;
 
-	int WAVE1GAMETIME;//ウェーブ1制限時間
+	int WAVE2GAMETIME;//ウェーブ1制限時間
+
+	//CModel mBlue;//青のマテリアル
+	//CModel mGreen;//緑のマテリアル
+	//CModel mRed;//赤のマテリアル
+	//CModel mYellow;//黄のマテリアル
 
 	bool mEnable;
 
 	bool ResetF;
-	
+
 	bool Result;
-
-	bool BigTime;
-
-	int RedCount;
-
-	int BuleCount;
-
-	int GreenCount;
-
-	int YellowCount;
-
-	static int Stage1_Wave1Score;
 
 	static int YScore;
 
@@ -110,58 +100,7 @@ public:
 
 	static int GScore;
 
-	static int COUNTDOWN;
-
-	static int LETTERTIME;
-
-	static int resultScore;
-
-	static int HighScore;
-
-	EScene GetNextScene();	
-	//初期化処理のオーバーライド
-	void Init();
-	//更新処理のオーバーライド
-	void Update();
-
-};
-
-class CSceneGame2 : public CScene {
-public:
-
-	~CSceneGame2();
-
-	CModel mItem;
-
-	CModel mBoardR;
-
-	CModel mBoard;
-
-	CModel mBall;
-
-	CModel mStage;
-
-	CModel m3DPlayer;
-
-	CModel mDelete;
-
-	C3DCamera mCamera;
-
-	static int YScore;
-
-	static int RScore;
-
-	static int BScore;
-
-	static int GScore;
-
-	bool mEnable;
-
-	bool ResetF;
-
-	bool Result;
-
-	static int GAMETIME;
+	static int Stage1_Wave2Score;
 
 	static int COUNTDOWN;
 
@@ -178,5 +117,4 @@ public:
 	void Update();
 
 };
-
 #endif

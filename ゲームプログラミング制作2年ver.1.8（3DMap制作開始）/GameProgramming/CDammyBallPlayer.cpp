@@ -3,14 +3,10 @@
 
 //Dammy
 
-bool::CDammyBallPlayer::jumpF = false;
-bool::CDammyBallPlayer::ColF = false;
 bool::CDammyBallPlayer::PlusF = false;
-bool::CDammyBallPlayer::DammyScorePulsF = true;
-bool::CDammyBallPlayer::DammyGoF = true;
 
 CCharacter *CDammyBallPlayer::mpthis = 0;
-int CDammyBallPlayer::DammyHP = 0;
+int CDammyBallPlayer::DammyHP;
 
 float CDammyBallPlayer::DBoundNum = 0;
 float CDammyBallPlayer::DammyScoreMore = 0;//加算数字
@@ -21,7 +17,7 @@ int CDammyBallPlayer::DammyMScoreBox = 0;//スコア箱(移動
 int CDammyBallPlayer::DammyCScoreBox = 0;//スコア箱(色
 
 CVector CDammyBallPlayer::jumpspeed = CVector(0.0, 0.0, 0.0);
-CVector CDammyBallPlayer::mAdjust = CVector(0.0, 0.0, 0.0);
+CVector CDammyBallPlayer::mDAdjust = CVector(0.0, 0.0, 0.0);
 
 CDammyBallPlayer::CDammyBallPlayer(CModel*model, CVector position, CVector rotation, CVector scale)
 :Dammycol(this, CVector(), CVector(),
@@ -47,10 +43,6 @@ CVector(1.0, 1.0, 1.0), scale.mX){
 
 	DammyGoF = false;
 
-	//BF, SF, MF, CF = false;
-
-	//DammyScoreMore = 1.0;
-
 	DammyScoreBox = 0;
 
 	mpthis = this;
@@ -67,21 +59,18 @@ CDammyBallPlayer::~CDammyBallPlayer(){
 
 }
 
-void CDammyBallPlayer::CCollision(CCollider*Dammy, CCollider*y){
+void CDammyBallPlayer::Collision(CCollider*Dammy, CCollider*y){
 
 	switch (Dammy->mType)
-
 	{
 	
 	case CCollider::ESPHERE:
 
 		if (y->mType == CCollider::ETRIANGLE){
 
-			if (CCollider::CollisionTriangleSphere(y, Dammy, &mAdjust)){
+			if (CCollider::CollisionTriangleSphere(y, Dammy, &mDAdjust)){
 
-				DammyHP = DammyHP - 1;
-
-				if (ColF == true){
+				if (DColF == true){
 
 					if (DBoundNum < 3.0){
 
@@ -103,9 +92,9 @@ void CDammyBallPlayer::CCollision(CCollider*Dammy, CCollider*y){
 
 					}
 
-					jumpspeed = mAdjust.Normalize()*DBoundNum;
+					jumpspeed = mDAdjust.Normalize()*DBoundNum;
 
-					ColF = false;
+					DColF = false;
 
 				}
 
@@ -140,31 +129,30 @@ void CDammyBallPlayer::CCollision(CCollider*Dammy, CCollider*y){
 		}
 		break;
 	}
-
 }
 
 void CDammyBallPlayer::Update(){
 
 	DammyBallTime--;
 
-	ColF = true;
+	DColF = true;
 
 	CDammyBallPlayer::DammyBScoreBox = CItem::BMyScorePoint;
 	CDammyBallPlayer::DammySScoreBox = CSpinItem::SMyScorePoint;
 	CDammyBallPlayer::DammyMScoreBox = CMoveItem::MMyScorePoint;
 	CDammyBallPlayer::DammyCScoreBox = CColorItem::CMyScorePoint;
 
-	CDammyBallPlayer::mAdjust = CVector(0.0, 0.0, 0.0);
+	CDammyBallPlayer::mDAdjust = CVector(0.0, 0.0, 0.0);
 
 	if (DammyGoF == false){
 
 		if (CDammyBallPlayer::DammyHP > 0){
 
-			if (DammyBallTime < 0 && CKey::Once('D')){
+			if (/*DammyBallTime < 0 && */CKey::Once('D')){
 
 				DammyGoF = true;
 
-				CDammyBallPlayer::jumpspeed = CVector(0.0f, +1.5f, 0.0f);
+				CDammyBallPlayer::jumpspeed = CVector(0.0f, +0.75f, 0.0f);
 
 				CDammyBallPlayer::jumpF = true;
 
@@ -184,7 +172,7 @@ void CDammyBallPlayer::Update(){
 
 	}
 
-	mPosition = mPosition + mAdjust + jumpspeed;
+	mPosition = mPosition + mDAdjust + jumpspeed;
 
 	CCharacter::Update();
 
