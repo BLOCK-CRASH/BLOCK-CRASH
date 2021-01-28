@@ -5,6 +5,7 @@ CCharacter *CMoveItem::mpthis = 0;
 CCharacter*CSpinItem::mpthis = 0;
 CCharacter*CBonus::mpthis = 0;
 CCharacter*CExItem::mpthis = 0;
+CCharacter*CSuperExItem::mpthis = 0;
 CCharacter*CDeleteBlock::mpthis = 0;
 
 
@@ -13,6 +14,7 @@ int CMoveItem::MMyScorePoint = 0;
 int CSpinItem::SMyScorePoint = 0;
 int CBonus::BMyScorePoint = 0;
 int CExItem::BomCutScore = 0;
+int CSuperExItem::SBomCutScore = 0;
 int CColorItem::CMyScorePoint = 0;
 
 int CColorItem::YScore = 0;
@@ -27,6 +29,9 @@ float CColorItem::YCount = 0;
 
 int CExItem::BomTime = 0;
 float CExItem::BBoundNum = 0;
+
+int CSuperExItem::SBomTime = 0;
+float CSuperExItem::SBBoundNum = 0;
 
 bool::CSpinItem::RebirthF = false;
 bool::CMoveItem::RebirthF = false;
@@ -48,12 +53,16 @@ bool::CColorItem::YellowAttensionF = false;
 bool::CExItem::jumpBF = false;
 bool::CExItem::ReBomF = true;//////////////リスポーンフラグtrueなら存在falseならリスポーン
 
+bool::CSuperExItem::jumpSBF = false;
+bool::CSuperExItem::ReSBomF = true;//////////////リスポーンフラグtrueなら存在falseならリスポーン
+
 CModel CColorItem::mRed;
 CModel CColorItem::mBlue;
 CModel CColorItem::mGreen;
 CModel CColorItem::mYellow;
 
 CVector CExItem::mAdjust = CVector(0.0, 0.0, 0.0);
+CVector CSuperExItem::mAdjust = CVector(0.0, 0.0, 0.0);
 
 /*--------------------------------------------------------*/
 CItem::CItem(CModel*model, CVector position, CVector rotation, CVector scale)
@@ -212,6 +221,39 @@ CVector(1.0,1.0,1.0), scale.mX){
 	BomTime = 90 * 60;
 }
 
+CSuperExItem::CSuperExItem(CModel*model, CVector position, CVector rotation, CVector scale)
+:SBomCol(this, CVector(), CVector(),
+CVector(1.0, 1.0, 1.0), scale.mX){
+
+	mpModel = model;
+
+	mRotation = rotation;
+
+	mPosition = position;
+
+	mScale = scale;
+
+	SBjumpSpeed = CVector();
+
+	SBBoundNum = 0.75;
+
+	CSuperExItem::SBomCol.mType = CCollider::ESPHERE;
+
+	mTag = CCharacter::EHIGHBOM;
+
+	SBomGoF = true;
+
+	SBomColF = false;
+
+	jumpSBF = false;
+
+	mpthis = this;
+
+	SBomCutScore = 500;
+
+	SBomTime = 90 * 60;
+}
+
 CDeleteBlock::CDeleteBlock(CModel*model, CVector position, CVector rotation, CVector scale)
 :mDelete(){
 
@@ -293,7 +335,11 @@ CBonus::~CBonus(){
 }
 CExItem::~CExItem(){
 
-	//CCollisionManager::Get()->Remove(this);
+	mpthis = 0;
+
+}
+CSuperExItem::~CSuperExItem(){
+
 	mpthis = 0;
 
 }
@@ -403,6 +449,70 @@ void CExItem::Collision(CCollider*Bm, CCollider*y){
 
 					ReBomF = false;
 					ReBomF = true;
+
+				}
+
+			}
+		}
+		break;
+	}
+}
+
+void CSuperExItem::Collision(CCollider*SBm, CCollider*y){
+
+	switch (SBm->mType)
+	{
+
+	case CCollider::ESPHERE:
+
+		if (y->mType == CCollider::ETRIANGLE){
+
+			mRotation.mZ*-1;
+
+			if (CCollider::CollisionTriangleSphere(y, SBm, &mAdjust)){
+
+				if (SBomColF == true){
+
+					mAdjust.mZ = NULL;
+
+					if (SBBoundNum < 0.75){
+
+						SBBoundNum += 0.15;
+
+					}
+
+					else{
+
+						SBBoundNum = SBBoundNum;
+
+					}
+
+					SBjumpSpeed = mAdjust.Normalize()*SBBoundNum;
+
+					SBomColF = false;
+
+				}
+
+				if (y->mpParent->mTag == CCharacter::EDELETE){
+
+					SBomGoF = false;
+
+					mPosition = CVector(100.0f, 100.0f, 0.0f);
+
+					SBomGoF = true;
+
+				}
+			}
+		}
+
+		if (y->mType == CCollider::ESPHERE){
+
+			if (CCollider::CollisionSphereSphere(y, SBm, &mAdjust)){
+
+				if (y->mpParent->mTag == CCharacter::EBALL){
+
+					ReSBomF = false;
+					ReSBomF = true;
 
 				}
 
@@ -590,6 +700,47 @@ void CExItem::Update(){
 	}
 
 	mPosition = mPosition + mAdjust + BjumpSpeed;
+
+	CCharacter::Update();
+}
+
+void CSuperExItem::Update(){
+
+	mRotation.mZ += 0.7;
+
+	if (SBomGoF == true){
+
+		SBomTime--;
+
+	}
+	SBomColF = true;
+
+	CExItem::mAdjust = CVector(0.0, 0.0, 0.0);
+
+	if (SBomTime == 3000){
+
+		CSuperExItem::mPosition = mPosition + SBjumpSpeed;
+
+		CSuperExItem::SBjumpSpeed = CVector(0.0, -0.4, 0.0);
+
+		CSuperExItem::jumpSBF = true;
+	}
+
+	if (jumpSBF == true){
+
+		mPosition = mPosition + SBjumpSpeed;
+
+	}
+
+	if (ReSBomF == false){
+
+		mPosition = CVector(0.0f, 301.0f, 0.0f);
+
+		ReSBomF = true;
+
+	}
+
+	mPosition = mPosition + mAdjust + SBjumpSpeed;
 
 	CCharacter::Update();
 }
@@ -874,11 +1025,23 @@ void CExItem::TaskCollision(){
 	CCollisionManager::Get()->Collision(&BomCol);
 
 }
-
 void CExItem::Render(){
 
 	CCharacter::Render();
 
 }
 
+
+void CSuperExItem::TaskCollision(){
+
+	SBomCol.ChangePriority();
+
+	CCollisionManager::Get()->Collision(&SBomCol);
+
+}
+void CSuperExItem::Render(){
+
+	CCharacter::Render();
+
+}
 

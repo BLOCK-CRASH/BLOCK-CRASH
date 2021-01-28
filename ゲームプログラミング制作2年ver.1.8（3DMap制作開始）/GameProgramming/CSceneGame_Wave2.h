@@ -21,6 +21,8 @@
 #include "CKey.h"
 //
 #include "CRectangle.h"
+//
+#include "CDammyBallPlayer.h"
 
 /*
 フィーバーゲージ
@@ -57,14 +59,6 @@ public:
 
 	CModel mRe2DPlayer;
 
-	CModel mColorItemR;//初期赤
-
-	CModel mColorItemY;//初期黄色
-
-	CModel mColorItemG;//初期赤
-
-	CModel mColorItemB;//初期青
-
 	CModel mItem;
 
 	CModel mBoardR;
@@ -87,10 +81,15 @@ public:
 
 	int WAVE2GAMETIME;//ウェーブ1制限時間
 
-	//CModel mBlue;//青のマテリアル
-	//CModel mGreen;//緑のマテリアル
-	//CModel mRed;//赤のマテリアル
-	//CModel mYellow;//黄のマテリアル
+	int BAttentionTime;//！表示時間
+
+	int CPAttentionTime;//！表示時間
+
+	bool BomAttension;//ボム警告フラグ
+
+	bool ColorAttension;//カラー点数点滅フラグ
+
+	int WAVE1GAMETIME;//ウェーブ1制限時間
 
 	bool mEnable;
 

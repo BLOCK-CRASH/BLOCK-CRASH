@@ -201,6 +201,55 @@ public:
 
 };
 /*
+爆弾
+*/
+class CSpereExItem :public CCharacter{
+
+public:
+
+	CSpereExItem(){}
+
+	~CSpereExItem();
+
+	CCollider SBomCol;
+
+	static CCharacter*mpthis;
+
+	CVector BjumpSpeed;
+
+	static CVector mAdjust;
+
+	static bool jumpBF;
+
+	static bool ReBomF;//////////////リスポーンフラグtrueなら存在falseならリスポーン
+
+	bool BomGoF;
+
+	bool BomColF;
+
+	static int BomHP;
+
+	static float BBoundNum;
+
+	static int BomCutScore;//スコア減数
+
+	static int BomDamageCount;//ダメージ数
+
+	static int BomTime;
+
+	CExItem(CModel*model, CVector position, CVector rotation, CVector scale);
+
+	void Collision(CCollider*Bm, CCollider*y);
+
+	void Update();
+
+	void TaskCollision();
+
+	void Render();
+
+};
+
+/*
 s削除ブロック、ステージ内に入れるかも
 */
 class CDeleteBlock :public CCharacter{

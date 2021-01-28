@@ -58,14 +58,6 @@ public:
 
 	CModel mRe2DPlayer;
 
-	CModel mColorItemR;//‰ŠúÔ
-
-	CModel mColorItemY;//‰Šú‰©F
-
-	CModel mColorItemG;//‰ŠúÔ
-
-	CModel mColorItemB;//‰ŠúÂ
-
 	CModel mItem;
 
 	CModel mBoardR;

@@ -9,8 +9,6 @@
 #include "CCollisionManager.h"
 //
 #include "CItem.h"
-//
-
 
 int CSceneGame_Wave2::COUNTDOWN;
 int CSceneGame_Wave2::LETTERTIME;
@@ -26,10 +24,15 @@ void CSceneGame_Wave2::Init() {
 
 	COUNTDOWN = 4 * 60;
 
-	WAVE2GAMETIME = 61 * 60;
+	Attention = 1 * 60;
+
+	BAttentionTime = 4 * 60;
+
+	CPAttentionTime = 4 * 60;
+
+	WAVE2GAMETIME = 100 * 60;
 
 	mScene = EGAME1_WAVE2;
-
 	Result = false;
 
 	BigTime = true;
@@ -60,6 +63,8 @@ void CSceneGame_Wave2::Init() {
 
 	mBomb.Load("Bomb.obj", "Bomb.mtl");
 
+	mSuperBomb.Load("Bomb.obj", "Bomb.mtl");
+
 	mDelete.Load("cube.obj", "cube.mtl");
 
 	m2DPlayer.Load("2DPlayer0119_001.obj", "2DPlayer0119_001.mtl");
@@ -76,25 +81,6 @@ void CSceneGame_Wave2::Init() {
 	//new CSpinItem(&mBoardR, CVector(110.0f, 70.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(8.0f, 8.0f, 5.0));
 	//new CSpinItem(&mBoardR, CVector(-110.0f, 70.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(8.0f, 8.0f, 5.0));
 	//new CSpinItem(&mBoardR, CVector(0.0f, -20.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0f,15.0f, 10.0));
-
-	/*ノーマルアイテムブロック----------------------------------------------------------------------------*/
-	//new CItem(&mBoard, CVector(200.0f/*40.0*/, -150.0f, 0.0f), CVector(0.0f, 0.0f, -30.0f/*45*/), CVector(11.0, 11.0, 11.0));
-	//new CItem(&mBoard, CVector(200.0f/*40.0*/, 150.0f, 0.0f), CVector(0.0f, 0.0f, 30.0f/*45*/), CVector(11.0, 11.0, 11.0));
-	//new CItem(&mBoard, CVector(-200.0f/*40.0*/, -150.0f, 0.0f), CVector(0.0f, 0.0f, -30.0f/*45*/), CVector(11.0, 11.0, 11.0));
-	//new CItem(&mBoard, CVector(-200.0f/*40.0*/, 150.0f, 0.0f), CVector(0.0f, 0.0f, 30.0f/*45*/), CVector(11.0, 11.0, 11.0));
-
-	//new CItem(&mBoard, CVector(-40.0f, 70.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(11.0, 11.0, 11.0));
-	//new CItem(&mBoard, CVector(50.0f, -60.0f, 1.0f), CVector(0.0f, 0.0f, 40.0f), CVector(11.0, 11.0, 11.0));
-	//new CItem(&mBoard, CVector(-50.0f, -60.0f, 1.0f), CVector(0.0f, 0.0f, 40.0f), CVector(11.0, 11.0, 11.0));
-	//new CItem(&mBoard, CVector(120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 65.0f), CVector(11.0, 11.0, 11.0));
-	//new CItem(&mBoard, CVector(-120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 65.0f), CVector(11.0, 11.0, 11.0));
-
-	/*カラーアイテムブロック----------------------------------------------------------------------------*/
-
-	//new CColorItem(&CColorItem::mRed, CVector(0.0f, 200.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
-	new CColorItem(&CColorItem::mBlue, CVector(250.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
-	//new CColorItem(&CColorItem::mGreen, CVector(0.0f, -200.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
-	new CColorItem(&CColorItem::mYellow, CVector(-250.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
 
 	///*移動アイテムブロック----------------------------------------------------------------------------*/
 
@@ -113,19 +99,50 @@ void CSceneGame_Wave2::Init() {
 	new CMoveItem(&mBoard, CVector(-800.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(20.0, 20.0, 20.0));
 	new CMoveItem(&mBoard, CVector(-700.0f, 100.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 20.0));
 
+	/*ノーマルアイテムブロック----------------------------------------------------------------------------*/
+	//new CItem(&mBoard, CVector(200.0f/*40.0*/, -150.0f, 0.0f), CVector(0.0f, 0.0f, -30.0f/*45*/), CVector(11.0, 11.0, 11.0));
+	//new CItem(&mBoard, CVector(200.0f/*40.0*/, 150.0f, 0.0f), CVector(0.0f, 0.0f, 30.0f/*45*/), CVector(11.0, 11.0, 11.0));
+	//new CItem(&mBoard, CVector(-200.0f/*40.0*/, -150.0f, 0.0f), CVector(0.0f, 0.0f, -30.0f/*45*/), CVector(11.0, 11.0, 11.0));
+	//new CItem(&mBoard, CVector(-200.0f/*40.0*/, 150.0f, 0.0f), CVector(0.0f, 0.0f, 30.0f/*45*/), CVector(11.0, 11.0, 11.0));
+
+	//new CItem(&mBoard, CVector(-40.0f, 70.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(11.0, 11.0, 11.0));
+	//new CItem(&mBoard, CVector(50.0f, -60.0f, 1.0f), CVector(0.0f, 0.0f, 40.0f), CVector(11.0, 11.0, 11.0));
+	//new CItem(&mBoard, CVector(-50.0f, -60.0f, 1.0f), CVector(0.0f, 0.0f, 40.0f), CVector(11.0, 11.0, 11.0));
+	//new CItem(&mBoard, CVector(120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 65.0f), CVector(11.0, 11.0, 11.0));
+	//new CItem(&mBoard, CVector(-120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 65.0f), CVector(11.0, 11.0, 11.0));
+
+	/*カラーアイテムブロック----------------------------------------------------------------------------*/
+
+	CColorItem::RCount = 2;
+	CColorItem::BCount = 2;
+	CColorItem::GCount = 2;
+	CColorItem::YCount = 2;
+
+	new CColorItem(&CColorItem::mBlue, CVector(250.0f, 100.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
+	new CColorItem(&CColorItem::mYellow, CVector(-250.0f, -100.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
+
+	CColorItem::BCount = CColorItem::BCount - 1;
+
+	CColorItem::YCount = CColorItem::YCount - 1;
+
+	//new CColorItem(&CColorItem::mGreen, CVector(0.0f, -200.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
+	//new CColorItem(&CColorItem::mRed, CVector(0.0f, 200.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
+
 	///*ボーナスアイテムブロック----------------------------------------------------------------------------*/
 	new CBonus(&mBoard, CVector(600.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0));
 
 	new CObj(&mStage1, CVector(0.0f, 0.0f, 0.0f), CVector(90.0f, 90.0f, 90.0), CVector(40.0f, 40.0f, 40.0));
 
-	//プレイヤー(板)
+	//プレイヤー
 	new CPlayer(&m2DPlayer, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 90.0f), CVector(1.65, 1.65, 1.65));
 	new CRePlayer(&m2DPlayer, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 90.0f), CVector(0.75, 0.75, 0.75));
 	//
 	//玉
 	new CBallPlayer(&mBall, CVector(0.0f, 80.0f, 0.0f), CVector(), CVector(9.0f, 9.0f, 9.0));
-	new CExItem(&mBomb, CVector(150.0f/*100*/, 450.0f, 0.0f), CVector(), CVector(20.0f, 20.0f, 20.0));
-	new CExItem(&mBomb, CVector(150.0f/*100*/, 450.0f, 0.0f), CVector(), CVector(20.0f, 20.0f, 20.0));
+	new CExItem(&mBomb, CVector(0.0f/*100*/, 450.0f, 0.0f), CVector(), CVector(20.0f, 20.0f, 20.0));
+	new CExItem(&mBomb, CVector(-70.0f/*100*/, 550.0f, 0.0f), CVector(), CVector(20.0f, 20.0f, 20.0));
+
+	new CDammyBallPlayer(&mDammyBall, CVector(200.0, 50.0, 0.0), CVector(), CVector(5.0, 5.0, 5.0));
 
 	/*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -135,10 +152,9 @@ void CSceneGame_Wave2::Init() {
 	new CDeleteBlock(&mDelete, CVector(310.0f, 310.0f, 0.0f), CVector(0.0, 0.0, -45.0), CVector(100.0f, 10.0f, 10.0));
 	new CDeleteBlock(&mDelete, CVector(-310.0f, 310.0f, 0.0f), CVector(0.0, 0.0, 45.0), CVector(100.0f, 10.0f, 10.0));
 
-
-	new CDeleteBlock(&mDelete, CVector(-70.0f, 450.0f, 0.0f), CVector(0.0, 0.0, 45.0), CVector(80.0f, 10.0f, 10.0));
-	new CDeleteBlock(&mDelete, CVector(70.0f, 450.0f, 0.0f), CVector(0.0, 0.0, -45.0), CVector(80.0f, 10.0f, 10.0));
-	new CDeleteBlock(&mDelete, CVector(0.0f, 490.0f, 0.0f), CVector(0.0, 0.0, 0.0), CVector(40.0f, 10.0f, 10.0));
+	new CDeleteBlock(&mDelete, CVector(-210.0f, 550.0f, 0.0f), CVector(0.0, 0.0, 90.0), CVector(160.0f, 10.0f, 10.0));
+	new CDeleteBlock(&mDelete, CVector(210.0f, 550.0f, 0.0f), CVector(0.0, 0.0, -90.0), CVector(160.0f, 10.0f, 10.0));
+	new CDeleteBlock(&mDelete, CVector(0.0f, 610.0f, 0.0f), CVector(0.0, 0.0, 0.0), CVector(240.0f, 10.0f, 10.0));
 
 	CSceneGame_Wave2::ResetF = true;
 
@@ -182,6 +198,9 @@ void CSceneGame_Wave2::Update() {
 		}
 	}
 
+	CBallPlayer::mAdjust.mZ = NULL;
+	CDammyBallPlayer::mDAdjust.mZ = NULL;
+	CExItem::mAdjust.mZ = NULL;
 
 	if (CBallPlayer::CF == true){
 
@@ -249,7 +268,7 @@ void CSceneGame_Wave2::Update() {
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める
-	e = CVector(0.0f, 0.0f, -550.0f);////0.0,0.0,-300
+	e = CVector(0.0f, 0.0f, -850.0f);////0.0,0.0,-300
 	//注視点を求める
 	c = CVector(0.0f, 0.0f, 0.0f);
 	//上方向を求める
@@ -262,7 +281,7 @@ void CSceneGame_Wave2::Update() {
 
 	CTaskManager::Get()->TaskCollision();
 
-	CCollisionManager::Get()->Render();
+	//CCollisionManager::Get()->Render();
 
 	//2D描画開始
 	Start2D(0, 800, 0, 600);
