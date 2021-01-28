@@ -40,6 +40,11 @@ bool::CColorItem::GYF = false;
 bool::CColorItem::YRF = false;
 bool::CColorItem::ScorePulsF = false;
 
+bool::CColorItem::RedAttensionF = false;
+bool::CColorItem::BuleAttensionF = false;
+bool::CColorItem::GreenAttensionF = false;
+bool::CColorItem::YellowAttensionF = false;
+
 bool::CExItem::jumpBF = false;
 bool::CExItem::ReBomF = true;//////////////リスポーンフラグtrueなら存在falseならリスポーン
 
@@ -204,7 +209,7 @@ CVector(1.0,1.0,1.0), scale.mX){
 
 	BomCutScore = 500;
 
-	BomTime = 91 * 60;
+	BomTime = 90 * 60;
 }
 
 CDeleteBlock::CDeleteBlock(CModel*model, CVector position, CVector rotation, CVector scale)
@@ -641,24 +646,33 @@ void CColorItem::Update(){
 
 	if (YCount == 0){
 
+		YellowAttensionF = true;
+
 		mEnabled = false;
 
 	}
 	if (RCount == 0){
+
+		RedAttensionF = true;
 
 		mEnabled = false;
 
 	}
 	if (BCount == 0){
 		
+		BuleAttensionF = true;
+
 		mEnabled = false;
 
 	}
 	if (GCount == 0){
 
+		GreenAttensionF = true;
+
 		mEnabled = false;
 
 	}
+
 
 	//if (YCount == 0 || RCount == 0 || BCount == 0 || GCount == 0){
 

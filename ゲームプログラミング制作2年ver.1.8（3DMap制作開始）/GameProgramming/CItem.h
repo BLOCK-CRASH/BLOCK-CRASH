@@ -18,6 +18,8 @@
 #include "CScene.h"
 //
 #include "CKey.h"
+//
+#include "CText.h"
 /*
 ノーマルアイテム
 */
@@ -245,6 +247,7 @@ static CModel mYellow;//黄のマテリアル
 
 static	float YCount;//黄色ブロックカウントMaxで20000
 static int YScore;
+static bool YellowAttensionF;//黄色撃破点数点滅フラグ
 	/*
 
 	# Blender MTL File: 'None'
@@ -264,6 +267,7 @@ static int YScore;
 
 static	float RCount;//赤ブロックカウントMaxで9500
 static int RScore;
+static bool RedAttensionF;//赤撃破点数点滅フラグ
 
 	/*
 	
@@ -283,6 +287,7 @@ static int RScore;
 	
 static	float BCount;//青ブロックカウントMaxで7000
 static int BScore;
+static bool BuleAttensionF;//青撃破点数点滅フラグ
 
 	/*
 	
@@ -302,6 +307,7 @@ illum 2
 
 static float GCount;//緑ブロックカウントMaxで6000
 static int GScore;
+static bool GreenAttensionF;//緑撃破点数点滅フラグ
 
 	/*
 	

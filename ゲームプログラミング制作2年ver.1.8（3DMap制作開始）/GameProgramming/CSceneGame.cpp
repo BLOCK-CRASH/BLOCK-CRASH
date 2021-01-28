@@ -27,7 +27,11 @@ void CSceneGame::Init() {
 
 	Attention = 1 * 60;
 
-	WAVE1GAMETIME = 50 * 60;
+	BAttentionTime = 4 * 60;
+
+	CPAttentionTime = 4 * 60;
+
+	WAVE1GAMETIME = 90 * 60;
 
 	mScene = EGAME1_WAVE1;
 
@@ -126,11 +130,11 @@ void CSceneGame::Init() {
 	CColorItem::YCount = 2;
 
 	new CColorItem(&CColorItem::mRed, CVector(0.0f, 200.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
-	new CColorItem(&CColorItem::mGreen, CVector(0.0f, -200.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
+	new CColorItem(&CColorItem::mYellow, CVector(0.0f, -200.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
 
 	CColorItem::RCount = CColorItem::RCount - 1;
 
-	CColorItem::GCount = CColorItem::GCount - 1;
+	CColorItem::YCount = CColorItem::YCount - 1;
 
 	//new CColorItem(&CColorItem::mYellow, CVector(-250.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
 	//new CColorItem(&CColorItem::mBlue, CVector(0.0f, -200.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
@@ -205,67 +209,6 @@ void CSceneGame::Update() {
 		}
 	}
 
-	if (CBallPlayer::CF == true){
-	
-			//CColorItem::ScorePulsF = false;
-
-			if (CColorItem::YCount == 0){
-
-				CColorItem::ScorePulsF = true;
-
-				if (CColorItem::ScorePulsF == true){
-
-					CColorItem::CMyScorePoint = YScore;
-
-					CColorItem::ScorePulsF = false;
-
-
-		}
-
-	}
-			if (CColorItem::RCount == 0){
-
-				CColorItem::ScorePulsF = true;
-
-				if (CColorItem::ScorePulsF == true){
-
-					CColorItem::CMyScorePoint = RScore;
-
-					CColorItem::ScorePulsF = false;
-
-		}
-
-	}
-			if (CColorItem::BCount == 0){
-		
-				CColorItem::ScorePulsF = true;
-
-				if (CColorItem::ScorePulsF == true){
-
-					CColorItem::CMyScorePoint = BScore;
-
-					CColorItem::ScorePulsF = false;
-
-		}
-
-	}
-			if (CColorItem::GCount == 0){
-
-				CColorItem::ScorePulsF = true;
-
-				if (CColorItem::ScorePulsF == true){
-
-					CColorItem::CMyScorePoint = GScore;
-
-					CColorItem::ScorePulsF = false;
-
-		}
-	}
-
-}
-
-	//CColorItem::ChangeColor();
-
 	CBallPlayer::mAdjust.mZ = NULL;
 	CDammyBallPlayer::mDAdjust.mZ = NULL;
 	CExItem::mAdjust.mZ = NULL;
@@ -290,6 +233,33 @@ void CSceneGame::Update() {
 
 	//2D描画開始
 	Start2D(0, 800, 0, 600);
+
+	/*---------------------------------------------------------------------------------------*/
+
+	//ステージ、ウェーブ名
+	CText::DrawString("SUTAG1", 10, 585, 12, 14);
+	CText::DrawString("WAVE 1", 10, 555, 12, 14);
+
+	//フィーバーゲージ
+	if (CBallPlayer::FeverCount > 19
+		&& CMoveItem::FeverF == false){
+
+		CText::DrawString("PUSH F KEY!!", 24, 50, 12, 14);
+
+	}
+
+	//獲得カラーポイント
+
+	//現在スコア
+	char buf[100];
+
+	CText::DrawString("SCORE", 40, 20, 12, 14);
+
+	sprintf(buf, "%d", CSceneGame::Stage1_Wave1Score);
+
+	CBlackText::DrawString(buf, 200, 20, 10, 12);
+
+	/*---------------------------------------------------------------------------------------*/
 
 	if (COUNTDOWN > 0){//最初のカウントダウン
 
@@ -319,29 +289,6 @@ void CSceneGame::Update() {
 	}
 
 	/*---------------------------------------------------------------------------------------*/
-
-	//ステージ、ウェーブ名
-	CText::DrawString("SUTAG1", 10, 585, 12, 14);
-	CText::DrawString("WAVE 1", 10, 555, 12, 14);
-
-	//フィーバーゲージ
-	if (CBallPlayer::FeverCount > 19
-		&& CMoveItem::FeverF == false){
-
-		CText::DrawString("PUSH F KEY!!", 24, 50, 12, 14);
-
-	}
-
-	//現在スコア
-	char buf[100];
-
-	CText::DrawString("SCORE", 40, 20, 12, 14);
-
-	sprintf(buf, "%d", CSceneGame::Stage1_Wave1Score);
-
-	CBlackText::DrawString(buf, 200, 20, 10, 12);
-
-/*---------------------------------------------------------------------------------------*/
 
 	//タイム処理
 
@@ -384,7 +331,170 @@ void CSceneGame::Update() {
 
 		}
 
+		//！点滅
+		
+		if (CExItem::BomTime < 3000){
+
+			BAttentionTime--;
+
+			if (BAttentionTime > 0){
+
+				BomAttension = true;
+
+				Attention--;
+
+				if (Attention < 30 && BomAttension == true){
+
+					CText::DrawString("BOM IN!", 25, 500, 11, 20);
+
+				}
+
+				if (Attention == 0){
+
+					Attention = 1 * 60;
+
+				}
+
+			}
+
+		}
+
+		if (BAttentionTime < 0){
+
+			BomAttension = false;
+
+		}
+
 /*--------------------------------------------------------------------------------------*/
+		
+		if (CColorItem::YellowAttensionF == true){//黄色撃破
+			CColorItem::ScorePulsF = true;
+			if (CColorItem::ScorePulsF == true){
+				CColorItem::CMyScorePoint = YScore;
+				CColorItem::ScorePulsF = false;
+			}
+
+			CPAttentionTime--;
+			if (CPAttentionTime > 0){
+				ColorAttension = true;
+				Attention--;
+				if (ColorAttension == true){
+					if (Attention > 0 && Attention < 10 ||/**/
+						Attention > 30 && Attention < 40/**/){
+						CText::DrawString("YELLOW BONUS", 26, 500, 7, 14);
+						sprintf(buf, "%d",CColorItem::CMyScorePoint);
+						CText::DrawString(buf, 30, 470, 12, 14);
+					}
+				}
+
+				if (Attention == 0){
+					Attention = 1 * 60;
+				}
+			}
+		}
+
+		if (CPAttentionTime < 0){
+			ColorAttension = false;
+		}
+
+/*--------------------------------------------------------------------------------------*/
+
+			if (CColorItem::RedAttensionF == true){//赤撃破
+				CColorItem::ScorePulsF = true;
+				if (CColorItem::ScorePulsF == true){
+					CColorItem::CMyScorePoint = RScore;
+					CColorItem::ScorePulsF = false;
+				}
+
+				CPAttentionTime--;
+				if (CPAttentionTime > 0){
+					ColorAttension = true;
+					Attention--;
+					if (ColorAttension == true){
+						if (Attention > 0 && Attention < 10 ||/**/
+							Attention > 30 && Attention < 40/**/){
+							CText::DrawString("RED BONUS", 26, 500, 7, 14);
+							sprintf(buf, "%d", CColorItem::CMyScorePoint);
+							CText::DrawString(buf, 30, 470, 12, 14);
+						}
+					}
+
+					if (Attention == 0){
+						Attention = 1 * 60;
+					}
+				}
+			}
+
+		if (CPAttentionTime < 0){
+			ColorAttension = false;
+		}
+
+/*--------------------------------------------------------------------------------------*/
+	
+		if (CColorItem::BuleAttensionF == true){//青撃破
+			CColorItem::ScorePulsF = true;
+			if (CColorItem::ScorePulsF == true){
+				CColorItem::CMyScorePoint = BScore;
+				CColorItem::ScorePulsF = false;
+			}
+
+			CPAttentionTime--;
+			if (CPAttentionTime > 0){
+				ColorAttension = true;
+				Attention--;
+				if (ColorAttension == true){
+					if (Attention > 0 && Attention < 10 ||/**/
+						Attention > 30 && Attention < 40/**/){
+						CText::DrawString("BULE BONUS", 26, 500, 7, 14);
+						sprintf(buf, "%d", CColorItem::CMyScorePoint);
+						CText::DrawString(buf, 30, 470, 12, 14);
+					}
+				}
+
+				if (Attention == 0){
+					Attention = 1 * 60;
+				}
+			}
+		}
+
+		if (CPAttentionTime < 0){
+			ColorAttension = false;
+		}
+
+/*--------------------------------------------------------------------------------------*/
+
+		if (CColorItem::GreenAttensionF == true){//緑撃破
+			CColorItem::ScorePulsF = true;
+			if (CColorItem::ScorePulsF == true){
+				CColorItem::CMyScorePoint = GScore;
+				CColorItem::ScorePulsF = false;
+			}
+
+			CPAttentionTime--;
+			if (CPAttentionTime > 0){
+				ColorAttension = true;
+				Attention--;
+				if (ColorAttension == true){
+					if (Attention > 0 && Attention < 10 ||/**/
+						Attention > 30 && Attention < 40/**/){
+						CText::DrawString("GREEN BONUS", 26, 500, 7, 14);
+						sprintf(buf, "%d", CColorItem::CMyScorePoint);
+						CText::DrawString(buf, 30, 470, 12, 14);
+					}
+				}
+
+				if (Attention == 0){
+					Attention = 1 * 60;
+				}
+			}
+		}
+
+		if (CPAttentionTime < 0){
+			ColorAttension = false;
+		}
+
+/*--------------------------------------------------------------------------------------*/
+
 
 	if (WAVE1GAMETIME < 60){
 

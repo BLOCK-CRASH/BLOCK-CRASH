@@ -76,7 +76,15 @@ public:
 
 	CModel mBall;
 	
-	int Attention;
+	int Attention;//！点滅するための時間
+
+	int BAttentionTime;//！表示時間
+
+	int CPAttentionTime;//！表示時間
+
+	bool BomAttension;//ボム警告フラグ
+
+	bool ColorAttension;//カラー点数点滅フラグ
 
 	CModel mDammyBall;
 
@@ -96,23 +104,15 @@ public:
 
 	bool BigTime;
 
-	int RedCount;
-
-	int BuleCount;
-
-	int GreenCount;
-
-	int YellowCount;
-
 	static int Stage1_Wave1Score;
 
-	static int YScore;
+	static int YScore;//黄色撃破スコア
 
-	static int RScore;
+	static int RScore;//赤撃破スコア
 
-	static int BScore;
+	static int BScore;//青撃破スコア
 
-	static int GScore;
+	static int GScore;//緑撃破スコア
 
 	static int COUNTDOWN;
 
@@ -171,7 +171,7 @@ public:
 
 	static int LETTERTIME;
 
-	static int resultScore;
+	//static int resultScore;
 
 	static int HighScore;
 

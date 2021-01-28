@@ -152,6 +152,8 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 
 					mPosition.mX = 0.0;
 
+					BoundNum = 0.75;
+
 					jumpspeed = CVector(0.0,0.0,0.0);
 
 					jumpF = false;

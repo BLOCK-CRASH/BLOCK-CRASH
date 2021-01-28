@@ -32,6 +32,8 @@ void CSceneGame_Wave2::Init() {
 
 	Result = false;
 
+	BigTime = true;
+
 	YScore = 20000;//黄色けしボーナス
 	RScore = 10000;//赤けしボーナス
 	BScore = 7000;//青けしボーナス

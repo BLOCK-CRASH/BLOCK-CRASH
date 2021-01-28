@@ -69,9 +69,15 @@ public:
 
 	CModel mBoardR;
 
+	CModel mMove;
+
 	CModel mBoard;
 
 	CModel mBall;
+
+	int Attention;
+
+	CModel mDammyBall;
 
 	CModel mBomb;
 
@@ -92,15 +98,17 @@ public:
 
 	bool Result;
 
-	static int YScore;
-
-	static int RScore;
-
-	static int BScore;
-
-	static int GScore;
+	bool BigTime;
 
 	static int Stage1_Wave2Score;
+
+	static int YScore;//黄色撃破スコア
+
+	static int RScore;//赤撃破スコア
+
+	static int BScore;//青撃破スコア
+
+	static int GScore;//緑撃破スコア
 
 	static int COUNTDOWN;
 
