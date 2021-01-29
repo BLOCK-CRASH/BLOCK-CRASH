@@ -7,7 +7,7 @@ CCharacter*CBonus::mpthis = 0;
 CCharacter*CExItem::mpthis = 0;
 CCharacter*CSuperExItem::mpthis = 0;
 CCharacter*CDeleteBlock::mpthis = 0;
-
+CCharacter*CResBlock::mpthis = 0;
 
 int CItem::BMyScorePoint = 0;
 int CMoveItem::MMyScorePoint = 0;
@@ -278,6 +278,30 @@ CDeleteBlock::CDeleteBlock(CModel*model, CVector position, CVector rotation, CVe
 
 }
 
+CResBlock::CResBlock(CModel*model, CVector position, CVector rotation, CVector scale)
+:mResp(){
+
+	mpModel = model;
+	mPosition = position;
+	mRotation = rotation;
+	mScale = scale/*CVector(10.0, 10.0, 10.0);*/;
+	//モデルの三角形の数分、コライダの配列を作成します
+	mResp = new CCollider[model->mTriangles.size()];
+	for (int i = 0; i < model->mTriangles.size(); i++){
+		//コライダを三角形コライダで設定していきます
+		mResp[i].SetTriangle(this,
+			model->mTriangles[i].mV[0],
+			model->mTriangles[i].mV[1],
+			model->mTriangles[i].mV[2]);
+
+	}
+
+	mTag = CCharacter::ERESDELETE;
+
+	mpthis = this;
+
+}
+
 CColorItem::CColorItem(CModel*model, CVector position, CVector rotation, CVector scale)
 :mColorbody(){
 
@@ -347,6 +371,12 @@ CDeleteBlock::~CDeleteBlock(){
 
 	if (mDelete)
 		delete[]mDelete;
+
+}
+CResBlock::~CResBlock(){
+
+	if (mResp)
+		delete[]mResp;
 
 }
 CColorItem::~CColorItem(){
@@ -433,9 +463,20 @@ void CExItem::Collision(CCollider*Bm, CCollider*y){
 
 					BomGoF = false;
 
-					mPosition = CVector(100.0f, 100.0f, 0.0f);
+					mPosition = CVector(0.0f, 450.0f, 0.0f);
 
 					BomGoF = true;
+
+				}
+
+				if (y->mpParent->mTag == CCharacter::ERESDELETE){
+
+					BomGoF = false;
+
+					mPosition = CVector(100.0f, 80.0f, 0.0f);
+
+					BomGoF = true;
+
 
 				}
 			}
@@ -492,14 +533,24 @@ void CSuperExItem::Collision(CCollider*SBm, CCollider*y){
 					SBomColF = false;
 
 				}
-
 				if (y->mpParent->mTag == CCharacter::EDELETE){
 
 					SBomGoF = false;
 
-					mPosition = CVector(100.0f, 100.0f, 0.0f);
+					mPosition = CVector(0.0f, 450.0f, 0.0f);
 
 					SBomGoF = true;
+
+				}
+
+				if (y->mpParent->mTag == CCharacter::ERESDELETE){
+
+					SBomGoF = false;
+
+					mPosition = CVector(-100.0f, 80.0f, 0.0f);
+
+					SBomGoF = true;
+
 
 				}
 			}
@@ -715,7 +766,7 @@ void CSuperExItem::Update(){
 	}
 	SBomColF = true;
 
-	CExItem::mAdjust = CVector(0.0, 0.0, 0.0);
+	CSuperExItem::mAdjust = CVector(0.0, 0.0, 0.0);
 
 	if (SBomTime == 3000){
 
@@ -746,6 +797,12 @@ void CSuperExItem::Update(){
 }
 
 void CDeleteBlock::Update(){
+
+	CCharacter::Update();
+
+}
+
+void CResBlock::Update(){
 
 	CCharacter::Update();
 
@@ -834,6 +891,7 @@ void CColorItem::Update(){
 	CCharacter::Update();
 
 }
+/*------------------------------------------------------------*/
 void CItem::TaskCollision(){
 
 	//for (int i = 0; i < ARRAYSIZE(mItemBody); i++){
@@ -984,6 +1042,36 @@ void CDeleteBlock::TaskCollision(){
 	CCollisionManager::Get()->Collision(&mDelete[9]);
 	CCollisionManager::Get()->Collision(&mDelete[10]);
 	CCollisionManager::Get()->Collision(&mDelete[11]);
+
+}
+
+void CResBlock::TaskCollision(){
+
+	mResp[0].ChangePriority();
+	mResp[1].ChangePriority();
+	mResp[2].ChangePriority();
+	mResp[3].ChangePriority();
+	mResp[4].ChangePriority();
+	mResp[5].ChangePriority();
+	mResp[6].ChangePriority();
+	mResp[7].ChangePriority();
+	mResp[8].ChangePriority();
+	mResp[9].ChangePriority();
+	mResp[10].ChangePriority();
+	mResp[11].ChangePriority();
+
+	CCollisionManager::Get()->Collision(&mResp[0]);
+	CCollisionManager::Get()->Collision(&mResp[1]);
+	CCollisionManager::Get()->Collision(&mResp[2]);
+	CCollisionManager::Get()->Collision(&mResp[3]);
+	CCollisionManager::Get()->Collision(&mResp[4]);
+	CCollisionManager::Get()->Collision(&mResp[5]);
+	CCollisionManager::Get()->Collision(&mResp[6]);
+	CCollisionManager::Get()->Collision(&mResp[7]);
+	CCollisionManager::Get()->Collision(&mResp[8]);
+	CCollisionManager::Get()->Collision(&mResp[9]);
+	CCollisionManager::Get()->Collision(&mResp[10]);
+	CCollisionManager::Get()->Collision(&mResp[11]);
 
 }
 

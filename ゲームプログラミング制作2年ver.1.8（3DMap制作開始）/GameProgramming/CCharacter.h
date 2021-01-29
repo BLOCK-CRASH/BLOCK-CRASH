@@ -29,8 +29,10 @@ public:
 		ESPINITEM,//回転ブロック
 		EMOVEITEM,//フィーバーアイテム
 		EBOMB,//爆発ブロック
+		EHIGHBOM,//スーパーボム
 		EMOVEBONUS,//移動ボーナスブロック
 		EDELETE,//削除ブロック
+		ERESDELETE,//初期位置リスブロック
 		ECOLOR//色変えブロック
 	};
 	ETag mTag;

@@ -23,25 +23,27 @@
 #include "CRectangle.h"
 //
 #include "CDammyBallPlayer.h"
+//
+#include "CTexture.h"
 /*
 フィーバーゲージ
 */
 
 //extern CTexture テクスチャ名;
 
-class CGage :public CRectangle{
-
-	void Render(){
-
-		if (mEnabled){
-
-			CRectangle::Render();
-
-		}
-
-	}
-
-};
+//class CGage :public CRectangle{
+//
+//	void Render(){
+//
+//		if (mEnabled){
+//
+//			CRectangle::Render();
+//
+//		}
+//
+//	}
+//
+//};
 
 
 /*
@@ -70,13 +72,17 @@ public:
 	
 	int Attention;//！点滅するための時間
 
-	int BAttentionTime;//！表示時間
+	int BAttentionTime;//ボム表示時間
 
 	int CPAttentionTime;//！表示時間
+
+	int TimeAttentionTime;//時間表示時間
 
 	bool BomAttension;//ボム警告フラグ
 
 	bool ColorAttension;//カラー点数点滅フラグ
+
+	bool TimeAttension;//時間点滅フラグ
 
 	CModel mDammyBall;
 
@@ -120,6 +126,8 @@ public:
 	//更新処理のオーバーライド
 	void Update();
 
+	void Render();
+
 };
 
 class CSceneGame2 : public CScene {
@@ -141,7 +149,7 @@ public:
 
 	CModel mDelete;
 
-	C3DCamera mCamera;
+	C3DCamera *mCamera;
 
 	static int YScore;
 

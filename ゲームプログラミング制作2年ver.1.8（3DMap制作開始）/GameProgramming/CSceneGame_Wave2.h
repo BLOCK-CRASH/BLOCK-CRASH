@@ -67,6 +67,8 @@ public:
 
 	CModel mBoard;
 
+	CModel mSuperBomb;
+
 	CModel mBall;
 
 	int Attention;
@@ -85,9 +87,13 @@ public:
 
 	int CPAttentionTime;//！表示時間
 
+	int TimeAttentionTime;//時間表示時間
+
 	bool BomAttension;//ボム警告フラグ
 
 	bool ColorAttension;//カラー点数点滅フラグ
+
+	bool TimeAttension;//時間点滅フラグ
 
 	int WAVE1GAMETIME;//ウェーブ1制限時間
 

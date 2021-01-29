@@ -53,7 +53,7 @@ void CSceneGame2::Init() {
 	new CCamera();
 
 	new C3DMap(&mStage, CVector(0.0,31.0/*STAGE2の時だけ151*/,0.0), CVector(0.0,0.0/*45*/,180.0), CVector(7.0, 7.0, 7.0));
-	new C3DDelete(&mDelete, CVector(0.0, 0.0, 0.0), CVector(0.0, 0.0, 180.0), CVector(23.0, 23.0, 23.0));
+	new C3DDelete(&mDelete, CVector(0.0, 0.0, 0.0), CVector(0.0, 0.0, 180.0), CVector(25.0, 25.0, 25.0));
 	//new CMoveItem(&mBoard, CVector(600.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0));
 
 	//プレイヤー(板)
@@ -67,6 +67,8 @@ void CSceneGame2::Init() {
 	new CItem(&mBoard, CVector(150.0f, 140.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0, 1.0, 1.0));
 	new CItem(&mBoard, CVector(0.0f, 140.0f, 150.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0, 1.0, 1.0));
 	new CItem(&mBoard, CVector(0.0f, 140.0f, -150.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0, 1.0, 1.0));
+
+	new C3DCamera(&mBoard, CVector(), CVector(), CVector());
 
 	CSceneGame2::ResetF = true;
 
@@ -110,12 +112,31 @@ void CSceneGame2::Update() {
 	}
 
 
-	mCamera.mPosition = CVector(0.0, 0.0, 0.0);
+	/*C3DCamera::mCamera.mPosition = CVector(0.0, 0.0, 0.0);*/
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める
 
-	e = CVector(0.0f, 150.0f, 400.0f)*mCamera.mMatrix;
+	e = CVector(0.0f, 150.0f, 400.0f)/*mCamera.mMatrix*/;
+
+	if (CKey::Push('A')){
+
+		e = CVector(400.0f, 150.0f, 0.0f)/*mCamera.mMatrix*/;
+
+	}
+
+	if (CKey::Push('W')){
+
+		e = CVector(0.0f, 150.0f, -400.0f)/*mCamera.mMatrix*/;
+
+	}
+
+	if (CKey::Push('D')){
+
+		e = CVector(-400.0f, 150.0f, 0.0f)/*mCamera.mMatrix*/;
+
+	}
+
 
 	//注視点を求める
 
@@ -123,7 +144,7 @@ void CSceneGame2::Update() {
 
 	//上方向を求める
 
-	u = CVector(0.0f, 10.0f, 0.0f)*mCamera.mMatrix;
+	u = CVector(0.0f, 10.0f, 0.0f)/**mCamera.mMatrix*/;
 
 	//カメラの設定
 	Camera3D(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);

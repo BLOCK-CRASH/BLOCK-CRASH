@@ -8,6 +8,8 @@
 //
 #include "CItem.h"
 
+extern CTexture FeverGage;
+
 int CSceneGame::COUNTDOWN;
 int CSceneGame::LETTERTIME;
 
@@ -29,7 +31,9 @@ void CSceneGame::Init() {
 
 	CPAttentionTime = 4 * 60;
 
-	WAVE1GAMETIME = 10* 60;
+	TimeAttentionTime = 2 * 60;
+
+	WAVE1GAMETIME = 80 * 60;
 
 	mScene = EGAME1_WAVE1;
 
@@ -52,6 +56,8 @@ void CSceneGame::Init() {
 	CColorItem::mBlue.Load("cube.obj", "Blue.mtl");//青
 	CColorItem::mGreen.Load("cube.obj", "Green.mtl");//緑
 	CColorItem::mYellow.Load("cube.obj", "Yellow.mtl");//黄
+
+	//FeverGage.Load();
 
 	mStage1.Load("2DStage0119.obj", "2DStage0119.mtl");
 
@@ -162,9 +168,9 @@ void CSceneGame::Init() {
 	new CDeleteBlock(&mDelete, CVector(-310.0f, 310.0f, 0.0f), CVector(0.0, 0.0, 45.0), CVector(100.0f, 10.0f, 10.0));
 
 
-	new CDeleteBlock(&mDelete, CVector(-210.0f, 480.0f, 0.0f), CVector(0.0, 0.0, 90.0), CVector(80.0f, 10.0f, 10.0));
-	new CDeleteBlock(&mDelete, CVector(210.0f, 480.0f, 0.0f), CVector(0.0, 0.0, -90.0), CVector(80.0f, 10.0f, 10.0));
-	new CDeleteBlock(&mDelete, CVector(0.0f, 530.0f, 0.0f), CVector(0.0, 0.0, 0.0), CVector(240.0f, 10.0f, 10.0));
+	new CResBlock(&mDelete, CVector(-210.0f, 480.0f, 0.0f), CVector(0.0, 0.0, 90.0), CVector(80.0f, 10.0f, 10.0));
+	new CResBlock(&mDelete, CVector(210.0f, 480.0f, 0.0f), CVector(0.0, 0.0, -90.0), CVector(80.0f, 10.0f, 10.0));
+	new CResBlock(&mDelete, CVector(0.0f, 530.0f, 0.0f), CVector(0.0, 0.0, 0.0), CVector(240.0f, 10.0f, 10.0));
 
 	CSceneGame::ResetF = true;
 
@@ -214,7 +220,7 @@ void CSceneGame::Update() {
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める
-	e = CVector(0.0f, 0.0f, -850.0f);////0.0,0.0,-300
+	e = CVector(0.0f, 0.0f, -550.0f);////0.0,0.0,-300
 	//注視点を求める
 	c = CVector(0.0f, 0.0f, 0.0f);
 	//上方向を求める
@@ -237,6 +243,12 @@ void CSceneGame::Update() {
 	//ステージ、ウェーブ名
 	CText::DrawString("SUTAG1", 10, 585, 12, 14);
 	CText::DrawString("WAVE 1", 10, 555, 12, 14);
+	CText::DrawString("WAVE1TIME", 620, 575, 10, 16);
+	CText::DrawString("BALL LIFE", 570, 30, 10, 16);
+
+	char buf[100];
+	sprintf(buf, "%d", CBallPlayer::BallHP);
+	CBlackText::DrawString(buf, 780, 26, 12, 12);
 
 	//フィーバーゲージ
 	if (CBallPlayer::FeverCount > 19
@@ -249,11 +261,10 @@ void CSceneGame::Update() {
 	//獲得カラーポイント
 
 	//現在スコア
-	char buf[100];
 
 	CText::DrawString("SCORE", 40, 20, 12, 14);
 
-	sprintf(buf, "%d", CSceneGame::Stage1_Wave1Score);
+	sprintf(buf, "%d", CSceneGame::Stage1_Wave1Score + CColorItem::CMyScorePoint);
 
 	CBlackText::DrawString(buf, 200, 20, 10, 12);
 
@@ -291,76 +302,68 @@ void CSceneGame::Update() {
 	//タイム処理
 
 	if (COUNTDOWN <= 0){
-
 		WAVE1GAMETIME--;
-
 	}
 		if (WAVE1GAMETIME > 601){//ウェーブごとの時間
-
 			BigTime = false;
-
 			if (BigTime == false){
-			
-				char buf[10];
+				if (WAVE1GAMETIME > 1801){
 
-				sprintf(buf, "%d", WAVE1GAMETIME / 60);
-
-				CText::DrawString(buf, 680, 540, 20, 20);
-
-				CText::DrawString("WAVE1TIME",620, 575, 10, 16);
-
+					char buf[10];
+					sprintf(buf, "%d", WAVE1GAMETIME / 60);
+					CText::DrawString(buf, 680, 540, 20, 20);
+				}
 			}
-
 		}
 
-		if (WAVE1GAMETIME > 61 && WAVE1GAMETIME < 600){//ウェーブごとの時間、大文字
+		if (WAVE1GAMETIME < 1800 && WAVE1GAMETIME > 1720){
+			TimeAttentionTime--;
+			if (TimeAttentionTime > 0){
+				TimeAttension = true;
+				Attention--;
+				if (TimeAttension == true){
 
+					if (Attention < 30){
+						char buf[10];
+						sprintf(buf, "%d", WAVE1GAMETIME / 60);
+						CText::DrawString(buf, 400, 520, 30, 30);
+					}
+				}
+				if (Attention == 0){
+					Attention = 1 * 60;
+				}
+			}
+		}
+
+		if (TimeAttentionTime < 0){
+			TimeAttension = false;
+		}
+
+		if (WAVE1GAMETIME > 61 && WAVE1GAMETIME < 1719){//ウェーブごとの時間、大文字
 			BigTime = true;
-
 			if (BigTime == true){
-
 				char buf[10];
-
 				sprintf(buf, "%d", WAVE1GAMETIME / 60);
-
-				CText::DrawString(buf, 650, 530, 45, 45);
-
+				CText::DrawString(buf, 678, 520, 45, 45);
 			}
-
 		}
-
 		//！点滅
 		
 		if (CExItem::BomTime < 3000){
-
 			BAttentionTime--;
-
 			if (BAttentionTime > 0){
-
 				BomAttension = true;
-
 				Attention--;
-
 				if (Attention < 30 && BomAttension == true){
-
 					CText::DrawString("BOM IN!", 25, 500, 11, 20);
-
 				}
-
 				if (Attention == 0){
-
 					Attention = 1 * 60;
-
 				}
-
 			}
-
 		}
-
 		if (BAttentionTime < 0){
-
 			BomAttension = false;
-
 		}
 
 /*--------------------------------------------------------------------------------------*/
@@ -393,6 +396,7 @@ void CSceneGame::Update() {
 
 		if (CPAttentionTime < 0){
 			ColorAttension = false;
+			CColorItem::YellowAttensionF = false;
 		}
 
 /*--------------------------------------------------------------------------------------*/
@@ -425,6 +429,7 @@ void CSceneGame::Update() {
 
 		if (CPAttentionTime < 0){
 			ColorAttension = false;
+			CColorItem::RedAttensionF = false;
 		}
 
 /*--------------------------------------------------------------------------------------*/
@@ -457,6 +462,7 @@ void CSceneGame::Update() {
 
 		if (CPAttentionTime < 0){
 			ColorAttension = false;
+			CColorItem::BuleAttensionF = false;
 		}
 
 /*--------------------------------------------------------------------------------------*/
@@ -489,6 +495,7 @@ void CSceneGame::Update() {
 
 		if (CPAttentionTime < 0){
 			ColorAttension = false;
+			CColorItem::GreenAttensionF = false;
 		}
 
 /*--------------------------------------------------------------------------------------*/
@@ -500,7 +507,6 @@ void CSceneGame::Update() {
 		CText::DrawString("TIME UP!", 300, 500, 14, 16);
 		CText::DrawString("LET'S NEXT WAVE", 260, 400, 10, 12);
 		CText::DrawString("PUSH ENTER KEY", 260, 330, 10, 12);
-
 
 	}
 
@@ -523,15 +529,12 @@ void CSceneGame::Update() {
 				}
 			}
 		}
-
 	}
-
 
 	CTaskManager::Get()->Delete();
 
 	//2D描画終了
 	End2D();
-
 
 	return;
 	

@@ -201,45 +201,45 @@ public:
 
 };
 /*
-爆弾
+スーパー爆弾
 */
-class CSpereExItem :public CCharacter{
+class CSuperExItem :public CCharacter{
 
 public:
 
-	CSpereExItem(){}
+	CSuperExItem(){}
 
-	~CSpereExItem();
+	~CSuperExItem();
 
 	CCollider SBomCol;
 
 	static CCharacter*mpthis;
 
-	CVector BjumpSpeed;
+	CVector SBjumpSpeed;
 
 	static CVector mAdjust;
 
-	static bool jumpBF;
+	static bool jumpSBF;
 
-	static bool ReBomF;//////////////リスポーンフラグtrueなら存在falseならリスポーン
+	static bool ReSBomF;//////////////リスポーンフラグtrueなら存在falseならリスポーン
 
-	bool BomGoF;
+	bool SBomGoF;
 
-	bool BomColF;
+	bool SBomColF;
 
-	static int BomHP;
+	static int SBomHP;
 
-	static float BBoundNum;
+	static float SBBoundNum;
 
-	static int BomCutScore;//スコア減数
+	static int SBomCutScore;//スコア減数
 
-	static int BomDamageCount;//ダメージ数
+	static int SBomDamageCount;//ダメージ数
 
-	static int BomTime;
+	static int SBomTime;
 
-	CExItem(CModel*model, CVector position, CVector rotation, CVector scale);
+	CSuperExItem(CModel*model, CVector position, CVector rotation, CVector scale);
 
-	void Collision(CCollider*Bm, CCollider*y);
+	void Collision(CCollider*SBm, CCollider*y);
 
 	void Update();
 
@@ -268,6 +268,34 @@ public:
 	//衝突判定
 	//（コライダ1、コライダ2）
 	void Collision(CCollider*Dm, CCollider*y);
+
+	void TaskCollision();
+
+	void Update();
+
+	int mColsize;
+
+};
+
+/*
+リスポーンブロック、ステージ内に入れるかも
+*/
+class CResBlock :public CCharacter{
+
+public:
+
+	CResBlock() :mResp(0){}
+
+	~CResBlock();
+
+	CResBlock(CModel*model, CVector position, CVector rotation, CVector scale);
+
+	CCollider *mResp;
+
+	static CCharacter*mpthis;
+	//衝突判定
+	//（コライダ1、コライダ2）
+	//void Collision(CCollider*Dm, CCollider*y);
 
 	void TaskCollision();
 

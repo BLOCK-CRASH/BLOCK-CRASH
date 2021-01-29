@@ -35,6 +35,16 @@ C3DPlayer::C3DPlayer(CModel*model, CVector position, CVector rotation, CVector s
 	mTag = CCharacter::EPLAYER;
 }
 
+C3DCamera::C3DCamera(CModel*model, CVector position, CVector rotation, CVector scale)
+:C3DCamera()
+{
+	mpModel = model;
+	mPosition = position;
+	mRotation = rotation;
+	mScale = scale;
+	mpthis = this;
+
+}
 /*-------------------------------------------------------------------------------------------------------------------------------*/
 
 #define MOUSE_S 3

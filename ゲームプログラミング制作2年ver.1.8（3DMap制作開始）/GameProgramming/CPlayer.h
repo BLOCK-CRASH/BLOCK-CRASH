@@ -137,6 +137,8 @@ public:
 
 	}
 
+	C3DCamera(CModel*model, CVector position, CVector rotation, CVector scale);
+
 	int mMouseX;
 
 	int mMouseY;
