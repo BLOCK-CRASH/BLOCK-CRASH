@@ -1,4 +1,4 @@
-#include "CSceneGame.h"
+#include "CSceneGame2.h"
 //
 #include "CCamera.h"
 //
@@ -38,12 +38,12 @@ void CSceneGame2::Init() {
 
 	//mStage.Load("STAGE(2)_Edit_OF_0102.obj", "STAGE(2)_Edit_OF_0102.mtl");
 
-	m3DPlayer.Load("3DPlayer0118.obj","3DPlayer0118.mtl");
+	m3DPlayer.Load("01_293DPlayer.obj","01_293DPlayer.mtl");
 
 	mDelete.Load("3DMapDeleteBlock.obj", "3DMapDeleteBlock.mtl");
 	mDelete.mMaterials[0].mDiffuse[3] = 0.0f;
 
-
+	//mShave.Load("mTri.obj", "mTri.mtl");//3DShaveItem//最初は三角形モデル
 
 	//new CSpinItem(&mBoardR, CVector(-60.0f, 20.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
 	//new CSpinItem(&mBoardR, CVector(60.0f, 20.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(10.0f, 5.0f, 6.0));
@@ -52,21 +52,23 @@ void CSceneGame2::Init() {
 
 	new CCamera();
 
-	new C3DMap(&mStage, CVector(0.0,31.0/*STAGE2の時だけ151*/,0.0), CVector(0.0,0.0/*45*/,180.0), CVector(7.0, 7.0, 7.0));
+	new C3DMap(&mStage, CVector(0.0,31.0/*STAGE2の時だけ151*/,0.0), CVector(0.0,0.0/*45*/,180.0), CVector(8.0, 8.0, 8.0));
 	new C3DDelete(&mDelete, CVector(0.0, 0.0, 0.0), CVector(0.0, 0.0, 180.0), CVector(25.0, 25.0, 25.0));
 	//new CMoveItem(&mBoard, CVector(600.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0));
 
 	//プレイヤー(板)
 
-	new C3DPlayer(&m3DPlayer, CVector(0.0, 0.0, 0.0), CVector(0.0, 0.0, 180.0), CVector(1.1, 1.1, 1.1));
+	new C3DPlayer(&m3DPlayer, CVector(0.0, 0.0, 0.0), CVector(0.0, 0.0, 180.0), CVector(7.0, 7.0, 7.0));
 
 	////玉
-	new CBallPlayer(&mBall, CVector(0.0f, 50.0f, 0.0f), CVector(), CVector(5.0f, 5.0f, 5.0));
+	new CBallPlayer(&mBall, CVector(0.0f, 50.0f, 0.0f), CVector(), CVector(7.0f, 7.0f, 7.0));
 	///*ノーマルアイテムブロック----------------------------------------------------------------------------*/
 	new CItem(&mBoard, CVector(-150.0f, 140.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0, 1.0, 1.0));
 	new CItem(&mBoard, CVector(150.0f, 140.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0, 1.0, 1.0));
 	new CItem(&mBoard, CVector(0.0f, 140.0f, 150.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0, 1.0, 1.0));
 	new CItem(&mBoard, CVector(0.0f, 140.0f, -150.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0, 1.0, 1.0));
+	
+	new C3DShaveItem(&C3DShaveItem::mTri, CVector(0.0, 0.0, 0.0), CVector(), CVector(10.0, 10.0, 10.0));
 
 	new C3DCamera(&mBoard, CVector(), CVector(), CVector());
 

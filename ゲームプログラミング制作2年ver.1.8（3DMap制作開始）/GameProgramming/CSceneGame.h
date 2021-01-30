@@ -25,6 +25,8 @@
 #include "CDammyBallPlayer.h"
 //
 #include "CTexture.h"
+//
+
 /*
 フィーバーゲージ
 */
@@ -130,57 +132,5 @@ public:
 
 };
 
-class CSceneGame2 : public CScene {
-public:
-
-	~CSceneGame2();
-
-	CModel mItem;
-
-	CModel mBoardR;
-
-	CModel mBoard;
-
-	CModel mBall;
-
-	CModel mStage;
-
-	CModel m3DPlayer;
-
-	CModel mDelete;
-
-	C3DCamera *mCamera;
-
-	static int YScore;
-
-	static int RScore;
-
-	static int BScore;
-
-	static int GScore;
-
-	bool mEnable;
-
-	bool ResetF;
-
-	bool Result;
-
-	static int GAMETIME;
-
-	static int COUNTDOWN;
-
-	static int LETTERTIME;
-
-	//static int resultScore;
-
-	static int HighScore;
-
-	EScene GetNextScene();
-	//初期化処理のオーバーライド
-	void Init();
-	//更新処理のオーバーライド
-	void Update();
-
-};
 
 #endif

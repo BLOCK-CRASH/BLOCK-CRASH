@@ -138,6 +138,7 @@
     <ClInclude Include="CRectangle.h" />
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneGame.h" />
+    <ClInclude Include="CSceneGame2.h" />
     <ClInclude Include="CSceneGame_Wave2.h" />
     <ClInclude Include="CSceneManager.h" />
     <ClInclude Include="CSound.h" />

@@ -33,7 +33,9 @@ public:
 		EMOVEBONUS,//移動ボーナスブロック
 		EDELETE,//削除ブロック
 		ERESDELETE,//初期位置リスブロック
-		ECOLOR//色変えブロック
+		ECOLOR,//色変えブロック
+		ESHAVEITEM,//削りアイテム
+		EMOREITEM,//増殖アイテム
 	};
 	ETag mTag;
 //	CCharacter *mpParent;	//親

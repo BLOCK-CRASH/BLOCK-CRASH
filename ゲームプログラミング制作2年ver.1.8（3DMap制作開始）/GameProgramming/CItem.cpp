@@ -395,7 +395,7 @@ void CColorItem::Init(){
 	mGreen.Load("cube.obj", "Green.mtl");//—Î
 	mYellow.Load("cube.obj", "Yellow.mtl");//‰©
 
-	mNextColor = mYellow;
+	//mNextColor = mYellow;
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------*/

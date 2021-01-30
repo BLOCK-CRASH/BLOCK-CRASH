@@ -1,5 +1,6 @@
 #include "CSceneManager.h"
 #include "CSceneGame.h"
+#include "CSceneGame2.h"
 #include "CSceneGame_Wave2.h"
 #include "CTitle.h"
 #include "CMenu.h"
