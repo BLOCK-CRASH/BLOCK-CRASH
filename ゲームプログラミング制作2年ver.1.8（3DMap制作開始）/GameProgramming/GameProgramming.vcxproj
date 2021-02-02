@@ -119,6 +119,8 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="3DPlayer.h" />
+    <ClInclude Include="BossItem.h" />
     <ClInclude Include="CBallPlayer.h" />
     <ClInclude Include="CBillBoard.h" />
     <ClInclude Include="CCamera.h" />

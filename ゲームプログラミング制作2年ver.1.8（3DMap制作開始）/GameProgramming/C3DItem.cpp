@@ -1,5 +1,4 @@
-#include "CItem.h"
-
+#include "BossItem.h"
 CCharacter*C3DMoveItem::mpthis = 0;
 CCharacter*C3DOrbitItem::mpthis = 0;
 CCharacter*C3DShaveItem::mpthis = 0;
@@ -89,7 +88,7 @@ C3DShaveItem::C3DShaveItem(CModel*model, CVector position, CVector rotation, CVe
 			model->mTriangles[i].mV[1],
 			model->mTriangles[i].mV[2]);
 
-		m3DShaveBody[1].ChangePriority();
+		m3DShaveBody[i].ChangePriority();
 
 	}
 	mTag = CCharacter::ESHAVEITEM;
@@ -165,18 +164,18 @@ void C3DShaveItem::Collision(CCollider*Sha, CCollider*y){
 					if (TriF == true){
 						TriHP = TriHP - 1;
 					}
-					if (RecF == true){
-						RecHP = RecHP - 1;
-					}
-					if (PenF == true){
-						PenHP = PenHP - 1;
-					}
-					if (HexF == true){
-						HexHP = HexHP - 1;
-					}
-					if (HepF == true){
-						HepHP = HepHP - 1;
-					}
+					//if (RecF == true){
+					//	RecHP = RecHP - 1;
+					//}
+					//if (PenF == true){
+					//	PenHP = PenHP - 1;
+					//}
+					//if (HexF == true){
+					//	HexHP = HexHP - 1;
+					//}
+					//if (HepF == true){
+					//	HepHP = HepHP - 1;
+					//}
 
 				}
 
@@ -193,26 +192,73 @@ void C3DMoveItem::Update(){}
 void C3DOrbitItem::Update(){}
 void C3DShaveItem::Update(){
 
-	if (TriHP < 0){
-		C3DShaveItem::mpModel = &mRec;//TriHP0でモデル変更。
-		RecF= true;
+	if (TriF == true){
+
+		C3DShaveItem::mpModel==&mTri;
+
+		if (TriHP < 0){//HP0でフラグをfalseに変更
+
+			TriF = false;
+			RecF= true;//次のフラグをtrueに変更
+		}
+
 	}
-	if (RecHP < 0){
-		C3DShaveItem::mpModel = &mPen;//TriHP0でモデル変更。
-		PenF = true;
+
+	if (RecF == true){
+
+		C3DShaveItem::mpModel == &mRec;
+
+		if (RecHP < 0){//HP0でフラグをfalseに変更
+
+			RecF = false;
+			PenF = true;//次のフラグをtrueに変更
+		}
+
 	}
-	if (PenHP < 0){
-		C3DShaveItem::mpModel = &mHex;//TriHP0でモデル変更。
-		HexF = true;
+
+	if (PenF == true){
+
+		C3DShaveItem::mpModel == &mPen;
+
+		if (PenHP < 0){//HP0でフラグをfalseに変更
+
+			PenF = false;
+			HexF = true;//次のフラグをtrueに変更
+		}
+
 	}
-	if (HexHP < 0){
-		C3DShaveItem::mpModel = &mHep;//TriHP0でモデル変更。
-		HepF = true;
+
+	if (HexF == true){
+
+		C3DShaveItem::mpModel == &mHex;
+
+		if (HexHP < 0){//HP0でフラグをfalseに変更
+
+			HexF = false;
+			HepF = true;//次のフラグをtrueに変更
+		}
+
 	}
-	if (HepHP < 0){
-		C3DShaveItem::mpModel = &mOct;//TriHP0でモデル変更。
-		OctF = true;
+
+	if (HepF == true){
+
+		C3DShaveItem::mpModel == &mHep;
+
+		if (HepHP < 0){//HP0でフラグをfalseに変更
+
+			HepF = false;
+			OctF = true;//次のフラグをtrueに変更
+		}
+
 	}
+	
+	if (OctF == true){
+
+		C3DShaveItem::mpModel = &mOct;
+
+
+	}
+
 	CCharacter::Update();
 }
 

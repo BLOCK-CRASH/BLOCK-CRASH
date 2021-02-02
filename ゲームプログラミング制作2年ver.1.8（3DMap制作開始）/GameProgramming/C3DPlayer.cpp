@@ -1,13 +1,17 @@
-#include "CPlayer.h"
+#include "3DPlayer.h"
 #include "CKey.h"
 
 C3DCamera*C3DCamera::mpthis = 0;
-CCharacter *C3DPlayer::mpthis = 0;
+CCharacter *C3DBFPlayer::mpthis = 0;
+CCharacter *C3DRLPlayer::mpthis = 0;
+CCharacter *C3DTBPlayer::mpthis = 0;
+
 //CCharacter *CBottomPlayer::mpthis = 0;
 //#define G (9.8f/60.0f)  //重力加速度
 //#define JUMPV0  (4.0f)  //ジャンプ初速
-C3DPlayer::C3DPlayer(CModel*model, CVector position, CVector rotation, CVector scale)
-:C3DPlayer()
+/*---------------------------------------------------------------------------------------*/
+C3DBFPlayer::C3DBFPlayer(CModel*model, CVector position, CVector rotation, CVector scale)//上下の板
+:C3DBFPlayer()
 {
 	mpModel = model;
 	mPosition = position;
@@ -28,12 +32,67 @@ C3DPlayer::C3DPlayer(CModel*model, CVector position, CVector rotation, CVector s
 
 	mColsize = model->mTriangles.size();
 
-	janpspead = 0;
+	mpthis = this;
+
+	mTag = CCharacter::EPLAYER;
+}
+
+C3DRLPlayer::C3DRLPlayer(CModel*model, CVector position, CVector rotation, CVector scale)//左右の板
+:C3DRLPlayer()
+{
+	mpModel = model;
+	mPosition = position;
+	mRotation = rotation;
+	mScale = scale;
+	//モデルの三角形の数分、コライダの配列を作成します
+	mColBody = new CCollider[model->mTriangles.size()];
+	for (int i = 0; i < model->mTriangles.size(); i++){
+		//コライダを三角形コライダで設定していきます
+		mColBody[i].SetTriangle(this,
+			model->mTriangles[i].mV[0],
+			model->mTriangles[i].mV[1],
+			model->mTriangles[i].mV[2]);
+
+		mColBody[i].ChangePriority();
+
+	}
+
+	mColsize = model->mTriangles.size();
 
 	mpthis = this;
 
 	mTag = CCharacter::EPLAYER;
 }
+
+C3DTBPlayer::C3DTBPlayer(CModel*model, CVector position, CVector rotation, CVector scale)//左右の板
+:C3DTBPlayer()
+{
+	mpModel = model;
+	mPosition = position;
+	mRotation = rotation;
+	mScale = scale;
+	//モデルの三角形の数分、コライダの配列を作成します
+	mColBody = new CCollider[model->mTriangles.size()];
+	for (int i = 0; i < model->mTriangles.size(); i++){
+		//コライダを三角形コライダで設定していきます
+		mColBody[i].SetTriangle(this,
+			model->mTriangles[i].mV[0],
+			model->mTriangles[i].mV[1],
+			model->mTriangles[i].mV[2]);
+
+		mColBody[i].ChangePriority();
+
+	}
+
+	mColsize = model->mTriangles.size();
+
+	mpthis = this;
+
+	mTag = CCharacter::EPLAYER;
+}
+
+
+/*---------------------------------------------------------------------------------------*/
 
 C3DCamera::C3DCamera(CModel*model, CVector position, CVector rotation, CVector scale)
 :C3DCamera()
@@ -47,48 +106,56 @@ C3DCamera::C3DCamera(CModel*model, CVector position, CVector rotation, CVector s
 }
 /*-------------------------------------------------------------------------------------------------------------------------------*/
 
-#define MOUSE_S 3
-void C3DPlayer::Update(){
+#define MOUSE_SBF 3
+void C3DBFPlayer::Update(){
 
-	static int mMouseCount = 0;
-	++mMouseCount %= MOUSE_S;
+	static int mbfMouseCount = 0;
+	++mbfMouseCount %= MOUSE_SBF;
 
-	if (mMouseCount == 0){
+	if (mbfMouseCount == 0){
 
-		CInput::SetMousePos(mMouseX, mMouseY);
+		CInput::SetMousePos(BFMouseX, BFMouseY);
 
 	}
 
 	//座標取得
-
 	int mx, my;
 
-	float m(10.0);
+	float BFm(10.0);
 
 	CInput::GetMousePos(&mx, &my);
 
-	if (my < mMouseY){
-
-		mRotation.mX -= (mMouseY - my) / m;
-
+	if (my < BFMouseY){
+		mPosition.mY += (BFMouseY - my) / BFm;
+	}
+	if (mPosition.mY > 150){
+		mPosition.mY -= (BFMouseY - my) / BFm;
 	}
 
-	if (mMouseY < my){
 
-		mRotation.mX -= (mMouseY - my) / m;
-
+	if (BFMouseY < my){
+		mPosition.mY += (BFMouseY - my) / BFm;
+	}
+	if (mPosition.mY <-150){
+		mPosition.mY -= (BFMouseY - my) / BFm;
 	}
 
-	if (mx < mMouseX){
 
-		mRotation.mY += (mMouseX - mx) / m;
 
+	if (mx < BFMouseX){
+		mPosition.mX -= (BFMouseX - mx) / BFm;
+	}
+	if (mPosition.mX > 130){
+		mPosition.mX += (BFMouseX - mx) / BFm;
 	}
 
-	if (mMouseX < mx){
 
-		mRotation.mY += (mMouseX - mx) / m;
 
+	if (BFMouseX < mx){
+		mPosition.mX -= (BFMouseX - mx) / BFm;
+	}
+	if (mPosition.mX < -130){
+		mPosition.mX += (BFMouseX - mx) / BFm;
 	}
 
 
@@ -96,54 +163,139 @@ void C3DPlayer::Update(){
 	CCharacter::Update();
 }
 
-void C3DCamera::Update(){
+#define MOUSE_SRL 3
+void C3DRLPlayer::Update(){
 
-	static int mMouseCount = 0;
-	++mMouseCount %= MOUSE_S;
+	static int mrlMouseCount = 0;
+	++mrlMouseCount %= MOUSE_SRL;
 
-	if (mMouseCount == 0){
-	
-		CInput::SetMousePos(mMouseX, mMouseY);
+	if (mrlMouseCount == 0){
+
+		CInput::GetMousePos(&RLMouseX, &RLMouseY);
+
 	}
+
 	//座標取得
 	int mx, my;
-	float m(10.0);
+
+	float RLm(10.0);
+
 	CInput::GetMousePos(&mx, &my);
-	if (my < mMouseY){
-		mRotation.mX -= (mMouseY - my) / m;
+
+	if (my < RLMouseY){
+		mPosition.mY += (RLMouseY - my) / RLm;
 	}
-	if (mMouseY < my){
-		mRotation.mX -= (mMouseY - my) / m;
-	}
-	if (mx < mMouseX){
-		mRotation.mY += (mMouseX - mx) / m;
-	}
-	if (mMouseX < mx){
-		mRotation.mY += (mMouseX - mx) / m;
+	if (mPosition.mY > 131){
+		mPosition.mY -= (RLMouseY - my) / RLm;
 	}
 
-	//if (CKey::Push(VK_LBUTTON)){
 
-	//	mRotation.mX += 1;
+	if (RLMouseY < my){
+		mPosition.mY += (RLMouseY - my) / RLm;
+	}
+	if (mPosition.mY <-151){
+		mPosition.mY -= (RLMouseY - my) / RLm;
+	}
 
-	//	if (CKey::Push('R')){
 
-	//	mRotation.mX -= 2;
+	if (mx < RLMouseX){
+		mPosition.mZ -= (RLMouseX - mx) / RLm;
+	}
+	if (mPosition.mZ > 100){
+		mPosition.mZ += (RLMouseX - mx) / RLm;
+	}
 
-	//	}
 
+
+	if (RLMouseX < mx){
+		mPosition.mZ -= (RLMouseX - mx) / RLm;
+	}
+	if (mPosition.mZ < -100){
+		mPosition.mZ += (RLMouseX - mx) / RLm;
+	}
+
+	CCharacter::Update();
+}
+
+#define MOUSE_STB 3
+void C3DTBPlayer::Update(){
+
+	static int mMouseCount = 0;
+	++mMouseCount %= MOUSE_STB;
+
+	if (mMouseCount == 0){
+
+		CInput::GetMousePos(&TBMouseX, &TBMouseY);
+
+	}
+
+	//座標取得
+	int mx, my;
+
+	float TBm(10.0);
+
+	CInput::GetMousePos(&mx, &my);
+
+
+	if (my < TBMouseY){
+		mPosition.mZ += (TBMouseY - my) / TBm;
+	}
+	if (mPosition.mZ > 180){
+		mPosition.mZ -= (TBMouseY - my) / TBm;
+	}
+
+
+	if (TBMouseY < my){
+		mPosition.mZ += (TBMouseY - my) / TBm;
+	}
+	if (mPosition.mZ <-120){
+		mPosition.mZ -= (TBMouseY - my) / TBm;
+	}
+
+
+
+	if (mx < TBMouseX){
+		mPosition.mX -= (TBMouseX - mx) / TBm;
+	}
+	if (mPosition.mX > 130){
+		mPosition.mX += (TBMouseX - mx) / TBm;
+	}
+
+
+	if (TBMouseX < mx){
+		mPosition.mX -= (TBMouseX - mx) / TBm;
+	}
+	if (mPosition.mX < -130){
+		mPosition.mX += (TBMouseX - mx) / TBm;
+	}
+
+	CCharacter::Update();
+}
+
+void C3DCamera::Update(){
+
+	//static int mMouseCount = 0;
+	//++mMouseCount %= MOUSE_S;
+
+	//if (mMouseCount == 0){
+	//
+	//	CInput::SetMousePos(mMouseX, mMouseY);
 	//}
-
-	//if (CKey::Push(VK_RBUTTON)){
-
-	//	mRotation.mZ -= 1;
-
-	//	if (CKey::Push('R')){
-
-	//		mRotation.mZ += 2;
-
-	//	}
-
+	////座標取得
+	//int mx, my;
+	//float m(10.0);
+	//CInput::GetMousePos(&mx, &my);
+	//if (my < mMouseY){
+	//	mRotation.mX -= (mMouseY - my) / m;
+	//}
+	//if (mMouseY < my){
+	//	mRotation.mX -= (mMouseY - my) / m;
+	//}
+	//if (mx < mMouseX){
+	//	mRotation.mY += (mMouseX - mx) / m;
+	//}
+	//if (mMouseX < mx){
+	//	mRotation.mY += (mMouseX - mx) / m;
 	//}
 
 	CCharacter::Update();
@@ -152,7 +304,7 @@ void C3DCamera::Update(){
 
 /*-------------------------------------------------------------------------------------------------------------------------------*/
 
-void C3DPlayer::TaskCollision(){
+void C3DBFPlayer::TaskCollision(){
 
 	for (int p = 0; p < mColsize; p++){
 
@@ -161,29 +313,21 @@ void C3DPlayer::TaskCollision(){
 	}
 
 }
-/*void CColorItem::Collision(CCollider*Cm, CCollider*y){
+void C3DRLPlayer::TaskCollision(){
 
-	switch (Cm->mType)
-	{
-	case CCollider::ETRIANGLE:
+	for (int p = 0; p < mColsize; p++){
 
-		if (y->mType == CCollider::ESPHERE){
+		mColBody[p].ChangePriority();
 
-			if (CCollider::CollisionTriangleSphere(Cm, y, &aj)){
-
-				if (y->mTag == CCharacter::EBALL){
-
-					ChangeF = true;
-
-					if (ChangeF == true){
-
-						ChangeColor();
-					}
-					ChangeF = false;
-				}
-			}
-		}
-		break;
 	}
+
 }
-*/
+void C3DTBPlayer::TaskCollision(){
+
+	for (int p = 0; p < mColsize; p++){
+
+		mColBody[p].ChangePriority();
+
+	}
+
+}
