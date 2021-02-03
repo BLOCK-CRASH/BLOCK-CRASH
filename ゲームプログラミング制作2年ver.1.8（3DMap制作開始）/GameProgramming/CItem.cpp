@@ -1118,8 +1118,6 @@ void CExItem::Render(){
 	CCharacter::Render();
 
 }
-
-
 void CSuperExItem::TaskCollision(){
 
 	SBomCol.ChangePriority();

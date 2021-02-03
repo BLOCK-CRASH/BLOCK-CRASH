@@ -13,6 +13,24 @@ CModel C3DShaveItem::mOct;
 CModel C3DShaveItem::mNon;
 //CModel C3DShaveItem::mDec;
 
+int C3DShaveItem::TriHP;
+int C3DShaveItem::RecHP;
+int C3DShaveItem::PenHP;
+int C3DShaveItem::HexHP;
+int C3DShaveItem::HepHP;
+int C3DShaveItem::OctHP;
+int C3DShaveItem::NonHP;
+
+bool C3DShaveItem::TriF;
+bool C3DShaveItem::RecF;
+bool C3DShaveItem::PenF;
+bool C3DShaveItem::HexF;
+bool C3DShaveItem::HepF;
+bool C3DShaveItem::OctF;
+bool C3DShaveItem::NonF;
+
+bool C3DShaveItem::ModelChanF;
+
 int C3DShaveItem::ShaveMyScorePoint;
 
 C3DMoveItem::C3DMoveItem(CModel*model, CVector position, CVector rotation, CVector scale)
@@ -125,13 +143,13 @@ C3DShaveItem::~C3DShaveItem(){
 void C3DShaveItem::Init(){
 
 	mTri.Load("3Model.obj","3Model.mtl");
-	mRec.Load("4Model.obj","4Model.obj");
+	mRec.Load("4Model.obj","4Model.mtl");
 	mPen.Load("5Model.obj","5Model.mtl");
 	mHex.Load("6Model.obj", "6Model.mtl");
 	mHep.Load("7Model.obj", "7Model.mtl");
 	mOct.Load("8Model.obj", "8Model.mtl");
 
-	TriHP = 20;
+	TriHP = 1;
 	RecHP = 25;
 	PenHP = 30;
 	HexHP = 35;
@@ -159,25 +177,6 @@ void C3DShaveItem::Collision(CCollider*Sha, CCollider*y){
 		if (y->mType == CCollider::ESPHERE){
 
 			if (CCollider::CollisionTriangleSphere(Sha, y, &adjust)){
-				if (y->mpParent->mTag == CCharacter::EBALL){
-					
-					if (TriF == true){
-						TriHP = TriHP - 1;
-					}
-					//if (RecF == true){
-					//	RecHP = RecHP - 1;
-					//}
-					//if (PenF == true){
-					//	PenHP = PenHP - 1;
-					//}
-					//if (HexF == true){
-					//	HexHP = HexHP - 1;
-					//}
-					//if (HepF == true){
-					//	HepHP = HepHP - 1;
-					//}
-
-				}
 
 			}
 
@@ -188,83 +187,88 @@ void C3DShaveItem::Collision(CCollider*Sha, CCollider*y){
 }
 /*----------------------------------------------------------------------------------------------------------------------------*/
 
+void C3DShaveItem::ChangeModel(){
+
+	if (ModelChanF == true){
+		if (C3DShaveItem::mpModel == &mTri){
+			TriHP = TriHP - 1;
+		}
+	}
+
+
+	if (TR == true){
+		C3DShaveItem::mpModel == &mRec;
+	}
+
+	if (RP == true){
+		TR = false;
+		C3DShaveItem::mpModel == &mPen;
+
+	}
+
+	if (PH == true){
+		RP = false;
+		C3DShaveItem::mpModel == &mHex;
+	}
+
+	if (HH == true){
+		PH = false;
+		C3DShaveItem::mpModel == &mHep;
+	}
+
+	if (HO == true){
+		HH = false;
+		C3DShaveItem::mpModel == &mOct;
+	}
+
+	//if (ON == true){
+
+	//	C3DShaveItem::mpModel = &mOct;
+
+	//}
+
+	CCharacter::Update();
+
+}
+
+
 void C3DMoveItem::Update(){}
 void C3DOrbitItem::Update(){}
 void C3DShaveItem::Update(){
 
-	if (TriF == true){
+	if (TriHP > 0){
+		TriF = true;
+	}
+	if (TriHP < 0){
+		TriF = false;
+		TR = true;
+	}
+	/*---------------------------------------------*///
+	if (RecHP > 0){
+		RecF = true;
+	}
+	if (RecHP < 0){
+		RecF = false;
+		RP = true;
+	}
+	/*---------------------------------------------*///
 
-		C3DShaveItem::mpModel==&mTri;
-
-		if (TriHP < 0){//HP0でフラグをfalseに変更
-
-			TriF = false;
-			RecF= true;//次のフラグをtrueに変更
-		}
-
+	if (PenHP > 0){
+		PenF = true;
 	}
 
-	if (RecF == true){
-
-		C3DShaveItem::mpModel == &mRec;
-
-		if (RecHP < 0){//HP0でフラグをfalseに変更
-
-			RecF = false;
-			PenF = true;//次のフラグをtrueに変更
-		}
-
-	}
-
-	if (PenF == true){
-
-		C3DShaveItem::mpModel == &mPen;
-
-		if (PenHP < 0){//HP0でフラグをfalseに変更
-
-			PenF = false;
-			HexF = true;//次のフラグをtrueに変更
-		}
-
-	}
-
-	if (HexF == true){
-
-		C3DShaveItem::mpModel == &mHex;
-
-		if (HexHP < 0){//HP0でフラグをfalseに変更
-
-			HexF = false;
-			HepF = true;//次のフラグをtrueに変更
-		}
-
-	}
-
-	if (HepF == true){
-
-		C3DShaveItem::mpModel == &mHep;
-
-		if (HepHP < 0){//HP0でフラグをfalseに変更
-
-			HepF = false;
-			OctF = true;//次のフラグをtrueに変更
-		}
-
-	}
-	
-	if (OctF == true){
-
-		C3DShaveItem::mpModel = &mOct;
-
-
-	}
+	//mTri.Load("3Model.obj", "3Model.mtl");
+	//mRec.Load("4Model.obj", "4Model.mtl");
+	//mPen.Load("5Model.obj", "5Model.mtl");
+	//mHex.Load("6Model.obj", "6Model.mtl");
+	//mHep.Load("7Model.obj", "7Model.mtl");
+	//mOct.Load("8Model.obj", "8Model.mtl");
 
 	CCharacter::Update();
 }
 
 void C3DMoveItem::TaskCollision(){}
 void C3DOrbitItem::TaskCollision(){}
-
 void C3DShaveItem::TaskCollision(){
 
 	for (int C = 0; C < mColSize; C++){

@@ -47,97 +47,130 @@ public:
 };
 /*---------------------------------------------------------------------------------------*/
 /*3DMap前後*/
-class C3DBFPlayer :public CCharacter{
+//class C3DBFPlayer :public CCharacter{
+//public:
+//	C3DBFPlayer() :mColBody(0){
+//
+//		BFMouseX = 1920 / 2;
+//
+//		BFMouseY = 1080 / 2;
+//
+//		mpthis = this;
+//
+//		CInput::GetMousePos(&BFMouseX, &BFMouseY);
+//
+//	}
+//
+//	~C3DBFPlayer(){
+//
+//		if (mColBody)
+//			delete[] mColBody;
+//
+//	}
+//	int mColsize;
+//	C3DBFPlayer(CModel*model, CVector position, CVector rotation, CVector scale);
+//	CCollider *mColBody;
+//	//CCollider mColBody;
+//	static CCharacter *mpthis;
+//	int BFMouseX;
+//	int BFMouseY;
+//	//更新処理
+//	void Update();
+//	void TaskCollision();
+//};
+///*3DMap左右*/
+//class C3DRLPlayer :public CCharacter{
+//public:
+//	C3DRLPlayer() :mColBody(0){
+//
+//		RLMouseX = 1920 / 2;
+//
+//		RLMouseY = 1080 / 2;
+//
+//		mpthis = this;
+//
+//		CInput::GetMousePos(&RLMouseX, &RLMouseY);
+//
+//	}
+//
+//	~C3DRLPlayer(){
+//
+//		if (mColBody)
+//			delete[] mColBody;
+//
+//	}
+//	int mColsize;
+//	C3DRLPlayer(CModel*model, CVector position, CVector rotation, CVector scale);
+//	CCollider *mColBody;
+//	//CCollider mColBody;
+//	static CCharacter *mpthis;
+//	int RLMouseX;
+//	int RLMouseY;
+//	//更新処理
+//	void Update();
+//	void TaskCollision();
+//};
+///*3DMap上下*/
+//class C3DTBPlayer :public CCharacter{
+//public:
+//	C3DTBPlayer() :mColBody(0){
+//
+//		TBMouseX = 1920 / 2;
+//
+//		TBMouseY = 1080 / 2;
+//
+//		mpthis = this;
+//
+//		CInput::GetMousePos(&TBMouseX, &TBMouseY);
+//
+//	}
+//
+//	~C3DTBPlayer(){
+//
+//		if (mColBody)
+//			delete[] mColBody;
+//
+//	}
+//	int mColsize;
+//	C3DTBPlayer(CModel*model, CVector position, CVector rotation, CVector scale);
+//	CCollider *mColBody;
+//	//CCollider mColBody;
+//	static CCharacter *mpthis;
+//	int TBMouseX;
+//	int TBMouseY;
+//	//更新処理
+//	void Update();
+//	void TaskCollision();
+//};
+
+class C3DPlayer :public CCharacter{
 public:
-	C3DBFPlayer() :mColBody(0){
+	C3DPlayer() :mColBody(0){
 
-		BFMouseX = 1920 / 2;
+		mMouseX = 1920 / 2;
 
-		BFMouseY = 1080 / 2;
+		mMouseY = 1080 / 2;
 
 		mpthis = this;
 
-		CInput::GetMousePos(&BFMouseX, &BFMouseY);
+		CInput::GetMousePos(&mMouseX, &mMouseY);
 
 	}
 
-	~C3DBFPlayer(){
+	~C3DPlayer(){
 
 		if (mColBody)
 			delete[] mColBody;
 
 	}
 	int mColsize;
-	C3DBFPlayer(CModel*model, CVector position, CVector rotation, CVector scale);
+	float janpspead;
+	C3DPlayer(CModel*model, CVector position, CVector rotation, CVector scale);
 	CCollider *mColBody;
 	//CCollider mColBody;
 	static CCharacter *mpthis;
-	int BFMouseX;
-	int BFMouseY;
-	//更新処理
-	void Update();
-	void TaskCollision();
-};
-/*3DMap左右*/
-class C3DRLPlayer :public CCharacter{
-public:
-	C3DRLPlayer() :mColBody(0){
-
-		RLMouseX = 1920 / 2;
-
-		RLMouseY = 1080 / 2;
-
-		mpthis = this;
-
-		CInput::GetMousePos(&RLMouseX, &RLMouseY);
-
-	}
-
-	~C3DRLPlayer(){
-
-		if (mColBody)
-			delete[] mColBody;
-
-	}
-	int mColsize;
-	C3DRLPlayer(CModel*model, CVector position, CVector rotation, CVector scale);
-	CCollider *mColBody;
-	//CCollider mColBody;
-	static CCharacter *mpthis;
-	int RLMouseX;
-	int RLMouseY;
-	//更新処理
-	void Update();
-	void TaskCollision();
-};
-/*3DMap上下*/
-class C3DTBPlayer :public CCharacter{
-public:
-	C3DTBPlayer() :mColBody(0){
-
-		TBMouseX = 1920 / 2;
-
-		TBMouseY = 1080 / 2;
-
-		mpthis = this;
-
-		CInput::GetMousePos(&TBMouseX, &TBMouseY);
-
-	}
-
-	~C3DTBPlayer(){
-
-		if (mColBody)
-			delete[] mColBody;
-
-	}
-	int mColsize;
-	C3DTBPlayer(CModel*model, CVector position, CVector rotation, CVector scale);
-	CCollider *mColBody;
-	//CCollider mColBody;
-	static CCharacter *mpthis;
-	int TBMouseX;
-	int TBMouseY;
+	int mMouseX;
+	int mMouseY;
 	//更新処理
 	void Update();
 	void TaskCollision();

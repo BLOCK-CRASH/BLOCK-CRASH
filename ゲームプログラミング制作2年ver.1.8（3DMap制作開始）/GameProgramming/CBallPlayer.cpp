@@ -148,9 +148,7 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 
 				if (y->mpParent->mTag == CCharacter::EDELETE){
 
-					mPosition.mY = 80.0;
-
-					mPosition.mX = 0.0;
+					mPosition = CVector(0.0, 80.0, 0.0);
 
 					BoundNum = 0.75;
 
@@ -163,6 +161,10 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 					GoF = false;
 				}
 
+				if (y->mpParent->mTag == CCharacter::ESHAVEITEM){
+
+					C3DShaveItem::ModelChanF = true;
+				}
 			}
 
 		}

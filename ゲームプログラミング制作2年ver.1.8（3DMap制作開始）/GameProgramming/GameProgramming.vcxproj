@@ -83,7 +83,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="C3DItem.cpp" />
+    <ClCompile Include="BossItem.cpp" />
     <ClCompile Include="C3DPlayer.cpp" />
     <ClCompile Include="CBallPlayer.cpp" />
     <ClCompile Include="CBillBoard.cpp" />

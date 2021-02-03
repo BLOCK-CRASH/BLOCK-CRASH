@@ -16,6 +16,10 @@
 #include "CScene.h"
 
 #include "CEffect.h"
+
+#include "3DPlayer.h"
+
+#include "BossItem.h"
 class CBallPlayer :CCharacter{
 public:
 	CBallPlayer(){}

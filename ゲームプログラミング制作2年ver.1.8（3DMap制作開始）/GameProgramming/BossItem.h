@@ -115,6 +115,8 @@ public:
 
 	void Collision(CCollider*Sha, CCollider*y);
 
+	static	bool ModelChanF;
+
 	CVector adjust;
 
 	void Update();
@@ -124,32 +126,41 @@ public:
 	void TaskCollision();
 
 	static CModel mTri;//OŠpŒ`
-	int TriHP;//OŠpŒ`
-	bool TriF;//OŠpŒ`
+	static int TriHP;//OŠpŒ`
+	static bool TriF;//OŠpŒ`
+	bool TR;//Tri‚©‚çRec‚Ö
 
 	static CModel mRec;//lŠpŒ`
-	int RecHP;//lŠpŒ`
-	bool RecF;//lŠpŒ`
+	static int RecHP;//lŠpŒ`
+	static bool RecF;//lŠpŒ`
+	bool RP;//Rec‚©‚çPen‚Ö
 
 	static CModel mPen;//ŒÜŠpŒ`
-	int PenHP;//ŒÜŠpŒ`
-	bool PenF;//ŒÜŠpŒ`
+	static int PenHP;//ŒÜŠpŒ`
+	static bool PenF;//ŒÜŠpŒ`
+	bool PH;//Pen‚©‚çHex‚Ö
 
 	static CModel mHex;//˜ZŠpŒ`
-	int HexHP;//˜ZŠpŒ`
-	bool HexF;//˜ZŠpŒ`
+	static int HexHP;//˜ZŠpŒ`
+	static bool HexF;//˜ZŠpŒ`
+	bool HH;//Hex‚©‚çHep‚Ö
 
 	static CModel mHep;//µŠpŒ`
-	int HepHP;//µŠpŒ`
-	bool HepF;//µŠpŒ`
+	static int HepHP;//µŠpŒ`
+	static bool HepF;//µŠpŒ`
+	bool HO;//Hep‚©‚çOct‚Ö
 
 	static CModel mOct;//”ªŠpŒ`
-	int OctHP;//”ªŠpŒ`
-	bool OctF;//”ªŠpŒ`
+	static int OctHP;//”ªŠpŒ`
+	static bool OctF;//”ªŠpŒ`
+	bool ON;//Oct‚©‚çNon‚Ö
 
-	static CModel mNon;//‹ãŠpŒ`
-	int NonHP;//‹ãŠpŒ`
-	bool NonF;//‹ãŠpŒ`
+	static  CModel mNon;//‹ãŠpŒ`
+	static int NonHP;//‹ãŠpŒ`
+	static bool NonF;//‹ãŠpŒ`
+	bool NOF;//Non‚©‚çModel‚È‚µ‚Ö
+
+	void ChangeModel();
 
 	//static CModel mDec;//\ŠpŒ`
 	//int DecHP;//\ŠpŒ`
