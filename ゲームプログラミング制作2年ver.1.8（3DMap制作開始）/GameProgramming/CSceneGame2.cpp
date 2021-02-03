@@ -43,12 +43,14 @@ void CSceneGame2::Init() {
 
 	//mStage.Load("STAGE(2)_Edit_OF_0102.obj", "STAGE(2)_Edit_OF_0102.mtl");
 
-	m3DPlayer.Load("3DPlayer0118.obj", "3DPlayer0118.mtl");
+	//m3DPlayer.Load("3DPlayer0118.obj", "3DPlayer0118.mtl");
+	m3DPlayer.Load("3DPlayer0203.obj", "3DPlayer0203.mtl");
 
+	
 	//m3DPlayer.Load("3DPlayerBoard.obj","3DPlayerBoard.mtl");
 
-	mDelete.Load("3DMapDeleteBlock.obj", "3DMapDeleteBlock.mtl");
-	mDelete.mMaterials[0].mDiffuse[3] = 0.0f;
+	mDelete.Load("AriBox0203.obj", "AriBox0203.mtl");
+	mDelete.mMaterials[0].mDiffuse[3] = 0.3f;
 
 	C3DShaveItem::mTri.Load("3Model.obj", "3Model.mtl");
 	C3DShaveItem::mRec.Load("4Model.obj", "4Model.mtl");
@@ -67,6 +69,11 @@ void CSceneGame2::Init() {
 
 	//new CCamera();
 
+	//new CMoveItem(&mBoard, CVector(600.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0));
+
+	new C3DDelete(&mDelete, CVector(0.0, 0.0, 0.0), CVector(0.0, 0.0, 180.0), CVector(10, 10, 10));
+
+	new C3DMap(&mStage, CVector(0.0, 0.0/*STAGE2の時だけ151*/, 0.0), CVector(0.0, 0.0/*45*/, 180.0), CVector(7.0, 7.0, 7.0));
 
 	//プレイヤー(板)
 	/*プレイヤー板前後*/
@@ -75,18 +82,13 @@ void CSceneGame2::Init() {
 
 	//new C3DRLPlayer(&m3DPlayer, CVector(140.0, 0.0, 0.0), CVector(0.0, 0.0, 90.0), CVector(3.5, 3.5, 3.5));
 	//new C3DRLPlayer(&m3DPlayer, CVector(-140.0, 0.0, 0.0), CVector(-90.0, 0.0, -90.0), CVector(3.5, 3.5, 3.5));
-	//
+
 
 	//new C3DTBPlayer(&m3DPlayer, CVector(0.0, -130.0, 0.0), CVector(0.0, 0.0, 0.0), CVector(3.5, 3.5, 3.5));
 	//new C3DTBPlayer(&m3DPlayer, CVector(0.0, 130.0, 0.0), CVector(0.0, 0.0, 0.0), CVector(3.5, 3.5, 3.5));
 
 	//new C3DBFPlayer(&m3DPlayer, CVector(-120.0, -110.0, -190.0), CVector(0.0, -90.0, -90.0), CVector(4.5, 4.5, 4.5));
 
-
-	//new CMoveItem(&mBoard, CVector(600.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0));
-	new C3DDelete(&mDelete, CVector(0.0, 0.0, 150.0), CVector(0.0, 0.0, -180.0), CVector(20.0, 20.0, 20.0));
-
-	new C3DMap(&mStage, CVector(0.0, 0.0/*STAGE2の時だけ151*/, 0.0), CVector(0.0, 0.0/*45*/, 180.0), CVector(7.0, 7.0, 7.0));
 
 	////玉
 	new CBallPlayer(&mBall, CVector(0.0f, 75.0f, 0.0f), CVector(), CVector(7.0f, 7.0f, 7.0));
@@ -98,10 +100,9 @@ void CSceneGame2::Init() {
 	//
 	new C3DShaveItem(&C3DShaveItem::mTri, CVector(0.0, 0.0, 0.0), CVector(), CVector(10.0, 10.0, 10.0));
 
-
 	new C3DPlayer(&m3DPlayer, CVector(0.0, 0.0, 0.0), CVector(0.0, 0.0, 180.0), CVector(0.9, 0.9, 0.9));
 
-	new C3DCamera(&mBoard, CVector(), CVector(), CVector());
+	//new C3DCamera(&mBoard, CVector(), CVector(), CVector());
 
 	CamChanBackF = false;
 
@@ -115,7 +116,7 @@ void CSceneGame2::Init() {
 
 	//mCamera.mpModel = &mBoard;
 
-	mCamera.mPosition = CVector(0.0, 0.0, 0.0);
+	//mCamera.mPosition = CVector(0.0, 0.0, 0.0);
 }
 
 
@@ -159,40 +160,40 @@ void CSceneGame2::Update() {
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める
 
-	e = CVector(-15.0f, 150.0f, 500.0f)*mCamera.mMatrix;
+	e = CVector(200.0f, 100.0f, 450.0f)/**mCamera.mMatrix*/;
 
-	//if (CKey::Push('A')){
+	if (CKey::Push('A')){
 
-	//	CamChanLeftF = true;
+		CamChanLeftF = true;
 
-	//	if (CamChanLeftF == true){
-	//	
-	//		e = CVector(500.0f, 150.0f, 0.0f)/*mCamera.mMatrix*/;
-	//	}
+		if (CamChanLeftF == true){
+		
+			e= CVector(500.0f, 50.0f, 0.0f)/*mCamera.mMatrix*/;
+		}
 
-	//}
+	}
 
-	//if (CKey::Push('W')){
+	if (CKey::Push('W')){
 
-	//	CamChanBackF = true;
+		CamChanBackF = true;
 
-	//	if (CamChanBackF == true){
+		if (CamChanBackF == true){
 
-	//		e = CVector(0.0f, 150.0f, -500.0f)*mCamera.mMatrix;
-	//	}
+			e = CVector(0.0f, 150.0f, -500.0f)/**mCamera.mMatrix*/;
+		}
 
-	//}
+	}
 
-	//if (CKey::Push('D')){
+	if (CKey::Push('D')){
 
-	//	CamChanRightF = true;
+		CamChanRightF = true;
 
-	//	if (CamChanRightF == true){
+		if (CamChanRightF == true){
 
-	//		e = CVector(-500.0f, 150.0f, 0.0f)/*mCamera.mMatrix*/;
+			e = CVector(-500.0f, 150.0f, 0.0f)/*mCamera.mMatrix*/;
 
-	//	}
-	//}
+		}
+	}
 
 
 	//注視点を求める
@@ -201,7 +202,7 @@ void CSceneGame2::Update() {
 
 	//上方向を求める
 
-	u = CVector(0.0f, 10.0f, 0.0f)*mCamera.mMatrix;
+	u = CVector(0.0f, 10.0f, 0.0f)/**mCamera.mMatrix*/;
 
 	//カメラの設定
 	Camera3D(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);

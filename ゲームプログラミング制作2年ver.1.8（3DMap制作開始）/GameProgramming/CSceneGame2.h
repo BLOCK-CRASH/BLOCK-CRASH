@@ -50,7 +50,7 @@ public:
 
 	CModel mShave;
 
-	C3DCamera mCamera;
+	//C3DCamera mCamera;
 
 	static int YScore;
 
