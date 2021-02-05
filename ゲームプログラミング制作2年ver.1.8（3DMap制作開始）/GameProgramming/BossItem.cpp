@@ -191,8 +191,10 @@ void C3DShaveItem::ChangeModel(){
 
 	if (ModelChanF == true){
 		if (C3DShaveItem::mpModel == &mTri){
-			TriHP = TriHP - 1;
+			
 		}
+		TriHP = TriHP - 1;
+		ModelChanF = false;
 	}
 
 

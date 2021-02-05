@@ -35,7 +35,7 @@ void CSceneGame2::Init() {
 	mBall.Load("sphere.obj", "sphere.mtl");
 
 	mStage.Load("StageEdit0118.obj", "StageEdit0118.mtl");
-	mStage.mMaterials[0].mDiffuse[3] = 0.5f;
+	mStage.mMaterials[0].mDiffuse[3] = 0.8f;
 
 
 	//mStage.Load("3DMap_02_02.obj", "3DMap_02_02.mtl");
@@ -45,9 +45,9 @@ void CSceneGame2::Init() {
 
 	//m3DPlayer.Load("3DPlayer0118.obj", "3DPlayer0118.mtl");
 	m3DPlayer1.Load("0205_3D_1Board.obj", "0205_3D_1Board.mtl");
-	//m3DPlayer2.Load("0205_3D_2Board.obj", "0205_3D_2Board.mtl");
-	//m3DPlayer3.Load("0205_3D_3Board.obj", "0205_3D_3Board.mtl");
-	//m3DPlayer4.Load("0205_3D_4Board.obj", "0205_3D_4Board.mtl");
+	m3DPlayer2.Load("0205_3D_2Board.obj", "0205_3D_2Board.mtl");
+	m3DPlayer3.Load("0205_3D_3Board.obj", "0205_3D_3Board.mtl");
+	m3DPlayer4.Load("0205_3D_4Board.obj", "0205_3D_4Board.mtl");
 	
 	//m3DPlayer.Load("3DPlayerBoard.obj","3DPlayerBoard.mtl");
 
@@ -73,9 +73,9 @@ void CSceneGame2::Init() {
 
 	//new CMoveItem(&mBoard, CVector(600.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0));
 
-	//new C3DDelete(&mDelete, CVector(0.0, 0.0, 0.0), CVector(0.0, 0.0, 180.0), CVector(10, 10, 10));
+	new C3DDelete(&mDelete, CVector(0.0, 0.0, 0.0), CVector(0.0, 0.0, 180.0), CVector(10, 10, 10));
 
-	new C3DMap(&mStage, CVector(0.0, 0.0/*STAGE2の時だけ151*/, 0.0), CVector(0.0, 0.0/*45*/, 180.0), CVector(60.0, 60.0, 60.0));
+	new C3DMap(&mStage, CVector(0.0, 0.0/*STAGE2の時だけ151*/, 0.0), CVector(0.0, 0.0/*45*/, 180.0), CVector(7.0, 7.0, 7.0));
 
 	//プレイヤー(板)
 	/*プレイヤー板前後*/
@@ -102,10 +102,10 @@ void CSceneGame2::Init() {
 	//
 	new C3DShaveItem(&C3DShaveItem::mTri, CVector(0.0, 0.0, 0.0), CVector(), CVector(10.0, 10.0, 10.0));
 
-	new C3DPlayer(&m3DPlayer1, CVector(0.0, 0.0, 0.0), CVector(0.0, 0.0, 0.0), CVector(40, 40, 40));
-	new C3DPlayer(&m3DPlayer1, CVector(50.0, 0.0, 0.0), CVector(0.0, 0.0, 0.0), CVector(40, 40, 40));
-	new C3DPlayer(&m3DPlayer1, CVector(100.0, 0.0, 0.0), CVector(0.0, 0.0, 0.0), CVector(40, 40, 40));
-	new C3DPlayer(&m3DPlayer1, CVector(150.0, 0.0, 0.0), CVector(0.0, 0.0, 0.0), CVector(40, 40, 40));
+	new C3DPlayer(&m3DPlayer2, CVector(0.0, 0.0, 0.0), CVector(0.0, 0.0, 0.0), CVector(40, 40, 40));
+	//new C3DPlayer(&m3DPlayer1, CVector(0.0, 0.0, 0.0), CVector(0.0, 0.0, 0.0), CVector(40, 40, 40));
+	//new C3DPlayer(&m3DPlayer3, CVector(100.0, 0.0, 0.0), CVector(0.0, 0.0, 0.0), CVector(40, 40, 40));
+	//new C3DPlayer(&m3DPlayer4, CVector(150.0, 0.0, 0.0), CVector(0.0, 0.0, 0.0), CVector(40, 40, 40));
 
 	//new C3DPlayer(&m3DPlayer, CVector(-100.0, 0.0, 0.0), CVector(180.0, 0.0, -180.0), CVector(40, 40, 40));
 
@@ -165,7 +165,7 @@ void CSceneGame2::Update() {
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める
 
-	e = CVector(0.0f, 10.0f, 450.0f);
+	e = CVector(300.0f, 10.0f, 550.0f);
 
 	if (CKey::Push('A')){
 

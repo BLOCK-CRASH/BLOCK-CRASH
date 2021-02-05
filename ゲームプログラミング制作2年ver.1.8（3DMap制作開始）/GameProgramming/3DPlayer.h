@@ -67,6 +67,7 @@ public:
 
 	}
 	int mColsize;
+	int mMouseCount;
 	float janpspead;
 	C3DPlayer(CModel*model, CVector position, CVector rotation, CVector scale);
 	CCollider *mColBody;

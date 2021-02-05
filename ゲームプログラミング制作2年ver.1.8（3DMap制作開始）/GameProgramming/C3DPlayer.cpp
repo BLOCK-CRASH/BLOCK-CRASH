@@ -51,10 +51,11 @@ C3DPlayer::C3DPlayer(CModel*model, CVector position, CVector rotation, CVector s
 
 /*-------------------------------------------------------------------------------------------------------------------------------*/
 
-#define MOUSE_S 3
+#define MOUSE_S 10
 void C3DPlayer::Update(){
 
-	static int mMouseCount = 0;
+	mMouseCount = 0;
+
 	++mMouseCount %= MOUSE_S;
 
 	if (mMouseCount == 0){
