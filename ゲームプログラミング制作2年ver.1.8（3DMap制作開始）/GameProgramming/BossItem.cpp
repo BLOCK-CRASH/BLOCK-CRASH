@@ -29,7 +29,7 @@ bool C3DShaveItem::HepF;
 bool C3DShaveItem::OctF;
 bool C3DShaveItem::NonF;
 
-bool C3DShaveItem::ModelChanF;
+bool C3DShaveItem::ModelChanF = false;
 
 int C3DShaveItem::ShaveMyScorePoint;
 
@@ -149,7 +149,7 @@ void C3DShaveItem::Init(){
 	mHep.Load("7Model.obj", "7Model.mtl");
 	mOct.Load("8Model.obj", "8Model.mtl");
 
-	TriHP = 1;
+	TriHP = 10;
 	RecHP = 25;
 	PenHP = 30;
 	HexHP = 35;
@@ -177,7 +177,7 @@ void C3DShaveItem::Collision(CCollider*Sha, CCollider*y){
 		if (y->mType == CCollider::ESPHERE){
 
 			if (CCollider::CollisionTriangleSphere(Sha, y, &adjust)){
-
+				C3DShaveItem::ChangeModel();
 			}
 
 		}
@@ -263,6 +263,11 @@ void C3DShaveItem::Update(){
 	//mHex.Load("6Model.obj", "6Model.mtl");
 	//mHep.Load("7Model.obj", "7Model.mtl");
 	//mOct.Load("8Model.obj", "8Model.mtl");
+
+	mRotation.mX += 0.5;
+
+	mRotation.mZ += 1.0;
+
 
 	CCharacter::Update();
 }

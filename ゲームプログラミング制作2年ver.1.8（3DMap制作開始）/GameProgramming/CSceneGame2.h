@@ -44,7 +44,10 @@ public:
 
 	CModel mStage;
 
-	CModel m3DPlayer;
+	CModel m3DPlayer1;
+	CModel m3DPlayer2;
+	CModel m3DPlayer3;
+	CModel m3DPlayer4;
 
 	CModel mDelete;
 
