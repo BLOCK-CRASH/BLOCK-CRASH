@@ -69,11 +69,19 @@ public:
 
 	bool Result;
 
-	bool CamChanRightF;//視点ステージ右方切り替え
+	bool CamChanOri;//初期値へ戻す
 
-	bool CamChanLeftF;//視点ステージ左切り替え
+	bool CamChan1;//視点ステージ切り替え1
 
-	bool CamChanBackF;//視点ステージ後方切り替え
+	bool CamChan2;//視点ステージ切り替え2
+
+	bool CamChan3;//視点ステージ切り替え3
+
+	bool CamChan4;//視点ステージ切り替え4
+
+	bool CamChanTop;//視点ステージ切り替え上
+
+	bool CamChanBottom;//視点ステージ切り替え下
 
 	static int GAMETIME;
 

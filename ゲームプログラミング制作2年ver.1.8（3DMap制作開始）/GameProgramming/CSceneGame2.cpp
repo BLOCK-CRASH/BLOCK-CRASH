@@ -35,7 +35,9 @@ void CSceneGame2::Init() {
 	mBall.Load("sphere.obj", "sphere.mtl");
 
 	mStage.Load("StageEdit0118.obj", "StageEdit0118.mtl");
-	mStage.mMaterials[0].mDiffuse[3] = 0.8f;
+	//mStage.Load("0205Stage_type_Wind.obj", "0205Stage_type_Wind.mtl");
+
+	mStage.mMaterials[0].mDiffuse[3] = 0.5f;
 
 
 	//mStage.Load("3DMap_02_02.obj", "3DMap_02_02.mtl");
@@ -51,8 +53,8 @@ void CSceneGame2::Init() {
 	
 	//m3DPlayer.Load("3DPlayerBoard.obj","3DPlayerBoard.mtl");
 
-	mDelete.Load("AriBox0203.obj", "AriBox0203.mtl");
-	mDelete.mMaterials[0].mDiffuse[3] = 0.3f;
+	mDelete.Load("AriBox0205.obj", "AriBox0205.mtl");
+	mDelete.mMaterials[0].mDiffuse[3] = 0.0f;
 
 	C3DShaveItem::mTri.Load("3Model.obj", "3Model.mtl");
 	C3DShaveItem::mRec.Load("4Model.obj", "4Model.mtl");
@@ -102,7 +104,11 @@ void CSceneGame2::Init() {
 	//
 	new C3DShaveItem(&C3DShaveItem::mTri, CVector(0.0, 0.0, 0.0), CVector(), CVector(10.0, 10.0, 10.0));
 
-	new C3DPlayer(&m3DPlayer2, CVector(0.0, 0.0, 0.0), CVector(0.0, 0.0, 0.0), CVector(40, 40, 40));
+	new C3DPlayer(&m3DPlayer2, CVector(0.0, 0.0, 0.0), CVector(0.0, 90.0, 0.0), CVector(35.0, 35.0, 35.0));
+	new C3DPlayer(&m3DPlayer2, CVector(0.0, 0.0, 0.0), CVector(0.0, 180.0, 0.0), CVector(35.0, 35.0, 35.0));
+	new C3DPlayer(&m3DPlayer2, CVector(0.0, 0.0, 0.0), CVector(0.0, 270.0, 0.0), CVector(35.0, 35.0, 35.0));
+	new C3DPlayer(&m3DPlayer2, CVector(0.0, 0.0, 0.0), CVector(0.0, 360.0, 0.0), CVector(35.0, 35.0, 35.0));
+
 	//new C3DPlayer(&m3DPlayer1, CVector(0.0, 0.0, 0.0), CVector(0.0, 0.0, 0.0), CVector(40, 40, 40));
 	//new C3DPlayer(&m3DPlayer3, CVector(100.0, 0.0, 0.0), CVector(0.0, 0.0, 0.0), CVector(40, 40, 40));
 	//new C3DPlayer(&m3DPlayer4, CVector(150.0, 0.0, 0.0), CVector(0.0, 0.0, 0.0), CVector(40, 40, 40));
@@ -111,19 +117,18 @@ void CSceneGame2::Init() {
 
 	//new C3DCamera(&mBoard, CVector(), CVector(), CVector());
 
-	CamChanBackF = false;
-
-	CamChanLeftF = false;
-
-	CamChanRightF = false;
+	//CamChan1 = false;
 
 	CSceneGame2::ResetF = true;
 
 	CSceneGame2::mEnable = true;
 
-	//mCamera.mpModel = &mBoard;
-
-	//mCamera.mPosition = CVector(0.0, 0.0, 0.0);
+	CamChan1 = true;
+	CamChan2 = false;
+	CamChan3 = false;
+	CamChan4 = false;
+	CamChanBottom = false;
+	CamChanTop = false;
 }
 
 
@@ -136,12 +141,6 @@ void CSceneGame2::Update() {
 		Result = true;
 
 	}
-
-	//if (CSceneGame2::GAMETIME < 1801){
-
-	//	CSpinItem::RebirthF = true;
-	//	CMoveItem::RebirthF = true;
-	//}
 
 	if (CSceneGame2::GAMETIME < 61){
 
@@ -165,39 +164,90 @@ void CSceneGame2::Update() {
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める
 
-	e = CVector(300.0f, 10.0f, 550.0f);
+	//e = CVector(160.0f, 160.0f, 200.0f);
 
-	if (CKey::Push('A')){
+	if (CKey::Once('A')){
+		CamChan1 = true;
+	}
+	if (CKey::Once('W')){
+		CamChan2 = true;
+	}
+	if (CKey::Once('D')){
+		CamChan3 = true;
+	}
+	if (CKey::Once('X')){
+		CamChan4 = true;
+	}
+	if (CKey::Once('Z')){
+		CamChanBottom = true;
+	}
+	if (CKey::Once('S')){
+		CamChanTop = true;
+	}
 
-		CamChanLeftF = true;
-
-		if (CamChanLeftF == true){
-		
-			e= CVector(500.0f, 50.0f, 0.0f);
-		}
+	if (CamChan1 == true){
+		//A
+		e = CVector(160.0f, 160.0f, 200.0f);
+		CamChan2 = false;
+		CamChan3 = false;
+		CamChan4 = false;
+		CamChanBottom = false;
+		CamChanTop = false;
 
 	}
 
-	if (CKey::Push('W')){
-
-		CamChanBackF = true;
-
-		if (CamChanBackF == true){
-
-			e = CVector(0.0f, 150.0f, -500.0f);
-		}
+	if (CamChan2 == true){
+		//W
+		e = CVector(160.0f, 160.0f, -200.0f);
+		CamChan1 = false;
+		CamChan3 = false;
+		CamChan4 = false;
+		CamChanBottom = false;
+		CamChanTop = false;
 
 	}
 
-	if (CKey::Push('D')){
+	if (CamChan3 == true){
+		//E
+		e = CVector(-160.0f, 160.0f, -200.0f);
+		CamChan1 = false;
+		CamChan2 = false;
+		CamChan4 = false;
+		CamChanBottom = false;
+		CamChanTop = false;
 
-		CamChanRightF = true;
+	}
 
-		if (CamChanRightF == true){
+	if (CamChan4 == true){
+		//X
+		e = CVector(-160.0f, 160.0f, 200.0f);
+		CamChan1 = false;
+		CamChan2 = false;
+		CamChan3 = false;
+		CamChanBottom = false;
+		CamChanTop = false;
 
-			e = CVector(-500.0f, 150.0f, 0.0f)/*mCamera.mMatrix*/;
+	}
 
-		}
+	if (CamChanBottom == true){
+		//Z
+		e = CVector(160.0f, 160.0f, -200.0f);
+		CamChan1 = false;
+		CamChan2 = false;
+		CamChan3 = false;
+		CamChan4 = false;
+		CamChanTop = false;
+	}
+
+	if (CamChanTop == true){
+		//S
+		e = CVector(160.0f, 160.0f, -200.0f);
+		CamChan1 = false;
+		CamChan2 = false;
+		CamChan3 = false;
+		CamChan4 = false;
+		CamChanBottom = false;
+
 	}
 
 

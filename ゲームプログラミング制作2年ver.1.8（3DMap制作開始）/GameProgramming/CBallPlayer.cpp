@@ -21,11 +21,6 @@ int CBallPlayer::SScoreBox = 0;//スコア箱(スピン
 int CBallPlayer::MScoreBox = 0;//スコア箱(移動
 int CBallPlayer::CScoreBox = 0;//スコア箱(色
 
-//int CBallPlayer::RCount = 0;//赤ブロックHP
-//int CBallPlayer::BCount = 0;//青ブロックHP
-//int CBallPlayer::GCount = 0;//緑ブロックHP
-//int CBallPlayer::YCount = 0;//黄ブロックHP
-
 int CBallPlayer::FeverCount = 0;
 
 extern std::shared_ptr<CTexture>TextureExp;

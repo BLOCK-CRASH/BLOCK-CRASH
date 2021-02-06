@@ -54,8 +54,6 @@ C3DPlayer::C3DPlayer(CModel*model, CVector position, CVector rotation, CVector s
 #define MOUSE_S 10
 void C3DPlayer::Update(){
 
-	mMouseCount = 0;
-
 	++mMouseCount %= MOUSE_S;
 
 	if (mMouseCount == 0){
@@ -74,13 +72,13 @@ void C3DPlayer::Update(){
 
 	if (my < mMouseY){
 
-		mRotation.mZ -= (mMouseY - my) / m;
+		mRotation.mX -= (mMouseY - my) / m;
 
 	}
 
 	if (mMouseY < my){
 
-		mRotation.mZ -= (mMouseY - my) / m;
+		mRotation.mX -= (mMouseY - my) / m;
 
 	}
 

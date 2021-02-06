@@ -123,6 +123,8 @@ public:
 
 	void Init();
 
+	int u;
+
 	void TaskCollision();
 
 	static CModel mTri;//ŽOŠpŒ`

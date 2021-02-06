@@ -155,7 +155,7 @@ void C3DShaveItem::Init(){
 	HexHP = 35;
 	HepHP = 40;
 	OctHP = 50;
-
+	int u = 0;
 	TriF = true;//ŽOŠp‚Í‰Šú‚Étrue
 	RecF = false;
 	PenF = false;
@@ -174,12 +174,15 @@ void C3DShaveItem::Collision(CCollider*Sha, CCollider*y){
 	switch (Sha->mType)
 	{	
 	case CCollider::ETRIANGLE:
+
 		if (y->mType == CCollider::ESPHERE){
+			
+			if (y->mpParent->mTag == CCharacter::EBALL){
 
-			if (CCollider::CollisionTriangleSphere(Sha, y, &adjust)){
-				C3DShaveItem::ChangeModel();
+				u = 1;
+
 			}
-
+		
 		}
 		break;
 	}
@@ -189,45 +192,35 @@ void C3DShaveItem::Collision(CCollider*Sha, CCollider*y){
 
 void C3DShaveItem::ChangeModel(){
 
-	if (ModelChanF == true){
-		if (C3DShaveItem::mpModel == &mTri){
-			
-		}
-		TriHP = TriHP - 1;
-		ModelChanF = false;
-	}
 
+	TriHP = TriHP - 1;
+	ModelChanF = false;
 
-	if (TR == true){
+	if (C3DShaveItem::TR == true){
 		C3DShaveItem::mpModel == &mRec;
 	}
 
-	if (RP == true){
+	if (C3DShaveItem::RP == true){
 		TR = false;
 		C3DShaveItem::mpModel == &mPen;
 
 	}
 
-	if (PH == true){
+	if (C3DShaveItem::PH == true){
 		RP = false;
 		C3DShaveItem::mpModel == &mHex;
 	}
 
-	if (HH == true){
+	if (C3DShaveItem::HH == true){
 		PH = false;
 		C3DShaveItem::mpModel == &mHep;
 	}
 
-	if (HO == true){
+	if (C3DShaveItem::HO == true){
 		HH = false;
 		C3DShaveItem::mpModel == &mOct;
 	}
 
-	//if (ON == true){
-
-	//	C3DShaveItem::mpModel = &mOct;
-
-	//}
 
 	CCharacter::Update();
 
@@ -237,6 +230,13 @@ void C3DShaveItem::ChangeModel(){
 void C3DMoveItem::Update(){}
 void C3DOrbitItem::Update(){}
 void C3DShaveItem::Update(){
+
+
+	if (ModelChanF == true){
+
+		ChangeModel();
+
+	}
 
 	if (TriHP > 0){
 		TriF = true;
