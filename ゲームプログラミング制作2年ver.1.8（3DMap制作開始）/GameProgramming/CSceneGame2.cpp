@@ -50,7 +50,12 @@ void CSceneGame2::Init() {
 	m3DPlayer2.Load("0205_3D_2Board.obj", "0205_3D_2Board.mtl");
 	m3DPlayer3.Load("0205_3D_3Board.obj", "0205_3D_3Board.mtl");
 	m3DPlayer4.Load("0205_3D_4Board.obj", "0205_3D_4Board.mtl");
-	
+
+	m3DPlayer1.mMaterials[0].mDiffuse[3] = 0.75f;
+	m3DPlayer2.mMaterials[0].mDiffuse[3] = 0.75f;
+	m3DPlayer3.mMaterials[0].mDiffuse[3] = 0.75f;
+	m3DPlayer4.mMaterials[0].mDiffuse[3] = 0.75f;
+
 	//m3DPlayer.Load("3DPlayerBoard.obj","3DPlayerBoard.mtl");
 
 	mDelete.Load("AriBox0205.obj", "AriBox0205.mtl");
@@ -62,7 +67,6 @@ void CSceneGame2::Init() {
 	C3DShaveItem::mHex.Load("6Model.obj", "6Model.mtl");
 	C3DShaveItem::mHep.Load("7Model.obj", "7Model.mtl");
 	C3DShaveItem::mOct.Load("8Model.obj", "8Model.mtl");
-
 
 	//mShave.Load("mTri.obj", "mTri.mtl");//3DShaveItem//最初は三角形モデル
 
@@ -93,21 +97,21 @@ void CSceneGame2::Init() {
 
 	//new C3DBFPlayer(&m3DPlayer, CVector(-120.0, -110.0, -190.0), CVector(0.0, -90.0, -90.0), CVector(4.5, 4.5, 4.5));
 
-
-	////玉
-	new CBallPlayer(&mBall, CVector(0.0f, 75.0f, 0.0f), CVector(), CVector(7.0f, 7.0f, 7.0));
 	///*ノーマルアイテムブロック----------------------------------------------------------------------------*/
 	//new CItem(&mBoard, CVector(-150.0f, 140.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0, 1.0, 1.0));
 	//new CItem(&mBoard, CVector(150.0f, 140.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0, 1.0, 1.0));
 	//new CItem(&mBoard, CVector(0.0f, 140.0f, 150.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0, 1.0, 1.0));
 	//new CItem(&mBoard, CVector(0.0f, 140.0f, -150.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0, 1.0, 1.0));
 	//
-	new C3DShaveItem(&C3DShaveItem::mTri, CVector(0.0, 0.0, 0.0), CVector(), CVector(10.0, 10.0, 10.0));
+	new C3DShaveItem(&C3DShaveItem::mTri, CVector(0.0, 0.0, 0.0), CVector(), CVector(5.0, 5.0, 5.0));
 
 	new C3DPlayer(&m3DPlayer2, CVector(0.0, 0.0, 0.0), CVector(0.0, 90.0, 0.0), CVector(35.0, 35.0, 35.0));
 	new C3DPlayer(&m3DPlayer2, CVector(0.0, 0.0, 0.0), CVector(0.0, 180.0, 0.0), CVector(35.0, 35.0, 35.0));
 	new C3DPlayer(&m3DPlayer2, CVector(0.0, 0.0, 0.0), CVector(0.0, 270.0, 0.0), CVector(35.0, 35.0, 35.0));
 	new C3DPlayer(&m3DPlayer2, CVector(0.0, 0.0, 0.0), CVector(0.0, 360.0, 0.0), CVector(35.0, 35.0, 35.0));
+
+	////玉
+	new CBallPlayer(&mBall, CVector(0.0f, 75.0f, 0.0f), CVector(), CVector(7.0f, 7.0f, 7.0));
 
 	//new C3DPlayer(&m3DPlayer1, CVector(0.0, 0.0, 0.0), CVector(0.0, 0.0, 0.0), CVector(40, 40, 40));
 	//new C3DPlayer(&m3DPlayer3, CVector(100.0, 0.0, 0.0), CVector(0.0, 0.0, 0.0), CVector(40, 40, 40));
@@ -169,22 +173,6 @@ void CSceneGame2::Update() {
 	if (CKey::Once('A')){
 		CamChan1 = true;
 	}
-	if (CKey::Once('W')){
-		CamChan2 = true;
-	}
-	if (CKey::Once('D')){
-		CamChan3 = true;
-	}
-	if (CKey::Once('X')){
-		CamChan4 = true;
-	}
-	if (CKey::Once('Z')){
-		CamChanBottom = true;
-	}
-	if (CKey::Once('S')){
-		CamChanTop = true;
-	}
-
 	if (CamChan1 == true){
 		//A
 		e = CVector(160.0f, 160.0f, 200.0f);
@@ -196,6 +184,9 @@ void CSceneGame2::Update() {
 
 	}
 
+	if (CKey::Once('W')){
+		CamChan2 = true;
+	}
 	if (CamChan2 == true){
 		//W
 		e = CVector(160.0f, 160.0f, -200.0f);
@@ -207,6 +198,9 @@ void CSceneGame2::Update() {
 
 	}
 
+	if (CKey::Once('D')){
+		CamChan3 = true;
+	}
 	if (CamChan3 == true){
 		//E
 		e = CVector(-160.0f, 160.0f, -200.0f);
@@ -218,6 +212,9 @@ void CSceneGame2::Update() {
 
 	}
 
+	if (CKey::Once('X')){
+		CamChan4 = true;
+	}
 	if (CamChan4 == true){
 		//X
 		e = CVector(-160.0f, 160.0f, 200.0f);
@@ -228,10 +225,13 @@ void CSceneGame2::Update() {
 		CamChanTop = false;
 
 	}
+	if (CKey::Once('Z')){
+		CamChanBottom = true;
+	}
 
 	if (CamChanBottom == true){
 		//Z
-		e = CVector(160.0f, 160.0f, -200.0f);
+		e = CVector(-10.0f, -180.0f, -10.0f);
 		CamChan1 = false;
 		CamChan2 = false;
 		CamChan3 = false;
@@ -239,9 +239,12 @@ void CSceneGame2::Update() {
 		CamChanTop = false;
 	}
 
+	if (CKey::Once('S')){
+		CamChanTop = true;
+	}
 	if (CamChanTop == true){
 		//S
-		e = CVector(160.0f, 160.0f, -200.0f);
+		e = CVector(10.0f, 180.0f, 10.0f);
 		CamChan1 = false;
 		CamChan2 = false;
 		CamChan3 = false;
@@ -253,7 +256,7 @@ void CSceneGame2::Update() {
 
 	//注視点を求める
 
-	c = CVector(-15.0f, 0.0f, 0.0f);
+	c = CVector(0.0f, 0.0f, 0.0f);
 
 	//上方向を求める
 
@@ -268,7 +271,7 @@ void CSceneGame2::Update() {
 
 	CTaskManager::Get()->TaskCollision();
 
-	CCollisionManager::Get()->Render();
+	//CCollisionManager::Get()->Render();
 
 	//2D描画開始
 	Start2D(0, 800, 0, 600);

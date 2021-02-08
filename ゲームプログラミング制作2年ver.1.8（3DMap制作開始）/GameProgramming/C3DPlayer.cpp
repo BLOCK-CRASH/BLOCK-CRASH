@@ -66,31 +66,31 @@ void C3DPlayer::Update(){
 
 	int mx, my;
 
-	float m(10.0);
+	float m(16.0);
 
 	CInput::GetMousePos(&mx, &my);
 
 	if (my < mMouseY){
 
-		mRotation.mX -= (mMouseY - my) / m;
+		mRotation.mX += (mMouseY - my) / m;
 
 	}
 
 	if (mMouseY < my){
 
-		mRotation.mX -= (mMouseY - my) / m;
+		mRotation.mX += (mMouseY - my) / m;
 
 	}
 
 	if (mx < mMouseX){
 
-		mRotation.mY += (mMouseX - mx) / m;
+		mRotation.mY -= (mMouseX - mx) / m;
 
 	}
 
 	if (mMouseX < mx){
 
-		mRotation.mY += (mMouseX - mx) / m;
+		mRotation.mY -= (mMouseX - mx) / m;
 
 	}
 

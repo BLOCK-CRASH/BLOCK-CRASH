@@ -106,9 +106,30 @@ C3DShaveItem::C3DShaveItem(CModel*model, CVector position, CVector rotation, CVe
 			model->mTriangles[i].mV[1],
 			model->mTriangles[i].mV[2]);
 
-		m3DShaveBody[i].ChangePriority();
+		//m3DShaveBody[i].ChangePriority();
 
 	}
+
+	TriHP = 2;
+	RecHP = 2;
+	PenHP = 30;
+	HexHP = 35;
+	HepHP = 40;
+	OctHP = 50;
+
+	TriF = true;//三角は初期にtrue
+	RecF = false;
+	PenF = false;
+	HexF = false;
+	HepF = false;
+	OctF = false;
+
+	TR = false;
+	RP = false;
+	PH = false;
+	HH = false;
+	HO = false;
+
 	mTag = CCharacter::ESHAVEITEM;
 
 	mpthis = this;
@@ -149,19 +170,6 @@ void C3DShaveItem::Init(){
 	mHep.Load("7Model.obj", "7Model.mtl");
 	mOct.Load("8Model.obj", "8Model.mtl");
 
-	TriHP = 10;
-	RecHP = 25;
-	PenHP = 30;
-	HexHP = 35;
-	HepHP = 40;
-	OctHP = 50;
-	int u = 0;
-	TriF = true;//三角は初期にtrue
-	RecF = false;
-	PenF = false;
-	HexF = false;
-	HepF = false;
-	OctF = false;
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------*/
@@ -169,119 +177,77 @@ void C3DShaveItem::Init(){
 void C3DOrbitItem::Collision(CCollider*sm, CCollider*y){}
 
 
-void C3DShaveItem::Collision(CCollider*Sha, CCollider*y){
-
-	switch (Sha->mType)
-	{	
-	case CCollider::ETRIANGLE:
-
-		if (y->mType == CCollider::ESPHERE){
-			
-			if (y->mpParent->mTag == CCharacter::EBALL){
-
-				u = 1;
-
-			}
-		
-		}
-		break;
-	}
-
-}
+void C3DShaveItem::Collision(CCollider*Sha, CCollider*y){}
 /*----------------------------------------------------------------------------------------------------------------------------*/
-
-void C3DShaveItem::ChangeModel(){
-
-
-	TriHP = TriHP - 1;
-	ModelChanF = false;
-
-	if (C3DShaveItem::TR == true){
-		C3DShaveItem::mpModel == &mRec;
-	}
-
-	if (C3DShaveItem::RP == true){
-		TR = false;
-		C3DShaveItem::mpModel == &mPen;
-
-	}
-
-	if (C3DShaveItem::PH == true){
-		RP = false;
-		C3DShaveItem::mpModel == &mHex;
-	}
-
-	if (C3DShaveItem::HH == true){
-		PH = false;
-		C3DShaveItem::mpModel == &mHep;
-	}
-
-	if (C3DShaveItem::HO == true){
-		HH = false;
-		C3DShaveItem::mpModel == &mOct;
-	}
-
-
-	CCharacter::Update();
-
-}
-
 
 void C3DMoveItem::Update(){}
 void C3DOrbitItem::Update(){}
+
 void C3DShaveItem::Update(){
 
-
-	if (ModelChanF == true){
-
-		ChangeModel();
-
+	if (mpModel == &mTri){
+		TriF = true;//モデルがmTriならTriF=true
 	}
 
-	if (TriHP > 0){
-		TriF = true;
-	}
-	if (TriHP < 0){
-		TriF = false;
-		TR = true;
-	}
-	/*---------------------------------------------*///
-	if (RecHP > 0){
-		RecF = true;
-	}
-	if (RecHP < 0){
-		RecF = false;
-		RP = true;
-	}
-	/*---------------------------------------------*///
 
-	if (PenHP > 0){
-		PenF = true;
+	if (TriF == true){
+		if (TriHP < 0){
+			TR = true;//モデルを変えるためのフラをtrueへ
+		}
 	}
+	//mRotation.mX += 0.5;
 
-	//mTri.Load("3Model.obj", "3Model.mtl");
-	//mRec.Load("4Model.obj", "4Model.mtl");
-	//mPen.Load("5Model.obj", "5Model.mtl");
-	//mHex.Load("6Model.obj", "6Model.mtl");
-	//mHep.Load("7Model.obj", "7Model.mtl");
-	//mOct.Load("8Model.obj", "8Model.mtl");
+	//mRotation.mZ += 1.0;
 
-	mRotation.mX += 0.5;
-
-	mRotation.mZ += 1.0;
-
+	ChangeModel();
 
 	CCharacter::Update();
 }
 
+
+void C3DShaveItem::ChangeModel(){
+
+	if (C3DShaveItem::TR == true){
+		C3DShaveItem::mpModel == &mRec;
+		TriF = false;//HP==0でそのフラグをfalseへ
+		TR = false;
+	}
+
+	//if (C3DShaveItem::RP == true){
+	//	TR = false;
+	//	C3DShaveItem::mpModel == &mPen;
+	//}
+
+	//if (C3DShaveItem::PH == true){
+	//	RP = false;
+	//	C3DShaveItem::mpModel == &mHex;
+	//}
+
+	//if (C3DShaveItem::HH == true){
+	//	PH = false;
+	//	C3DShaveItem::mpModel == &mHep;
+	//}
+
+	//if (C3DShaveItem::HO == true){
+	//	HH = false;
+	//	C3DShaveItem::mpModel == &mOct;
+	//}
+
+}
 void C3DMoveItem::TaskCollision(){}
 void C3DOrbitItem::TaskCollision(){}
 void C3DShaveItem::TaskCollision(){
 
-	for (int C = 0; C < mColSize; C++){
+	for (int S = 0; S < mColSize; S++){
 
-		m3DShaveBody[C].ChangePriority();
+		m3DShaveBody[S].ChangePriority();
 
 	}
 
 }
+//mTri.Load("3Model.obj", "3Model.mtl");
+//mRec.Load("4Model.obj", "4Model.mtl");
+//mPen.Load("5Model.obj", "5Model.mtl");
+//mHex.Load("6Model.obj", "6Model.mtl");
+//mHep.Load("7Model.obj", "7Model.mtl");
+//mOct.Load("8Model.obj", "8Model.mtl");
