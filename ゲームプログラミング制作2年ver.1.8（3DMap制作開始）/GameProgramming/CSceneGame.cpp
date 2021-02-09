@@ -184,7 +184,7 @@ void CSceneGame::Update() {
 	
 		CTaskManager::Get()->Update();
 	
-		Stage1_Wave1Score = CBallPlayer::ScoreBox;
+		Stage1_Wave1Score = CBallPlayer::ScoreBox + CColorItem::CMyScorePoint;
 
 		Result = true;
 

@@ -131,8 +131,6 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 
 				}
 
-				if (y->mpParent->mTag == CCharacter::ECOLOR){}
-
 				if (y->mpParent->mTag == CCharacter::EMOVEBONUS){
 
 					ScoreBox = ScoreBox + CBonus::BMyScorePoint;
@@ -158,15 +156,8 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 
 				if (y->mpParent->mTag == CCharacter::ESHAVEITEM){
 
-					if (C3DShaveItem::TriF == true){
-
-						C3DShaveItem::TriHP = C3DShaveItem::TriHP - 1;
-
-					}
 					if (C3DShaveItem::RecF == true){
-
 						C3DShaveItem::RecHP = C3DShaveItem::RecHP - 1;
-
 					}
 
 				}

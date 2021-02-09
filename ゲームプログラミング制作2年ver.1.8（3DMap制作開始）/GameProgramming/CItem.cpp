@@ -61,8 +61,8 @@ CModel CColorItem::mBlue;
 CModel CColorItem::mGreen;
 CModel CColorItem::mYellow;
 
-CVector CExItem::mAdjust = CVector(0.0, 0.0, 0.0);
-CVector CSuperExItem::mAdjust = CVector(0.0, 0.0, 0.0);
+CVector CExItem::mAdjust;
+CVector CSuperExItem::mAdjust;
 
 /*--------------------------------------------------------*/
 CItem::CItem(CModel*model, CVector position, CVector rotation, CVector scale)

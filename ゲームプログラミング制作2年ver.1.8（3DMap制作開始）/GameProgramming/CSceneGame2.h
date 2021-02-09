@@ -99,5 +99,9 @@ public:
 	//更新処理のオーバーライド
 	void Update();
 
+	void CameraTopBottom();
+
+	void CameraLeftRight();
+
 };
 #endif

@@ -164,6 +164,22 @@ void CSceneGame2::Update() {
 
 	}
 
+	if (C3DShaveItem::TR == true){
+
+		new C3DShaveItem(&C3DShaveItem::mRec, CVector(0.0, 0.0, 0.0), CVector(), CVector(5.0, 5.0, 5.0));
+
+		C3DShaveItem::TriF = false;//HP==0でそのフラグをfalseへ
+		C3DShaveItem::TR = false;
+	}
+	
+	if (C3DShaveItem::RP == true){
+
+		new C3DShaveItem(&C3DShaveItem::mPen, CVector(0.0, 0.0, 0.0), CVector(), CVector(5.0, 5.0, 5.0));
+
+		C3DShaveItem::RecF = false;//HP==0でそのフラグをfalseへ
+		C3DShaveItem::RP = false;
+	}
+
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める
@@ -344,6 +360,39 @@ void CSceneGame2::Update() {
 	return;
 
 }
+
+//void CSceneGame2::CameraTopBottom(){
+//
+//	glPushMatrix();
+//
+//	glViewport(600, 450, 200, 150);		//画面の描画エリア指定
+//
+//	glLoadIdentity();		//行列の初期化
+//
+//	CVector e, c, u;//視点、注視点、上方向
+//
+//	e = CVector(10.0f, 180.0f, 10.0f);
+//
+//	//注視点を求める
+//
+//	c = CVector(0.0f, 0.0f, 0.0f);
+//
+//	//上方向を求める
+//
+//	u = CVector(0.0f, 10.0f, 0.0f)/**mCamera.mMatrix*/;
+//
+//	glDisable(GL_DEPTH_TEST);
+//
+//	CTaskManager::Get()->Render();
+//
+//	glPopMatrix();
+//
+//	glViewport(0, 0, 800, 600);		//描画エリアの指定
+//
+//	glEnable(GL_DEPTH_TEST);
+//
+//}
+
 CScene::EScene CSceneGame2::GetNextScene() {
 	return mScene;
 }

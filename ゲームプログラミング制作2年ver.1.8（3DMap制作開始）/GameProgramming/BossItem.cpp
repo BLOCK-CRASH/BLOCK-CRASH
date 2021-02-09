@@ -29,6 +29,13 @@ bool C3DShaveItem::HepF;
 bool C3DShaveItem::OctF;
 bool C3DShaveItem::NonF;
 
+bool C3DShaveItem::TR;
+bool C3DShaveItem::RP;
+bool C3DShaveItem::PH;
+bool C3DShaveItem::HH;
+bool C3DShaveItem::HO;
+bool C3DShaveItem::ON;
+
 bool C3DShaveItem::ModelChanF = false;
 
 int C3DShaveItem::ShaveMyScorePoint;
@@ -92,7 +99,7 @@ C3DOrbitItem::C3DOrbitItem(CModel*model, CVector position, CVector rotation, CVe
 }
 
 C3DShaveItem::C3DShaveItem(CModel*model, CVector position, CVector rotation, CVector scale)
-:m3DShaveBody(){
+:m3DShaveBody(0){
 
 	mpModel = model;
 	mPosition = position;
@@ -117,7 +124,7 @@ C3DShaveItem::C3DShaveItem(CModel*model, CVector position, CVector rotation, CVe
 	HepHP = 40;
 	OctHP = 50;
 
-	TriF = true;//三角は初期にtrue
+	TriF = false;//三角は初期にtrue
 	RecF = false;
 	PenF = false;
 	HexF = false;
@@ -177,7 +184,36 @@ void C3DShaveItem::Init(){
 void C3DOrbitItem::Collision(CCollider*sm, CCollider*y){}
 
 
-void C3DShaveItem::Collision(CCollider*Sha, CCollider*y){}
+void C3DShaveItem::Collision(CCollider*Sha, CCollider*y){
+
+	switch (Sha->mType)
+	{
+
+	case CCollider::ETRIANGLE:
+
+		if (y->mType == CCollider::ESPHERE){
+
+			if (CCollider::CollisionTriangleSphere(Sha, y, &adjust)){
+
+					if (C3DShaveItem::mpModel == &mTri){
+						TriF = true;//モデルがmTriならTriF=true
+					}
+
+					if (C3DShaveItem::mpModel == &mRec){
+						RecF = true;//モデルがmTriならTriF=true
+					}
+
+
+			}
+
+		}
+
+		break;
+	}
+
+}
+
+
 /*----------------------------------------------------------------------------------------------------------------------------*/
 
 void C3DMoveItem::Update(){}
@@ -185,19 +221,14 @@ void C3DOrbitItem::Update(){}
 
 void C3DShaveItem::Update(){
 
-	if (mpModel == &mTri){
-		TriF = true;//モデルがmTriならTriF=true
+	if (C3DShaveItem::TriF == true){
+		C3DShaveItem::TriHP = C3DShaveItem::TriHP - 1;
+		TriF = false;
 	}
-
-
-	if (TriF == true){
-		if (TriHP < 0){
-			TR = true;//モデルを変えるためのフラをtrueへ
-		}
+	if (C3DShaveItem::RecF == true){
+		C3DShaveItem::RecHP = C3DShaveItem::RecHP - 1;
+		RecF = false;
 	}
-	//mRotation.mX += 0.5;
-
-	//mRotation.mZ += 1.0;
 
 	ChangeModel();
 
@@ -207,11 +238,19 @@ void C3DShaveItem::Update(){
 
 void C3DShaveItem::ChangeModel(){
 
-	if (C3DShaveItem::TR == true){
-		C3DShaveItem::mpModel == &mRec;
-		TriF = false;//HP==0でそのフラグをfalseへ
-		TR = false;
-	}
+	if (TriHP < 0){
+		TR = true;//モデルを変えるためのフラをtrueへ
+	};
+
+	if (RecHP < 0){
+		RP = true;//モデルを変えるためのフラをtrueへ
+	};
+
+	//if (C3DShaveItem::TR == true){
+	//	C3DShaveItem::mpModel == &mRec;
+	//	TriF = false;//HP==0でそのフラグをfalseへ
+	//	TR = false;
+	//}
 
 	//if (C3DShaveItem::RP == true){
 	//	TR = false;
@@ -241,6 +280,8 @@ void C3DShaveItem::TaskCollision(){
 	for (int S = 0; S < mColSize; S++){
 
 		m3DShaveBody[S].ChangePriority();
+
+		CCollisionManager::Get()->Collision(&m3DShaveBody[S]);
 
 	}
 

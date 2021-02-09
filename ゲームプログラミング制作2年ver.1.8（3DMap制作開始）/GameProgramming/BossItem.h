@@ -127,38 +127,38 @@ public:
 
 	static CModel mTri;//三角形
 	static int TriHP;//三角形
-	static bool TriF;//三角形
-	bool TR;//TriからRecへ
+	static bool TriF;//三角形HP減算フラグ
+	static bool TR;//TriからRecへ
 
 	static CModel mRec;//四角形
-	static int RecHP;//四角形
+	static int RecHP;//四角形HP減算フラグ
 	static bool RecF;//四角形
-	bool RP;//RecからPenへ
+	static bool RP;//RecからPenへ
 
 	static CModel mPen;//五角形
-	static int PenHP;//五角形
+	static int PenHP;//五角形HP減算フラグ
 	static bool PenF;//五角形
-	bool PH;//PenからHexへ
+	static bool PH;//PenからHexへ
 
 	static CModel mHex;//六角形
-	static int HexHP;//六角形
+	static int HexHP;//六角形HP減算フラグ
 	static bool HexF;//六角形
-	bool HH;//HexからHepへ
+	static bool HH;//HexからHepへ
 
 	static CModel mHep;//七角形
-	static int HepHP;//七角形
+	static int HepHP;//七角形HP減算フラグ
 	static bool HepF;//七角形
-	bool HO;//HepからOctへ
+	static bool HO;//HepからOctへ
 
 	static CModel mOct;//八角形
-	static int OctHP;//八角形
+	static int OctHP;//八角形HP減算フラグ
 	static bool OctF;//八角形
-	bool ON;//OctからNonへ
+	static bool ON;//OctからNonへ
 
 	static  CModel mNon;//九角形
-	static int NonHP;//九角形
+	static int NonHP;//九角形HP減算フラグ
 	static bool NonF;//九角形
-	bool NOF;//NonからModelなしへ
+	static bool NOF;//NonからModelなしへ
 
 	void ChangeModel();
 
