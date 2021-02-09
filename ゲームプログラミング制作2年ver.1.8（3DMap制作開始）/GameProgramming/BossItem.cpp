@@ -144,6 +144,7 @@ C3DShaveItem::C3DShaveItem(CModel*model, CVector position, CVector rotation, CVe
 	mEnabled = true;
 
 	ShaveMyScorePoint = 0;
+
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------*/
