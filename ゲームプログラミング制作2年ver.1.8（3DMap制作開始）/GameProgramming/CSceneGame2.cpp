@@ -46,15 +46,13 @@ void CSceneGame2::Init() {
 	//mStage.Load("STAGE(2)_Edit_OF_0102.obj", "STAGE(2)_Edit_OF_0102.mtl");
 
 	//m3DPlayer.Load("3DPlayer0118.obj", "3DPlayer0118.mtl");
-	m3DPlayer1.Load("0205_3D_1Board.obj", "0205_3D_1Board.mtl");
-	m3DPlayer2.Load("0205_3D_2Board.obj", "0205_3D_2Board.mtl");
-	m3DPlayer3.Load("0205_3D_3Board.obj", "0205_3D_3Board.mtl");
-	m3DPlayer4.Load("0205_3D_4Board.obj", "0205_3D_4Board.mtl");
 
-	m3DPlayer1.mMaterials[0].mDiffuse[3] = 0.75f;
+	m3DPlayer2.Load("0205_3D_2Board.obj", "0205_3D_2Board.mtl");
+
+	//m3DPlayer1.mMaterials[0].mDiffuse[3] = 0.75f;
 	m3DPlayer2.mMaterials[0].mDiffuse[3] = 0.75f;
-	m3DPlayer3.mMaterials[0].mDiffuse[3] = 0.75f;
-	m3DPlayer4.mMaterials[0].mDiffuse[3] = 0.75f;
+	//m3DPlayer3.mMaterials[0].mDiffuse[3] = 0.75f;
+	//m3DPlayer4.mMaterials[0].mDiffuse[3] = 0.75f;
 
 	//m3DPlayer.Load("3DPlayerBoard.obj","3DPlayerBoard.mtl");
 
@@ -139,43 +137,26 @@ void CSceneGame2::Init() {
 void CSceneGame2::Update() {
 
 	if (CSceneGame2::GAMETIME > 61){
-
 		CTaskManager::Get()->Update();
-
 		Result = true;
-
 	}
-
 	if (CSceneGame2::GAMETIME < 61){
-
 		Result = false;
-
 		mEnable = false;
-
 		if (Result == false){
-
 			if (CKey::Once(VK_RETURN)){
-
 				mScene = ESTAGE2_RESULT;
-
 			}
-
 		}
-
 	}
 
 	if (C3DShaveItem::TR == true){
-
 		new C3DShaveItem(&C3DShaveItem::mRec, CVector(0.0, 0.0, 0.0), CVector(), CVector(5.0, 5.0, 5.0));
-
 		C3DShaveItem::TriF = false;//HP==0でそのフラグをfalseへ
 		C3DShaveItem::TR = false;
 	}
-	
 	if (C3DShaveItem::RP == true){
-
 		new C3DShaveItem(&C3DShaveItem::mPen, CVector(0.0, 0.0, 0.0), CVector(), CVector(5.0, 5.0, 5.0));
-
 		C3DShaveItem::RecF = false;//HP==0でそのフラグをfalseへ
 		C3DShaveItem::RP = false;
 	}
@@ -183,9 +164,7 @@ void CSceneGame2::Update() {
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める
-
 	//e = CVector(160.0f, 160.0f, 200.0f);
-
 	if (CKey::Once('A')){
 		CamChan1 = true;
 	}
@@ -197,7 +176,6 @@ void CSceneGame2::Update() {
 		CamChan4 = false;
 		CamChanBottom = false;
 		CamChanTop = false;
-
 	}
 
 	if (CKey::Once('W')){
@@ -211,7 +189,6 @@ void CSceneGame2::Update() {
 		CamChan4 = false;
 		CamChanBottom = false;
 		CamChanTop = false;
-
 	}
 
 	if (CKey::Once('D')){
@@ -227,7 +204,6 @@ void CSceneGame2::Update() {
 		CamChanTop = false;
 
 	}
-
 	if (CKey::Once('X')){
 		CamChan4 = true;
 	}
@@ -239,12 +215,10 @@ void CSceneGame2::Update() {
 		CamChan3 = false;
 		CamChanBottom = false;
 		CamChanTop = false;
-
 	}
 	if (CKey::Once('Z')){
 		CamChanBottom = true;
 	}
-
 	if (CamChanBottom == true){
 		//Z
 		e = CVector(-10.0f, -180.0f, -10.0f);
@@ -266,7 +240,6 @@ void CSceneGame2::Update() {
 		CamChan3 = false;
 		CamChan4 = false;
 		CamChanBottom = false;
-
 	}
 
 
@@ -293,70 +266,39 @@ void CSceneGame2::Update() {
 	Start2D(0, 800, 0, 600);
 
 	if (COUNTDOWN > 60){
-
 		//COUNTDOWN--;
-
 		if (ResetF == true){
-
 			char buf[10];
-
 			sprintf(buf, "%d", COUNTDOWN / 60);
-
 			CText::DrawString(buf, 400, 500, 30, 30);
-
 		}
-
 	}
-
 	else if (COUNTDOWN > 0){
-
 		COUNTDOWN--;
-
 		CText::DrawString("GO!!", 300, 500, 30, 30);
 	}
-
 	if (COUNTDOWN <= 0){
-
 		if (GAMETIME > 60){
-
 			GAMETIME--;
-
 			char buf[10];
-
 			sprintf(buf, "%d", GAMETIME / 60);
-
 			CText::DrawString(buf, 640, 30, 30, 30);
-
 		}
-
 		else{
-
 			CText::DrawString("GAME  SET!!", 300, 500, 10, 12);
-
 		}
-
 	}
-
 	if (CBallPlayer::BallHP == 0){
-
 		CBallPlayer::BallHP = 0;
-
 		CText::DrawString("GAME OVER...", 280, 400, 15, 18);
 	}
-
 	CText::DrawString("SUTAG.2", 20, 20, 10, 12);
-
 	char buf[100];
-
 	sprintf(buf, "%d", CBallPlayer::ScoreBox);
-
 	CBlackText::DrawString(buf, 200, 20, 10, 12);
-
 	CTaskManager::Get()->Delete();
-
 	//2D描画終了
 	End2D();
-
 	return;
 
 }

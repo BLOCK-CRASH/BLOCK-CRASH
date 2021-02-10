@@ -3,9 +3,8 @@ CCharacter*C3DMoveItem::mpthis = 0;
 CCharacter*C3DOrbitItem::mpthis = 0;
 CCharacter*C3DShaveItem::mpthis = 0;
 
-CModel C3DShaveItem::mRec;
 CModel C3DShaveItem::mTri;
-//CModel C3DShaveItem::mRec;
+CModel C3DShaveItem::mRec;
 CModel C3DShaveItem::mPen;
 CModel C3DShaveItem::mHex;
 CModel C3DShaveItem::mHep;
@@ -105,6 +104,7 @@ C3DShaveItem::C3DShaveItem(CModel*model, CVector position, CVector rotation, CVe
 	mPosition = position;
 	mRotation = rotation;
 	mScale = scale;
+	mColSize = model->mTriangles.size();
 	m3DShaveBody = new CCollider[model->mTriangles.size()];
 	for (int i = 0; i < model->mTriangles.size(); i++){
 		//コライダを三角形コライダで設定していきます
@@ -239,7 +239,7 @@ void C3DShaveItem::Update(){
 
 void C3DShaveItem::ChangeModel(){
 
-	if (TriHP < 0){
+	if (TriHP <= 0){
 		TR = true;//モデルを変えるためのフラをtrueへ
 	};
 
@@ -247,11 +247,11 @@ void C3DShaveItem::ChangeModel(){
 		RP = true;//モデルを変えるためのフラをtrueへ
 	};
 
-	//if (C3DShaveItem::TR == true){
-	//	C3DShaveItem::mpModel == &mRec;
-	//	TriF = false;//HP==0でそのフラグをfalseへ
-	//	TR = false;
-	//}
+	if (C3DShaveItem::TR == true){
+		C3DShaveItem::mpModel = &mRec;
+		TriF = false;//HP==0でそのフラグをfalseへ
+		TR = false;
+	}
 
 	//if (C3DShaveItem::RP == true){
 	//	TR = false;

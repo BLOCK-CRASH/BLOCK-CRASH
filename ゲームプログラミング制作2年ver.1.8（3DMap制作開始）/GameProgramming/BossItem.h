@@ -168,4 +168,31 @@ public:
 
 };
 
+class C3DIncreaseItem :public CCharacter{
+public:
+
+	C3DIncreaseItem() : mIncrease(0){}
+		
+	~C3DIncreaseItem(){}
+
+	CCollider *mIncrease;
+
+	C3DIncreaseItem(CModel*model, CVector position, CVector rotation, CVector scale);
+
+	static CCharacter * mpthis;
+
+	//CCharacter * mpPrent;
+
+	void Collision(CCollider*Inc, CCollider*y);
+
+	void Update();
+
+	void Init();
+
+	void TaskCollision();
+
+
+};
+
+
 #endif
