@@ -118,10 +118,6 @@ public:
 
 	static int LETTERTIME;
 
-	static int resultScore;
-
-	static int HighScore;
-
 	EScene GetNextScene();	
 	//初期化処理のオーバーライド
 	void Init();

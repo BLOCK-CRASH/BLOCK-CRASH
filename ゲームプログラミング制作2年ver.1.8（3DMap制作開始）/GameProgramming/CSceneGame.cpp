@@ -21,19 +21,32 @@ int CSceneGame::GScore;
 int CSceneGame::Stage1_Wave1Score;
 std::shared_ptr<CTexture>TextureExp(new CTexture());
 
+#define COUNTDOUN 240
+#define ATTENTION 60
+#define BATTENTIONTIME 240
+#define CPCOUNTDOUNTIME 240
+#define TIMEATTENTIONTIME 120
+#define STAGE1_WAVE1TIME 4800
+
+
+#define YELLOWPOINT 20000
+#define REDPOINT 10000
+#define BULEPOINT 7000
+#define GREENPOINT 5000
+
 void CSceneGame::Init() {
 
-	COUNTDOWN = 4 * 60;
+	COUNTDOWN = COUNTDOUN;
 
-	Attention = 1 * 60;
+	Attention = ATTENTION;
 
-	BAttentionTime = 4 * 60;
+	BAttentionTime = BATTENTIONTIME;
 
-	CPAttentionTime = 4 * 60;
+	CPAttentionTime = CPCOUNTDOUNTIME;
 
-	TimeAttentionTime = 2 * 60;
+	TimeAttentionTime = TIMEATTENTIONTIME;
 
-	WAVE1GAMETIME = 80 * 60;
+	WAVE1GAMETIME = STAGE1_WAVE1TIME;
 
 	mScene = EGAME1_WAVE1;
 
@@ -41,10 +54,10 @@ void CSceneGame::Init() {
 
 	BigTime = true;
 
-	YScore = 20000;//黄色けしボーナス
-	RScore = 10000;//赤けしボーナス
-	BScore = 7000;//青けしボーナス
-	GScore = 5000;//緑けしボーナス
+	YScore = YELLOWPOINT;//黄色けしボーナス
+	RScore = REDPOINT;//赤けしボーナス
+	BScore = BULEPOINT;//青けしボーナス
+	GScore = GREENPOINT;//緑けしボーナス
 
 	TextureExp->Load("exp.tga");
 	//テキストフォントの読み込みと設定

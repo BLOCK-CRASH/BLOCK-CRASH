@@ -35,7 +35,7 @@ public:
 		ERESDELETE,//初期位置リスブロック
 		ECOLOR,//色変えブロック
 		ESHAVEITEM,//削りアイテム
-		EENCREASE,//増殖アイテム
+		EINCREASE,//増殖アイテム
 	};
 	ETag mTag;
 	CCharacter *mpParent;	//親

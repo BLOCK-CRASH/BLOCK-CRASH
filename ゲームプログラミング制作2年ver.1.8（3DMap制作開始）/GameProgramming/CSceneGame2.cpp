@@ -16,9 +16,9 @@ void CSceneGame2::Init() {
 
 	COUNTDOWN = 4 * 60;
 
-	GAMETIME = 121 * 60;
+	GAMETIME = 11 * 60;
 
-	mScene = EGAME2;
+	mScene = EGAME2_WAVE1;
 
 	Result = false;
 
@@ -65,6 +65,8 @@ void CSceneGame2::Init() {
 	C3DShaveItem::mHex.Load("6Model.obj", "6Model.mtl");
 	C3DShaveItem::mHep.Load("7Model.obj", "7Model.mtl");
 	C3DShaveItem::mOct.Load("8Model.obj", "8Model.mtl");
+	C3DShaveItem::mRec.mMaterials[0].mDiffuse[3] = 0.5f;
+
 
 	//mShave.Load("mTri.obj", "mTri.mtl");//3DShaveItem//最初は三角形モデル
 
@@ -141,24 +143,10 @@ void CSceneGame2::Update() {
 		Result = true;
 	}
 	if (CSceneGame2::GAMETIME < 61){
-		Result = false;
 		mEnable = false;
-		if (Result == false){
-			if (CKey::Once(VK_RETURN)){
-				mScene = ESTAGE2_RESULT;
-			}
+		if (CKey::Once(VK_RETURN)){
+			mScene = EGAME2_WAVE2;
 		}
-	}
-
-	if (C3DShaveItem::TR == true){
-		new C3DShaveItem(&C3DShaveItem::mRec, CVector(0.0, 0.0, 0.0), CVector(), CVector(5.0, 5.0, 5.0));
-		C3DShaveItem::TriF = false;//HP==0でそのフラグをfalseへ
-		C3DShaveItem::TR = false;
-	}
-	if (C3DShaveItem::RP == true){
-		new C3DShaveItem(&C3DShaveItem::mPen, CVector(0.0, 0.0, 0.0), CVector(), CVector(5.0, 5.0, 5.0));
-		C3DShaveItem::RecF = false;//HP==0でそのフラグをfalseへ
-		C3DShaveItem::RP = false;
 	}
 
 	//カメラのパラメータを作成する
@@ -260,7 +248,7 @@ void CSceneGame2::Update() {
 
 	CTaskManager::Get()->TaskCollision();
 
-	//CCollisionManager::Get()->Render();
+	CCollisionManager::Get()->Render();
 
 	//2D描画開始
 	Start2D(0, 800, 0, 600);

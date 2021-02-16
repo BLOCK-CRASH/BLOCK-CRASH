@@ -126,41 +126,45 @@ public:
 	void TaskCollision();
 
 	static CModel mTri;//OŠpŒ`
-	static int TriHP;//OŠpŒ`
-	static bool TriF;//OŠpŒ`HPŒ¸Zƒtƒ‰ƒO
+	int TriHP;//OŠpŒ`
+	bool TriF;//OŠpŒ`HPŒ¸Zƒtƒ‰ƒO
 	static bool TR;//Tri‚©‚çRec‚Ö
 
 	static CModel mRec;//lŠpŒ`
-	static int RecHP;//lŠpŒ`HPŒ¸Zƒtƒ‰ƒO
-	static bool RecF;//lŠpŒ`
+	int RecHP;//lŠpŒ`HPŒ¸Zƒtƒ‰ƒO
+	bool RecF;//lŠpŒ`
 	static bool RP;//Rec‚©‚çPen‚Ö
 
 	static CModel mPen;//ŒÜŠpŒ`
-	static int PenHP;//ŒÜŠpŒ`HPŒ¸Zƒtƒ‰ƒO
-	static bool PenF;//ŒÜŠpŒ`
+	int PenHP;//ŒÜŠpŒ`HPŒ¸Zƒtƒ‰ƒO
+	bool PenF;//ŒÜŠpŒ`
 	static bool PH;//Pen‚©‚çHex‚Ö
 
 	static CModel mHex;//˜ZŠpŒ`
-	static int HexHP;//˜ZŠpŒ`HPŒ¸Zƒtƒ‰ƒO
-	static bool HexF;//˜ZŠpŒ`
+	int HexHP;//˜ZŠpŒ`HPŒ¸Zƒtƒ‰ƒO
+	bool HexF;//˜ZŠpŒ`
 	static bool HH;//Hex‚©‚çHep‚Ö
 
 	static CModel mHep;//µŠpŒ`
-	static int HepHP;//µŠpŒ`HPŒ¸Zƒtƒ‰ƒO
-	static bool HepF;//µŠpŒ`
+	int HepHP;//µŠpŒ`HPŒ¸Zƒtƒ‰ƒO
+	bool HepF;//µŠpŒ`
 	static bool HO;//Hep‚©‚çOct‚Ö
 
 	static CModel mOct;//”ªŠpŒ`
-	static int OctHP;//”ªŠpŒ`HPŒ¸Zƒtƒ‰ƒO
-	static bool OctF;//”ªŠpŒ`
+	int OctHP;//”ªŠpŒ`HPŒ¸Zƒtƒ‰ƒO
+	bool OctF;//”ªŠpŒ`
 	static bool ON;//Oct‚©‚çNon‚Ö
 
 	static  CModel mNon;//‹ãŠpŒ`
-	static int NonHP;//‹ãŠpŒ`HPŒ¸Zƒtƒ‰ƒO
-	static bool NonF;//‹ãŠpŒ`
+	int NonHP;//‹ãŠpŒ`HPŒ¸Zƒtƒ‰ƒO
+	bool NonF;//‹ãŠpŒ`
 	static bool NOF;//Non‚©‚çModel‚È‚µ‚Ö
 
 	void ChangeModel();
+
+	static CModel mShave;
+
+	int falseTime;
 
 	//static CModel mDec;//\ŠpŒ`
 	//int DecHP;//\ŠpŒ`
@@ -173,7 +177,7 @@ public:
 
 	C3DIncreaseItem() : mIncrease(0){}
 		
-	~C3DIncreaseItem(){}
+	~C3DIncreaseItem();
 
 	CCollider *mIncrease;
 
@@ -181,7 +185,11 @@ public:
 
 	static CCharacter * mpthis;
 
-	//CCharacter * mpPrent;
+	int mColsize;
+
+	CVector adjust;
+
+	enum EIncrease{};
 
 	void Collision(CCollider*Inc, CCollider*y);
 
@@ -191,7 +199,19 @@ public:
 
 	void TaskCollision();
 
+	void Increaserand();
 
+	static int randIncr;
+
+	static bool IncrF;
+
+	static CModel mIncreasebom;//‘B”š’e
+
+	static CModel mIncreasebox;//‘B” 
+
+	static CModel mIncreasesuperbom;//‘B‹­‰»”š’e
+
+	static CModel mIncreasemore;//‘BƒXƒRƒA~‚Q” 
 };
 
 

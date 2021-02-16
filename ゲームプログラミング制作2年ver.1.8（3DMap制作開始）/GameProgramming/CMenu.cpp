@@ -114,7 +114,7 @@ void CMenu::Update(){
 
 	if (Y == 300 && CKey::Once(VK_RETURN))
 	{
-		mScene = EGAME2;
+		mScene = EGAME2_WAVE1;
 	}
 
 	End2D();

@@ -63,7 +63,21 @@ CModel CColorItem::mYellow;
 
 CVector CExItem::mAdjust;
 CVector CSuperExItem::mAdjust;
+#define BLOCKDAMAGECOUNT 6//ブロック体力
+#define BLOCKMYPOINT 120//ノーマルブロックポイント
+#define DEFEATEBONUS 500//ブロック撃破ボーナス
 
+#define MOVEMYSCOREPOINT 200//ムーブブロックポイント
+
+#define SPINSCOREPOINT 80//回転ブロックポイント
+
+#define BONUSMYSCOREPOINT 1000//ボーナスブロックポイント
+
+#define BOMBOUNDNUM 0.75
+#define BOMTIME 3600
+#define BOMCUTPOINT 500
+
+#define NULL 0
 /*--------------------------------------------------------*/
 CItem::CItem(CModel*model, CVector position, CVector rotation, CVector scale)
 :mItemBody(0)
@@ -74,7 +88,7 @@ CItem::CItem(CModel*model, CVector position, CVector rotation, CVector scale)
 	mScale = scale;
 	//モデルの三角形の数分、コライダの配列を作成します
 	mItemBody = new CCollider[model->mTriangles.size()];
-	for (int i = 0; i < model->mTriangles.size(); i++){
+	for (int i = NULL; i < model->mTriangles.size(); i++){
 		//コライダを三角形コライダで設定していきます
 		mItemBody[i].SetTriangle(this,
 			model->mTriangles[i].mV[0],
@@ -90,11 +104,11 @@ CItem::CItem(CModel*model, CVector position, CVector rotation, CVector scale)
 
 	mEnabled = true;
 
-	BDamageCount = 6;
+	BDamageCount = BLOCKDAMAGECOUNT;
 
-	DefeatBonus = 500;
+	DefeatBonus = DEFEATEBONUS;
 
-	BMyScorePoint = 120;
+	BMyScorePoint = BLOCKMYPOINT;
 }
 
 CMoveItem::CMoveItem(CModel*model, CVector position, CVector rotation, CVector scale)
@@ -106,7 +120,7 @@ CMoveItem::CMoveItem(CModel*model, CVector position, CVector rotation, CVector s
 	mScale = scale;
 	//モデルの三角形の数分、コライダの配列を作成します
 	mMItemBody = new CCollider[model->mTriangles.size()];
-	for (int i = 0; i < model->mTriangles.size(); i++){
+	for (int i = NULL; i < model->mTriangles.size(); i++){
 		//コライダを三角形コライダで設定していきます
 		mMItemBody[i].SetTriangle(this,
 			model->mTriangles[i].mV[0],
@@ -114,15 +128,14 @@ CMoveItem::CMoveItem(CModel*model, CVector position, CVector rotation, CVector s
 			model->mTriangles[i].mV[2]);
 
 	}
-	FeverTime = 20 * 60;
 
 	mTag = CCharacter::EITEM;
 
-	BminusF = 0;
-
 	mpthis = this;
 
-	MMyScorePoint = 200;
+	FeverF = false;
+
+	MMyScorePoint = MOVEMYSCOREPOINT;
 }
 
 CSpinItem::CSpinItem(CModel*model, CVector position, CVector rotation, CVector scale)
@@ -134,7 +147,7 @@ CSpinItem::CSpinItem(CModel*model, CVector position, CVector rotation, CVector s
 	mScale = scale;
 
 	mSItemBody = new CCollider[model->mTriangles.size()];
-	for (int i = 0; i < model->mTriangles.size(); i++){
+	for (int i = NULL; i < model->mTriangles.size(); i++){
 		//コライダを三角形コライダで設定していきます
 		mSItemBody[i].SetTriangle(this,
 			model->mTriangles[i].mV[0],
@@ -150,9 +163,7 @@ CSpinItem::CSpinItem(CModel*model, CVector position, CVector rotation, CVector s
 
 	mEnabled = true;
 
-	//SDamageCount = 10;
-
-	SMyScorePoint = 80;
+	SMyScorePoint = SPINSCOREPOINT;
 }
 
 CBonus::CBonus(CModel*model, CVector position, CVector rotation, CVector scale)
@@ -164,7 +175,7 @@ CBonus::CBonus(CModel*model, CVector position, CVector rotation, CVector scale)
 	mScale = CVector(3.0, 3.0, 5.0);
 
 	mBoBody = new CCollider[model->mTriangles.size()];
-	for (int i = 0; i < model->mTriangles.size(); i++){
+	for (int i = NULL; i < model->mTriangles.size(); i++){
 
 		mBoBody[i].SetTriangle(this,
 			model->mTriangles[i].mV[0],
@@ -183,7 +194,7 @@ CBonus::CBonus(CModel*model, CVector position, CVector rotation, CVector scale)
 
 	MDamageCount = 1;
 
-	BMyScorePoint = 500;
+	BMyScorePoint = BONUSMYSCOREPOINT;
 
 	MoveTime = 60 * 60;
 }
@@ -202,7 +213,7 @@ CVector(1.0,1.0,1.0), scale.mX){
 
 	BjumpSpeed = CVector();
 	
-	BBoundNum = 0.75;
+	BBoundNum = BOMBOUNDNUM;
 
 	CExItem::BomCol.mType = CCollider::ESPHERE;
 
@@ -643,20 +654,9 @@ void CMoveItem::Update(){
 
 	if (CMoveItem::FeverF == true){
 
-		FeverTime--;
+		mPosition.mX += 2.3;
 
-		if (FeverTime > 0){
-		
-			mPosition.mX += 2.3;
-
-			mRotation.mZ += 0.25;
-		}
-
-	}
-
-	if (FeverTime < 0){
-
-		FeverF = false;
+		mRotation.mZ += 0.25;
 
 	}
 

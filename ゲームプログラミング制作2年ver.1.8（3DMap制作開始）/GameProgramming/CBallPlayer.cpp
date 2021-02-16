@@ -153,19 +153,8 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 
 					GoF = false;
 				}
-
-				if (y->mpParent->mTag == CCharacter::ESHAVEITEM){
-
-					if (C3DShaveItem::RecF == true){
-						C3DShaveItem::RecHP = C3DShaveItem::RecHP - 1;
-					}
-
-				}
-
 			}
-
 		}
-
 		if (y->mType == CCollider::ESPHERE){
 
 			if (CCollider::CollisionSphereSphere(m, y, &mAdjust)){

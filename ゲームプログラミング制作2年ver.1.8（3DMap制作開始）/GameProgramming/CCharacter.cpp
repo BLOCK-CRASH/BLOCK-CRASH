@@ -3,6 +3,8 @@
 //
 #include "CTaskManager.h"
 
+CCharacter*mpParent;
+
 //XVˆ—
 void CCharacter::Update() {
 	//Šg‘åk¬s—ñ‚Ìİ’è

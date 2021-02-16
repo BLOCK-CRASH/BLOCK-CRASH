@@ -14,7 +14,8 @@ public:
 		EGAME1_WAVE2,//ステージ1のウェーブ2
 		EGAME1_WAVE3,//ステージ1のウェーブ3
 
-		EGAME2,//ステージ2
+		EGAME2_WAVE1,//ステージ2
+		EGAME2_WAVE2,//ステージ2
 
 
 		EGAME3,//ステージ3

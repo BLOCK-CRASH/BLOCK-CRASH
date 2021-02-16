@@ -55,14 +55,6 @@ public:
 
 	//C3DCamera mCamera;
 
-	static int YScore;
-
-	static int RScore;
-
-	static int BScore;
-
-	static int GScore;
-
 	bool mEnable;
 
 	bool ResetF;
@@ -83,15 +75,13 @@ public:
 
 	bool CamChanBottom;//視点ステージ切り替え下
 
+	static int Stage2_Wave1Score;
+
 	static int GAMETIME;
 
 	static int COUNTDOWN;
 
 	static int LETTERTIME;
-
-	//static int resultScore;
-
-	static int HighScore;
 
 	EScene GetNextScene();
 	//初期化処理のオーバーライド

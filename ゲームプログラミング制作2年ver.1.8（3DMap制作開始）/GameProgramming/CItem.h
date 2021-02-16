@@ -80,7 +80,7 @@ public:
 	void TaskCollision();
 
 	static int BStageCount;
-	bool BminusF;
+
 	static int MMyScorePoint;
 
 	int mColsize;
