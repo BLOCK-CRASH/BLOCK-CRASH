@@ -43,6 +43,12 @@ void CCollisionManager::Collision(CCollider*collider) {
 
 				collider->mpParent->Collision(collider, next);
 
+				if (next == 0){}
+
+				else{
+					next->mpParent->Collision(next, collider);
+				}
+
 				//ŽŸ‚ð‹‚ß‚é
 				next = (CCollider*)next->mpNext;
 

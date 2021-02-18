@@ -65,7 +65,6 @@ void CSceneGame2::Init() {
 	C3DShaveItem::mHex.Load("6Model.obj", "6Model.mtl");
 	C3DShaveItem::mHep.Load("7Model.obj", "7Model.mtl");
 	C3DShaveItem::mOct.Load("8Model.obj", "8Model.mtl");
-	C3DShaveItem::mRec.mMaterials[0].mDiffuse[3] = 0.5f;
 
 
 	//mShave.Load("mTri.obj", "mTri.mtl");//3DShaveItem//最初は三角形モデル
@@ -103,7 +102,6 @@ void CSceneGame2::Init() {
 	//new CItem(&mBoard, CVector(0.0f, 140.0f, 150.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0, 1.0, 1.0));
 	//new CItem(&mBoard, CVector(0.0f, 140.0f, -150.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0, 1.0, 1.0));
 	//
-	new C3DShaveItem(&C3DShaveItem::mTri, CVector(0.0, 0.0, 0.0), CVector(), CVector(5.0, 5.0, 5.0));
 
 	new C3DPlayer(&m3DPlayer2, CVector(0.0, 0.0, 0.0), CVector(0.0, 90.0, 0.0), CVector(35.0, 35.0, 35.0));
 	new C3DPlayer(&m3DPlayer2, CVector(0.0, 0.0, 0.0), CVector(0.0, 180.0, 0.0), CVector(35.0, 35.0, 35.0));
@@ -113,6 +111,7 @@ void CSceneGame2::Init() {
 	////玉
 	new CBallPlayer(&mBall, CVector(0.0f, 75.0f, 0.0f), CVector(), CVector(7.0f, 7.0f, 7.0));
 
+	new C3DShaveItem(&C3DShaveItem::mTri, CVector(0.0, 0.0, 0.0), CVector(), CVector(8.0, 8.0, 8.0));
 	//new C3DPlayer(&m3DPlayer1, CVector(0.0, 0.0, 0.0), CVector(0.0, 0.0, 0.0), CVector(40, 40, 40));
 	//new C3DPlayer(&m3DPlayer3, CVector(100.0, 0.0, 0.0), CVector(0.0, 0.0, 0.0), CVector(40, 40, 40));
 	//new C3DPlayer(&m3DPlayer4, CVector(150.0, 0.0, 0.0), CVector(0.0, 0.0, 0.0), CVector(40, 40, 40));
@@ -248,7 +247,7 @@ void CSceneGame2::Update() {
 
 	CTaskManager::Get()->TaskCollision();
 
-	CCollisionManager::Get()->Render();
+	//CCollisionManager::Get()->Render();
 
 	//2D描画開始
 	Start2D(0, 800, 0, 600);

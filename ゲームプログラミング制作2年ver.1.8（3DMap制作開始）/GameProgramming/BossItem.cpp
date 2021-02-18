@@ -25,6 +25,8 @@ CModel C3DIncreaseItem::mIncreasemore;//増殖スコア×２箱
 //int C3DShaveItem::OctHP;
 //int C3DShaveItem::NonHP;
 
+int C3DShaveItem::HP;
+
 int C3DIncreaseItem::randIncr;
 
 //bool C3DShaveItem::TriF;
@@ -104,11 +106,13 @@ C3DOrbitItem::C3DOrbitItem(CModel*model, CVector position, CVector rotation, CVe
 }
 
 
-#define MODELHP1 5
-#define MODELHP2 10
-#define MODELHP3 15
-#define FALSETIME 1
-#define DUMMY 100
+#define MODELHP1 15
+#define MODELHP2 20
+#define MODELHP3 30
+#define MODELHP4 35
+#define MODELHP5 40
+#define MODELHP6 55
+#define DUMMY -100
 C3DShaveItem::C3DShaveItem(CModel*model, CVector position, CVector rotation, CVector scale)
 :m3DShaveBody(0){
 
@@ -116,6 +120,7 @@ C3DShaveItem::C3DShaveItem(CModel*model, CVector position, CVector rotation, CVe
 	mPosition = position;
 	mRotation = rotation;
 	mScale = scale;
+	HP = MODELHP1;
 	mColSize = model->mTriangles.size();
 	m3DShaveBody = new CCollider[model->mTriangles.size()];
 	for (int i = 0; i < model->mTriangles.size(); i++){
@@ -129,21 +134,16 @@ C3DShaveItem::C3DShaveItem(CModel*model, CVector position, CVector rotation, CVe
 
 	}
 
-	TriHP = MODELHP1;
-	RecHP = MODELHP2;
-	PenHP = MODELHP2;
-	HexHP = MODELHP3;
-	HepHP = MODELHP3;
-	OctHP = MODELHP3;
+	HP = MODELHP1;
 
-	falseTime = FALSETIME;
+	//TriHP = MODELHP1;
+	//RecHP = MODELHP2;
+	//PenHP = MODELHP2;
+	//HexHP = MODELHP3;
+	//HepHP = MODELHP3;
+	//OctHP = MODELHP3;
 
 	TriF = false;
-	RecF = false;
-	PenF = false;
-	HexF = false;
-	HepF = false;
-	OctF = false;
 
 	TR = false;
 	RP = false;
@@ -161,6 +161,7 @@ C3DShaveItem::C3DShaveItem(CModel*model, CVector position, CVector rotation, CVe
 
 }
 
+#define RANDINC 10
 C3DIncreaseItem::C3DIncreaseItem(CModel*model, CVector position, CVector rotation, CVector scale)
 :mIncrease(0)
 {
@@ -178,8 +179,6 @@ C3DIncreaseItem::C3DIncreaseItem(CModel*model, CVector position, CVector rotatio
 			model->mTriangles[i].mV[1],
 			model->mTriangles[i].mV[2]);
 
-		//m3DShaveBody[i].ChangePriority();
-
 	}
 
 	mColsize = model->mTriangles.size();
@@ -188,7 +187,7 @@ C3DIncreaseItem::C3DIncreaseItem(CModel*model, CVector position, CVector rotatio
 
 	IncrF = false;
 
-	randIncr = 10;
+	randIncr = RANDINC;
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------*/
@@ -222,12 +221,19 @@ C3DIncreaseItem::~C3DIncreaseItem(){
 
 void C3DShaveItem::Init(){
 
-	//mTri.Load("3Model.obj", "3Model.mtl");
-	//mRec.Load("4Model.obj", "4Model.mtl");
-	//mPen.Load("5Model.obj", "5Model.mtl");
-	//mHex.Load("6Model.obj", "6Model.mtl");
-	//mHep.Load("7Model.obj", "7Model.mtl");
-	//mOct.Load("8Model.obj", "8Model.mtl");
+	mTri.Load("3Model.obj", "3Model.mtl");
+	mRec.Load("4Model.obj", "4Model.mtl");
+	mPen.Load("5Model.obj", "5Model.mtl");
+	mHex.Load("6Model.obj", "6Model.mtl");
+	mHep.Load("7Model.obj", "7Model.mtl");
+	mOct.Load("8Model.obj", "8Model.mtl");
+
+	//C3DShaveItem::mTri.mMaterials[0].mDiffuse[3] = 0.5f;
+	//C3DShaveItem::mRec.mMaterials[0].mDiffuse[3] = 0.5f;
+	//C3DShaveItem::mPen.mMaterials[0].mDiffuse[3] = 0.5f;
+	//C3DShaveItem::mHex.mMaterials[0].mDiffuse[3] = 0.5f;
+	//C3DShaveItem::mHep.mMaterials[0].mDiffuse[3] = 0.5f;
+	//C3DShaveItem::mOct.mMaterials[0].mDiffuse[3] = 0.5f;
 
 }
 
@@ -254,24 +260,10 @@ void C3DShaveItem::Collision(CCollider*Sha, CCollider*y){
 		if (y->mType == CCollider::ESPHERE){
 
 			if (CCollider::CollisionTriangleSphere(Sha, y, &adjust)){
-					if (C3DShaveItem::mpModel == &mTri){
-						TriHP = TriHP - 1;
-					}
-					if (C3DShaveItem::mpModel == &mRec){
-						RecHP = RecHP - 1;
-					}
-					if (C3DShaveItem::mpModel == &mPen){
-						PenHP = PenHP - 1;
-					}
-					if (C3DShaveItem::mpModel == &mHex){
-						HexHP = HexHP - 1;
-					}
-					if (C3DShaveItem::mpModel == &mHep){
-						HepHP = HepHP - 1;
-					}
-					if (C3DShaveItem::mpModel == &mOct){
-						OctHP = OctHP - 1;
-					}
+
+				if (y->mpParent->mTag == CCharacter::EBALL){
+					HP = HP - 1;
+				}
 
 			}
 		}
@@ -309,32 +301,63 @@ void C3DMoveItem::Update(){}
 void C3DOrbitItem::Update(){}
 void C3DShaveItem::Update(){
 
-	//if (C3DShaveItem::TriF == true){
-	//	C3DShaveItem::TriHP = C3DShaveItem::TriHP - 1;
-	//	TriF = false;
-	//}
-	//if (C3DShaveItem::RecF == true){
-	//	C3DShaveItem::RecHP = C3DShaveItem::RecHP - 1;
-	//	RecF = false;
-	//}
-	//if (C3DShaveItem::PenF == true){
-	//	C3DShaveItem::PenHP = C3DShaveItem::PenHP - 1;
-	//	PenF = false;
-	//}
-	//if (C3DShaveItem::HexF == true){
-	//	C3DShaveItem::HexHP = C3DShaveItem::HexHP - 1;
-	//	HexF = false;
-	//}
-	//if (C3DShaveItem::HepF == true){
-	//	C3DShaveItem::HepHP = C3DShaveItem::HepHP - 1;
-	//	HepF = false;
-	//}
-	//if (C3DShaveItem::OctF == true){
-	//	C3DShaveItem::OctHP = C3DShaveItem::OctHP - 1;
-	//	OctF = false;
-	//}
+	if (C3DShaveItem::mpModel == &mTri){
+		if (HP == 0){
+			TR = true;
+		}
+	}
+	if (C3DShaveItem::mpModel == &mRec){
+		if (HP == 0){
+			RP = true;
+		}
+	}
+	if (C3DShaveItem::mpModel == &mPen){
+		if (HP == 0){
+			PH = true;
+		}
+	}
+	if (C3DShaveItem::mpModel == &mHex){
+		if (HP == 0){
+			HH = true;
+		}
+	}
+	if (C3DShaveItem::mpModel == &mHep){
+		if (HP == 0){
+			HO = true;
+		}
+	}
 
-	ChangeModel();
+	if (TR == true){
+		mEnabled = false;
+		new C3DShaveItem(&mRec, CVector(), CVector(), CVector(8.0, 8.0, 8.0));
+		HP = MODELHP2;
+		TR = false;
+	}
+	if (RP == true){
+		mEnabled = false;
+		new C3DShaveItem(&mPen, CVector(), CVector(), CVector(7.0, 7.0, 7.0));
+		HP = MODELHP3;
+		RP = false;
+	}
+	if (PH == true){
+		mEnabled = false;
+		new C3DShaveItem(&mHex, CVector(), CVector(), CVector(35.0, 35.0, 35.0));
+		HP = MODELHP4;
+		PH = false;
+	}
+	if (HH == true){
+		mEnabled = false;
+		new C3DShaveItem(&mHep, CVector(0.0, 0.0, 0.0), CVector(), CVector(13.0, 13.0, 13.0));
+		HP = MODELHP5;
+		HH = false;
+	}
+	if (HO == true){
+		mEnabled = false;
+		new C3DShaveItem(&mOct, CVector(), CVector(), CVector(15.0, 15.0, 15.0));
+		HP = MODELHP6;
+		HO = false;
+	}
+
 
 	CCharacter::Update();
 }
@@ -350,89 +373,7 @@ void C3DIncreaseItem::Update(){
 }
 
 
-void C3DShaveItem::ChangeModel(){
-
-	if (TriHP < 0){
-		falseTime--;
-		TR = true;//モデルを変えるためのフラをtrueへ
-		TriF = false;
-	};
-	if (C3DShaveItem::TR == true){
-		mEnabled = false;
-		if (falseTime == 0){
-		new C3DShaveItem(&C3DShaveItem::mRec, CVector(0.0, 0.0, 0.0), CVector(), CVector(5.0, 5.0, 5.0));
-		TriHP = DUMMY;
-		}
-		TR = false;
-	}
-
-	if (RecHP < 0){
-		falseTime = FALSETIME;
-		falseTime--;
-		RP = true;//モデルを変えるためのフラをtrueへ
-		RecF = false;
-	};
-	if (C3DShaveItem::RP == true){
-		mEnabled = false;
-		if (falseTime == 0){
-			new C3DShaveItem(&C3DShaveItem::mPen, CVector(0.0, 0.0, 0.0), CVector(), CVector(5.0, 5.0, 5.0));
-			RecHP = DUMMY;
-		}
-		RP = false;
-	}
-
-
-
-
-	if (HexHP < 0){
-		PH = true;//モデルを変えるためのフラをtrueへ
-		if (PenHP > 0){
-			mpModel = &mHex;
-		}
-
-	};
-
-	if (C3DShaveItem::PH == true){
-		mEnabled = false;
-		new C3DShaveItem(&C3DShaveItem::mHex, CVector(0.0, 0.0, 0.0), CVector(), CVector(5.0, 5.0, 5.0));
-		mEnabled = true;
-		HexF = false;//HP==0でそのフラグをfalseへ
-		PH = false;
-	}
-
-	if (HepHP < 0){
-		HH = true;//モデルを変えるためのフラグをtrueへ
-		if (HexHP > 0){
-			mpModel = &mHep;
-		}
-
-	};
-
-	if (C3DShaveItem::HH == true){
-		mEnabled = false;
-		new C3DShaveItem(&C3DShaveItem::mHep, CVector(0.0, 0.0, 0.0), CVector(), CVector(5.0, 5.0, 5.0));
-		mEnabled = true;
-		HepF = false;//HP==0でそのフラグをfalseへ
-		HH = false;
-	}
-
-	if (OctHP < 0){
-		HO = true;//モデルを変えるためのフラをtrueへ
-		if (HepHP > 0){
-			mpModel = &mOct;
-		}
-	};
-
-	if (C3DShaveItem::HO == true){
-		mEnabled = false;
-		new C3DShaveItem(&C3DShaveItem::mOct, CVector(0.0, 0.0, 0.0), CVector(), CVector(5.0, 5.0, 5.0));
-		mEnabled = true;
-		OctF = false;//HP==0でそのフラグをfalseへ
-		HO = false;
-	}
-
-
-}
+void C3DShaveItem::ChangeModel(){}
 
 void C3DIncreaseItem::Increaserand(){
 
@@ -446,7 +387,7 @@ void C3DShaveItem::TaskCollision(){
 
 	for (int S = 0; S < mColSize; S++){
 		m3DShaveBody[S].ChangePriority();
-		CCollisionManager::Get()->Collision(&m3DShaveBody[S]);
+		//CCollisionManager::Get()->Collision(&m3DShaveBody[S]);
 	}
 }
 

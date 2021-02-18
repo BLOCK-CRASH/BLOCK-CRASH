@@ -109,6 +109,8 @@ public:
 
 	int mColSize;
 
+	static int HP;
+
 	static CCharacter*mpthis;
 
 	static int ShaveMyScorePoint;
@@ -182,6 +184,8 @@ public:
 	CCollider *mIncrease;
 
 	C3DIncreaseItem(CModel*model, CVector position, CVector rotation, CVector scale);
+
+	
 
 	static CCharacter * mpthis;
 
