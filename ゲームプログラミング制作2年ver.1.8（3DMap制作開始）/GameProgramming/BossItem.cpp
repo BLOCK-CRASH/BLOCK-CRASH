@@ -198,7 +198,7 @@ C3DIncreaseItem::~C3DIncreaseItem(){
 void C3DShaveItem::Init(){
 
 	mTri.Load("3Model.obj", "3Model.mtl");
-	mRec.Load("4Model.obj", "4Model.mtl");
+	mRec.Load("cube.obj", "cube.mtl");
 	mPen.Load("5Model.obj", "5Model.mtl");
 	mHex.Load("6Model.obj", "6Model.mtl");
 	mHep.Load("7Model.obj", "7Model.mtl");

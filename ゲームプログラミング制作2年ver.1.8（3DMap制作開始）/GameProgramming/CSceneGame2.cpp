@@ -42,7 +42,7 @@ void CSceneGame2::Init() {
 	mDelete.mMaterials[0].mDiffuse[3] = 0.0f;
 
 	C3DShaveItem::mTri.Load("3Model.obj", "3Model.mtl");
-	C3DShaveItem::mRec.Load("4Model.obj", "4Model.mtl");
+	C3DShaveItem::mRec.Load("cube.obj", "cube.mtl");
 	C3DShaveItem::mPen.Load("5Model.obj", "5Model.mtl");
 	C3DShaveItem::mHex.Load("6Model.obj", "6Model.mtl");
 	C3DShaveItem::mHep.Load("7Model.obj", "7Model.mtl");

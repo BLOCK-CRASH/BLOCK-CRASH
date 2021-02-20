@@ -20,43 +20,38 @@ CCollisionManager*CCollisionManager::Get(){
 
 //衝突処理
 void CCollisionManager::Collision(CCollider*collider) {
-	
+
 	int sPri = collider->mPriority + 100;//開始位置
 	int ePri = collider->mPriority - 100;//終了位置
 
 	//現在位置を先頭にする
 	CCollider *pos = (CCollider*)mpHead->mpNext;
-		//開始位置を先頭へ
-		while (pos&&pos->mPriority>sPri) {
+	//開始位置を先頭へ
+	while (pos&&pos->mPriority > sPri) {
 
-			//位置計算
-			pos = (CCollider*)pos->mpNext;
+		//位置計算
+		pos = (CCollider*)pos->mpNext;
 
-		}
-		if (pos){
+	}
+	if (pos){
 
-			CCollider*next = (CCollider*)pos->mpNext;
+		CCollider*next = (CCollider*)pos->mpNext;
 
-			//終了位置まで繰り返し
-			while (next&&next->mPriority>=ePri)
+		//終了位置まで繰り返し
+		while (next&&next->mPriority >= ePri)
+		{
+
+			collider->mpParent->Collision(collider, next);
+
+			if (next != 0)
 			{
-
-				collider->mpParent->Collision(collider, next);
-
-				if (next == 0){}
-
-				else{
-					next->mpParent->Collision(next, collider);
-				}
-
-				//次を求める
-				next = (CCollider*)next->mpNext;
-
+				next->mpParent->Collision(next, collider);
 			}
-
+			//次を求める
+			next = (CCollider*)next->mpNext;
 		}
 	}
-
+}
 void CCollisionManager::Destory(){
 
 	if (instance)
