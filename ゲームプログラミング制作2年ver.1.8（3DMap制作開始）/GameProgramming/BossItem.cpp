@@ -17,25 +17,10 @@ CModel C3DIncreaseItem::mIncreasebox;//‘B” 
 CModel C3DIncreaseItem::mIncreasesuperbom;//‘B‹­‰»”š’e
 CModel C3DIncreaseItem::mIncreasemore;//‘BƒXƒRƒA~‚Q” 
 
-//int C3DShaveItem::TriHP;
-//int C3DShaveItem::RecHP;
-//int C3DShaveItem::PenHP;
-//int C3DShaveItem::HexHP;
-//int C3DShaveItem::HepHP;
-//int C3DShaveItem::OctHP;
-//int C3DShaveItem::NonHP;
-
 int C3DShaveItem::HP;
+int C3DShaveItem::ShaveMyScorePoint;
 
 int C3DIncreaseItem::randIncr;
-
-//bool C3DShaveItem::TriF;
-//bool C3DShaveItem::RecF;
-//bool C3DShaveItem::PenF;
-//bool C3DShaveItem::HexF;
-//bool C3DShaveItem::HepF;
-//bool C3DShaveItem::OctF;
-//bool C3DShaveItem::NonF;
 
 bool C3DShaveItem::TR;
 bool C3DShaveItem::RP;
@@ -46,8 +31,6 @@ bool C3DShaveItem::ON;
 bool C3DShaveItem::ModelChanF = false;
 
 bool C3DIncreaseItem::IncrF = false;
-
-int C3DShaveItem::ShaveMyScorePoint;
 
 C3DMoveItem::C3DMoveItem(CModel*model, CVector position, CVector rotation, CVector scale)
 :m3DMItemBody(0)
@@ -105,14 +88,13 @@ C3DOrbitItem::C3DOrbitItem(CModel*model, CVector position, CVector rotation, CVe
 	SMyScorePoint = 80;
 }
 
-
 #define MODELHP1 15
 #define MODELHP2 20
 #define MODELHP3 30
 #define MODELHP4 35
 #define MODELHP5 40
 #define MODELHP6 55
-#define DUMMY -100
+#define SPEEDUP 0.5
 C3DShaveItem::C3DShaveItem(CModel*model, CVector position, CVector rotation, CVector scale)
 :m3DShaveBody(0){
 
@@ -120,7 +102,6 @@ C3DShaveItem::C3DShaveItem(CModel*model, CVector position, CVector rotation, CVe
 	mPosition = position;
 	mRotation = rotation;
 	mScale = scale;
-	HP = MODELHP1;
 	mColSize = model->mTriangles.size();
 	m3DShaveBody = new CCollider[model->mTriangles.size()];
 	for (int i = 0; i < model->mTriangles.size(); i++){
@@ -130,18 +111,13 @@ C3DShaveItem::C3DShaveItem(CModel*model, CVector position, CVector rotation, CVe
 			model->mTriangles[i].mV[1],
 			model->mTriangles[i].mV[2]);
 
-		//m3DShaveBody[i].ChangePriority();
-
 	}
 
 	HP = MODELHP1;
 
-	//TriHP = MODELHP1;
-	//RecHP = MODELHP2;
-	//PenHP = MODELHP2;
-	//HexHP = MODELHP3;
-	//HepHP = MODELHP3;
-	//OctHP = MODELHP3;
+	SpeedUp = NULL;
+
+	ShaveMyScorePoint = NULL;
 
 	TriF = false;
 
@@ -228,13 +204,6 @@ void C3DShaveItem::Init(){
 	mHep.Load("7Model.obj", "7Model.mtl");
 	mOct.Load("8Model.obj", "8Model.mtl");
 
-	//C3DShaveItem::mTri.mMaterials[0].mDiffuse[3] = 0.5f;
-	//C3DShaveItem::mRec.mMaterials[0].mDiffuse[3] = 0.5f;
-	//C3DShaveItem::mPen.mMaterials[0].mDiffuse[3] = 0.5f;
-	//C3DShaveItem::mHex.mMaterials[0].mDiffuse[3] = 0.5f;
-	//C3DShaveItem::mHep.mMaterials[0].mDiffuse[3] = 0.5f;
-	//C3DShaveItem::mOct.mMaterials[0].mDiffuse[3] = 0.5f;
-
 }
 
 void C3DIncreaseItem::Init(){
@@ -263,6 +232,7 @@ void C3DShaveItem::Collision(CCollider*Sha, CCollider*y){
 
 				if (y->mpParent->mTag == CCharacter::EBALL){
 					HP = HP - 1;
+					SpeedUp = SpeedUp + SPEEDUP;
 				}
 
 			}
@@ -302,6 +272,11 @@ void C3DOrbitItem::Update(){}
 void C3DShaveItem::Update(){
 
 	if (C3DShaveItem::mpModel == &mTri){
+		
+		mRotation.mZ += 0.3 + SpeedUp;
+		mRotation.mY += 0.3 + SpeedUp;
+		mRotation.mX += 0.3 + SpeedUp;
+
 		if (HP == 0){
 			TR = true;
 		}
@@ -357,8 +332,6 @@ void C3DShaveItem::Update(){
 		HP = MODELHP6;
 		HO = false;
 	}
-
-
 	CCharacter::Update();
 }
 void C3DIncreaseItem::Update(){
@@ -387,7 +360,6 @@ void C3DShaveItem::TaskCollision(){
 
 	for (int S = 0; S < mColSize; S++){
 		m3DShaveBody[S].ChangePriority();
-		//CCollisionManager::Get()->Collision(&m3DShaveBody[S]);
 	}
 }
 

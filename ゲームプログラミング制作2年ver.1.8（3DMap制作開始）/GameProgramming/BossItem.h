@@ -111,6 +111,8 @@ public:
 
 	static int HP;
 
+	float SpeedUp;
+
 	static CCharacter*mpthis;
 
 	static int ShaveMyScorePoint;
@@ -184,8 +186,6 @@ public:
 	CCollider *mIncrease;
 
 	C3DIncreaseItem(CModel*model, CVector position, CVector rotation, CVector scale);
-
-	
 
 	static CCharacter * mpthis;
 

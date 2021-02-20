@@ -91,19 +91,10 @@ void CSceneGame::Init() {
 	m2DPlayer.Load("2DPlayer0119_001.obj", "2DPlayer0119_001.mtl");
 
 	mRe2DPlayer.Load("2DPlayer0119_001.obj", "2DPlayer0119_001.mtl");
-
-	//mDelete.mMaterials[0].mDiffuse[3] = 0.0f;
 	
 	/*スピンアイテムブロック----------------------------------------------------------------------------*/
-	//new CSpinItem(&mBoardR, CVector(150.0f, 230.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0f, 20.0f, 14.0));
-	//new CSpinItem(&mBoardR, CVector(-150.0f, 230.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0f, 20.0f, 14.0));
-	//new CSpinItem(&mBoardR, CVector(150.0f, -230.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0f, 20.0f, 14.0));
-	//new CSpinItem(&mBoardR, CVector(-150.0f, -230.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0f, 20.0f, 14.0));
 
 	new CSpinItem(&mBoardR, CVector(0.0f, 20.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(22.0f, 22.0f, 5.0));
-	//new CSpinItem(&mBoardR, CVector(110.0f, 70.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(8.0f, 8.0f, 5.0));
-	//new CSpinItem(&mBoardR, CVector(-110.0f, 70.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(8.0f, 8.0f, 5.0));
-	//new CSpinItem(&mBoardR, CVector(0.0f, -20.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0f,15.0f, 10.0));
 
 	///*移動アイテムブロック----------------------------------------------------------------------------*/
 
@@ -153,12 +144,7 @@ void CSceneGame::Init() {
 
 	CColorItem::YCount = CColorItem::YCount - 1;
 
-	//new CColorItem(&CColorItem::mYellow, CVector(-250.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
-	//new CColorItem(&CColorItem::mBlue, CVector(0.0f, -200.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
-
-
 	///*ボーナスアイテムブロック----------------------------------------------------------------------------*/
-	//new CBonus(&mBoard, CVector(600.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0));
 
 	new CObj(&mStage1, CVector(0.0f, 0.0f, 0.0f), CVector(90.0f, 90.0f, 90.0), CVector(40.0f, 40.0f, 40.0));
 
@@ -233,7 +219,7 @@ void CSceneGame::Update() {
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める
-	e = CVector(0.0f, 0.0f, -550.0f);////0.0,0.0,-300
+	e = CVector(0.0f, 0.0f, -550.0f);
 	//注視点を求める
 	c = CVector(0.0f, 0.0f, 0.0f);
 	//上方向を求める
