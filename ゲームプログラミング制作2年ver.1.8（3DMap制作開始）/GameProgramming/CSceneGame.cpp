@@ -28,6 +28,7 @@ std::shared_ptr<CTexture>TextureExp(new CTexture());
 #define TIMEATTENTIONTIME 120
 #define STAGE1_WAVE1TIME 4800
 
+#define COLORHP 2
 
 #define YELLOWPOINT 20000
 #define REDPOINT 10000
@@ -124,18 +125,12 @@ void CSceneGame::Init() {
 	new CItem(&mBoard, CVector(200.0f/*40.0*/, -150.0f, 0.0f), CVector(0.0f, 0.0f, 30.0f/*45*/), CVector(17.0, 17.0, 17.0));
 	new CItem(&mBoard, CVector(-200.0f/*40.0*/, -150.0f, 0.0f), CVector(0.0f, 0.0f, 30.0f/*45*/), CVector(17.0, 17.0, 17.0));
 
-	//new CItem(&mBoard, CVector(200.0f/*40.0*/, -150.0f, 0.0f), CVector(0.0f, 0.0f, -30.0f/*45*/), CVector(11.0, 11.0, 11.0));
-	//new CItem(&mBoard, CVector(50.0f, -60.0f, 1.0f), CVector(0.0f, 0.0f, 40.0f), CVector(11.0, 11.0, 11.0));
-	//new CItem(&mBoard, CVector(-50.0f, -60.0f, 1.0f), CVector(0.0f, 0.0f, 40.0f), CVector(11.0, 11.0, 11.0));
-	//new CItem(&mBoard, CVector(120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 65.0f), CVector(11.0, 11.0, 11.0));
-	//new CItem(&mBoard, CVector(-120.0f, -80.0f, 1.0f), CVector(0.0f, 0.0f, 65.0f), CVector(11.0, 11.0, 11.0));
-
 	/*カラーアイテムブロック----------------------------------------------------------------------------*/
 
-	CColorItem::RCount = 2;
-	CColorItem::BCount = 2;
-	CColorItem::GCount = 2;
-	CColorItem::YCount = 2;
+	CColorItem::RCount = COLORHP;
+	CColorItem::BCount = COLORHP;
+	CColorItem::GCount = COLORHP;
+	CColorItem::YCount = COLORHP;
 
 	new CColorItem(&CColorItem::mRed, CVector(0.0f, 200.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
 	new CColorItem(&CColorItem::mYellow, CVector(0.0f, -200.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));

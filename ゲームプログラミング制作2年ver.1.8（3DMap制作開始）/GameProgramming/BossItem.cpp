@@ -89,8 +89,8 @@ C3DOrbitItem::C3DOrbitItem(CModel*model, CVector position, CVector rotation, CVe
 }
 
 #define MODELHP1 15
-#define MODELHP2 20
-#define MODELHP3 30
+#define MODELHP2 15
+#define MODELHP3 15
 #define MODELHP4 35
 #define MODELHP5 40
 #define MODELHP6 55
@@ -232,7 +232,9 @@ void C3DShaveItem::Collision(CCollider*Sha, CCollider*y){
 
 				if (y->mpParent->mTag == CCharacter::EBALL){
 					HP = HP - 1;
-					SpeedUp = SpeedUp + SPEEDUP;
+					if (SpeedUp < 4){
+						SpeedUp = SpeedUp + SPEEDUP;
+					}
 				}
 
 			}
