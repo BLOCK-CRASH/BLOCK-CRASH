@@ -198,7 +198,7 @@ C3DIncreaseItem::~C3DIncreaseItem(){
 void C3DShaveItem::Init(){
 
 	mTri.Load("3Model.obj", "3Model.mtl");
-	mRec.Load("cube.obj", "cube.mtl");
+	mRec.Load("4Model.obj", "4Model.mtl");
 	mPen.Load("5Model.obj", "5Model.mtl");
 	mHex.Load("6Model.obj", "6Model.mtl");
 	mHep.Load("7Model.obj", "7Model.mtl");
@@ -232,7 +232,7 @@ void C3DShaveItem::Collision(CCollider*Sha, CCollider*y){
 
 				if (y->mpParent->mTag == CCharacter::EBALL){
 					HP = HP - 1;
-					if (SpeedUp < 4){
+					if (SpeedUp < 2.5){
 						SpeedUp = SpeedUp + SPEEDUP;
 					}
 				}
@@ -307,30 +307,35 @@ void C3DShaveItem::Update(){
 	if (TR == true){
 		mEnabled = false;
 		new C3DShaveItem(&mRec, CVector(), CVector(), CVector(8.0, 8.0, 8.0));
+		mRec.mMaterials[0].mDiffuse[3] = 0.5;
 		HP = MODELHP2;
 		TR = false;
 	}
 	if (RP == true){
 		mEnabled = false;
 		new C3DShaveItem(&mPen, CVector(), CVector(), CVector(7.0, 7.0, 7.0));
+		mPen.mMaterials[0].mDiffuse[3] = 0.5;
 		HP = MODELHP3;
 		RP = false;
 	}
 	if (PH == true){
 		mEnabled = false;
 		new C3DShaveItem(&mHex, CVector(), CVector(), CVector(35.0, 35.0, 35.0));
+		mHex.mMaterials[0].mDiffuse[3] = 0.5;
 		HP = MODELHP4;
 		PH = false;
 	}
 	if (HH == true){
 		mEnabled = false;
 		new C3DShaveItem(&mHep, CVector(0.0, 0.0, 0.0), CVector(), CVector(13.0, 13.0, 13.0));
+		mHep.mMaterials[0].mDiffuse[3] = 0.5;
 		HP = MODELHP5;
 		HH = false;
 	}
 	if (HO == true){
 		mEnabled = false;
 		new C3DShaveItem(&mOct, CVector(), CVector(), CVector(15.0, 15.0, 15.0));
+		mOct.mMaterials[0].mDiffuse[3] = 0.5;
 		HP = MODELHP6;
 		HO = false;
 	}

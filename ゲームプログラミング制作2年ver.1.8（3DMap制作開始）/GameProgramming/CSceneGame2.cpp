@@ -42,7 +42,7 @@ void CSceneGame2::Init() {
 	mDelete.mMaterials[0].mDiffuse[3] = 0.0f;
 
 	C3DShaveItem::mTri.Load("3Model.obj", "3Model.mtl");
-	C3DShaveItem::mRec.Load("cube.obj", "cube.mtl");
+	C3DShaveItem::mRec.Load("4Model.obj", "4Model.mtl");
 	C3DShaveItem::mPen.Load("5Model.obj", "5Model.mtl");
 	C3DShaveItem::mHex.Load("6Model.obj", "6Model.mtl");
 	C3DShaveItem::mHep.Load("7Model.obj", "7Model.mtl");
@@ -55,10 +55,10 @@ void CSceneGame2::Init() {
 	//プレイヤー(板)
 	/*プレイヤー板前後*/
 
-	new C3DPlayer(&m3DPlayer2, CVector(0.0, 0.0, 0.0), CVector(0.0, 90.0, 0.0), CVector(35.0, 35.0, 35.0));
-	new C3DPlayer(&m3DPlayer2, CVector(0.0, 0.0, 0.0), CVector(0.0, 180.0, 0.0), CVector(35.0, 35.0, 35.0));
-	new C3DPlayer(&m3DPlayer2, CVector(0.0, 0.0, 0.0), CVector(0.0, 270.0, 0.0), CVector(35.0, 35.0, 35.0));
-	new C3DPlayer(&m3DPlayer2, CVector(0.0, 0.0, 0.0), CVector(0.0, 360.0, 0.0), CVector(35.0, 35.0, 35.0));
+	new C3DPlayer(&m3DPlayer2, CVector(0.0, 0.0, 0.0), CVector(0.0, 90.0, 0.0), CVector(37.0, 37.0, 37.0));
+	new C3DPlayer(&m3DPlayer2, CVector(0.0, 0.0, 0.0), CVector(0.0, 180.0, 0.0), CVector(37.0, 37.0, 37.0));
+	new C3DPlayer(&m3DPlayer2, CVector(0.0, 0.0, 0.0), CVector(0.0, 270.0, 0.0), CVector(37.0, 37.0, 37.0));
+	new C3DPlayer(&m3DPlayer2, CVector(0.0, 0.0, 0.0), CVector(0.0, 360.0, 0.0), CVector(37.0, 37.0, 37.0));
 
 	////玉
 	new CBallPlayer(&mBall, CVector(0.0f, 75.0f, 0.0f), CVector(), CVector(7.0f, 7.0f, 7.0));
@@ -99,7 +99,7 @@ void CSceneGame2::Update() {
 	}
 	if (CamChan1 == true){
 		//A
-		e = CVector(160.0f, 160.0f, 200.0f);
+		e = CVector(160.0f, 160.0f, 300.0f);
 		CamChan2 = false;
 		CamChan3 = false;
 		CamChan4 = false;

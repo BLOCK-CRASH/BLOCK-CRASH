@@ -49,10 +49,6 @@ C3DMap::C3DMap(CModel*model, const CVector &position, const
 	
 	XF, YF, ZF = false;
 
-	ROTATETIME = 0;
-
-	ROTATETIME = 121 * 60;
-
 }
 
 C3DDelete::C3DDelete(CModel*model, const CVector &position, const
@@ -174,7 +170,7 @@ void C3DMap::Update(){
 
 	//mRotation.mZ += 0.07;
 
-	mRotation.mY += 0.07;
+	//mRotation.mY += 0.07;
 
 	CCharacter::Update();
 

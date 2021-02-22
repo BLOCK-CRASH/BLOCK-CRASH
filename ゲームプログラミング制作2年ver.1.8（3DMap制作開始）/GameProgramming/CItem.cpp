@@ -172,7 +172,7 @@ CBonus::CBonus(CModel*model, CVector position, CVector rotation, CVector scale)
 	mpModel = model;
 	mPosition = position;
 	mRotation = rotation;
-	mScale = CVector(3.0, 3.0, 5.0);
+	mScale = scale;
 
 	mBoBody = new CCollider[model->mTriangles.size()];
 	for (int i = NULL; i < model->mTriangles.size(); i++){
@@ -1090,18 +1090,18 @@ void CColorItem::TaskCollision(){
 	mColorbody[10].ChangePriority();
 	mColorbody[11].ChangePriority();
 
-	CCollisionManager::Get()->Collision(&mColorbody[0]);
-	CCollisionManager::Get()->Collision(&mColorbody[1]);
-	CCollisionManager::Get()->Collision(&mColorbody[2]);
-	CCollisionManager::Get()->Collision(&mColorbody[3]);
-	CCollisionManager::Get()->Collision(&mColorbody[4]);
-	CCollisionManager::Get()->Collision(&mColorbody[5]);
-	CCollisionManager::Get()->Collision(&mColorbody[6]);
-	CCollisionManager::Get()->Collision(&mColorbody[7]);
-	CCollisionManager::Get()->Collision(&mColorbody[8]);
-	CCollisionManager::Get()->Collision(&mColorbody[9]);
-	CCollisionManager::Get()->Collision(&mColorbody[10]);
-	CCollisionManager::Get()->Collision(&mColorbody[11]);
+	//CCollisionManager::Get()->Collision(&mColorbody[0]);
+	//CCollisionManager::Get()->Collision(&mColorbody[1]);
+	//CCollisionManager::Get()->Collision(&mColorbody[2]);
+	//CCollisionManager::Get()->Collision(&mColorbody[3]);
+	//CCollisionManager::Get()->Collision(&mColorbody[4]);
+	//CCollisionManager::Get()->Collision(&mColorbody[5]);
+	//CCollisionManager::Get()->Collision(&mColorbody[6]);
+	//CCollisionManager::Get()->Collision(&mColorbody[7]);
+	//CCollisionManager::Get()->Collision(&mColorbody[8]);
+	//CCollisionManager::Get()->Collision(&mColorbody[9]);
+	//CCollisionManager::Get()->Collision(&mColorbody[10]);
+	//CCollisionManager::Get()->Collision(&mColorbody[11]);
 
 
 }
