@@ -59,38 +59,19 @@ void CTaskManager::Add(CTask *task) {
 		task->mpNext = 0;
 	}
 	else {
-		//リストの最後から前に探索
-		//CTask *pos = mpTail;
-		//while (pos) {
-		//	//優先度が小さければ追加
-		//	if (pos->mPriority > task->mPriority) {
-		//		//posの次がtask
-		//		//次を設定
-		//		task->mpNext = pos->mpNext;
-		//		//前を設定
-		//		task->mpPrev = pos;
-		//		//前の次を自分に設定
-		//		pos->mpNext = task;
-		//		//リストの最後なら最終更新
-		//		if (task->mpNext == 0) {
-		//			mpTail = task;
-		//		}
-		//		else {
-		//			//次の前を自分に設定
-		//			task->mpNext->mpPrev = task;
-		//		}
-		//		return;
-		//	}
-		//	//前へ
-		//	pos = pos->mpPrev;
-		//}
-
 		//リストの先頭にする
 		task->mpNext = mpHead;
 		mpHead->mpPrev = task;
 		mpHead = task;
 		task->mpPrev = 0;
 	}
+}
+
+void CTaskManager::ChangePriority(CTask*task, int priority){
+
+	Remove(task);
+	task->mPriority = priority;
+	Add(task);
 }
 
 //リストから削除

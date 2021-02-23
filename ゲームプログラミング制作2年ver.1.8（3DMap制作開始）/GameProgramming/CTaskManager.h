@@ -35,6 +35,8 @@ public:
 
 	void TaskCollision();
 
+	void ChangePriority(CTask*task, int priority);
+
 	static CTaskManager*CTaskManager::Get();
 	static CTaskManager *CTaskManager::instance;
 

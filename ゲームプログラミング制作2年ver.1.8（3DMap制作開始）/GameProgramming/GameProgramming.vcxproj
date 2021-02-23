@@ -107,6 +107,7 @@
     <ClCompile Include="CSceneGame.cpp" />
     <ClCompile Include="CSceneGame2.cpp" />
     <ClCompile Include="CSceneGame2_Wave2.cpp" />
+    <ClCompile Include="CSceneGame3.cpp" />
     <ClCompile Include="CSceneGame_Wave2.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
     <ClCompile Include="CTaskManager.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="CSceneGame.h" />
     <ClInclude Include="CSceneGame2.h" />
     <ClInclude Include="CSceneGame2_Wave2.h" />
+    <ClInclude Include="CSceneGame3.h" />
     <ClInclude Include="CSceneGame_Wave2.h" />
     <ClInclude Include="CSceneManager.h" />
     <ClInclude Include="CSound.h" />

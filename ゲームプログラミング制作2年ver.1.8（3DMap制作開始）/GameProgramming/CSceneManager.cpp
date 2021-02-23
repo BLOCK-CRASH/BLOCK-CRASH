@@ -78,6 +78,12 @@ void CSceneManager::Update() {
 
 			break;
 
+		case CScene::EGAME3:
+			mpScene = new CSceneGame2_Wave2();
+			mpScene->Init();
+
+			break;
+
 		case CScene::ESTAGE1_RESULT:
 
 			mpScene = new CResult();

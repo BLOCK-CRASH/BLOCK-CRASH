@@ -6,8 +6,6 @@
 //
 #include "CTaskManager.h"
 //
-#include "CPlayer.h"
-//
 #include "3DPlayer.h"
 //
 #include "CItem.h"

@@ -39,6 +39,8 @@ CVector(1.0,1.0,1.0), scale.mX){
 
 	mScale = scale;
 
+	//priority = 1;
+
 	jumpspeed = CVector();
 
 	BoundNum = 0.75;
@@ -93,50 +95,29 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 
 							Boundf = false;
 						}
-
 					}
-
 					else{
-
 						BoundNum = BoundNum;
-
 					}
-					
 					jumpspeed = mAdjust.Normalize()*BoundNum;
 
 					ColF = false;
-
 				}
-
 				if (y->mpParent->mTag == CCharacter::EITEM){ 
-
 					ScoreBox = CBallPlayer::ScoreBox + CItem::BMyScorePoint;
-
 					FeverCount++;
-
 				}
 					//ScorePulsF = false;
-
 				if (y->mpParent->mTag == CCharacter::ESPINITEM){
-
 					ScoreBox = CBallPlayer::ScoreBox + CSpinItem::SMyScorePoint;
-
 					FeverCount++;
-
 				}
-
 				if (y->mpParent->mTag == CCharacter::EMOVEITEM){
-
 					ScoreBox = CBallPlayer::ScoreBox + CMoveItem::MMyScorePoint;
-
 				}
-
 				if (y->mpParent->mTag == CCharacter::EMOVEBONUS){
-
 					ScoreBox = ScoreBox + CBonus::BMyScorePoint;
-
 					FeverCount + 2;
-
 				}
 
 				if (y->mpParent->mTag == CCharacter::EDELETE){
