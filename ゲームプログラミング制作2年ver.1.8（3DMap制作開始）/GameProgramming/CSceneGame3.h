@@ -4,13 +4,11 @@
 
 #include "CScene.h"
 //
-#include "CSceneGame.h"
-//
 #include "CTaskManager.h"
 //
 #include "3DPlayer.h"
 //
-#include "CItem.h"
+#include "C3DNormalItem.h"
 //
 #include "CBallPlayer.h"
 //
@@ -31,15 +29,47 @@ class CSceneGame3 :public CScene{
 
 	~CSceneGame3();
 
-	CModel mItem;
+	CModel mDia;//ひし形
+
+	CModel mRec;//四角形
+
+	CModel mTri;//三角形
 
 	CModel mBall;
 
-	CModel Bomb;
+	CModel mBomb;
 
 	CModel mDelete;
 
 	CModel m3DPlayer2;
+
+	CModel mStage;
+
+	CVector Scale;
+
+	int Attention;//！点滅するための時間
+
+	int CPAttentionTime;//！表示時間
+
+	int TimeAttentionTime;//時間表示時間
+
+	bool TimeAttension;//時間点滅フラグ
+
+	bool CamChan1;//視点ステージ切り替え1
+
+	bool CamChan2;//視点ステージ切り替え2
+
+	bool CamChan3;//視点ステージ切り替え3
+
+	bool CamChan4;//視点ステージ切り替え4
+
+	bool CamChanTop;//視点ステージ切り替え上
+
+	bool CamChanBottom;//視点ステージ切り替え下
+
+	int GAMETIME;
+
+	int COUNTDOWN;
 
 	bool mEnable;
 
@@ -50,5 +80,8 @@ class CSceneGame3 :public CScene{
 	void Init();
 
 	void Update();
+
+	EScene GetNextScene();
+
 };
 #endif

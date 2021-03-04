@@ -87,9 +87,10 @@ public:
 	//更新処理のオーバーライド
 	void Update();
 
-	void CameraTopBottom();
-
-	void CameraLeftRight();
+	//void CameraTop();
+	void CameraBottom();
+	void CameraRight();
+	void CameraLeft();
 
 };
 #endif

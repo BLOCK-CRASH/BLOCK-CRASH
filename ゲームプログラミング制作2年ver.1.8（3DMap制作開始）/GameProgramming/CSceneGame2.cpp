@@ -26,17 +26,12 @@ void CSceneGame2::Init() {
 	CText::mFont.Load("FontG.tga");
 	CText::mFont.SetRowCol(1, 4096 / 64);
 	CBlackText::mBFont.Load("font.tga");
-	mBoardR.Load("cubeRotate.obj", "cubeRotate.mtl");
 
 	mBall.Load("sphere.obj", "sphere.mtl");
 
 	mStage.Load("StageEdit0118.obj", "StageEdit0118.mtl");
 
-	mStage.mMaterials[0].mDiffuse[3] = 0.5f;
-
 	m3DPlayer2.Load("0205_3D_2Board.obj", "0205_3D_2Board.mtl");
-
-	m3DPlayer2.mMaterials[0].mDiffuse[3] = 0.75f;
 
 	mDelete.Load("AriBox0205.obj", "AriBox0205.mtl");
 	mDelete.mMaterials[0].mDiffuse[3] = 0.0f;
@@ -55,10 +50,10 @@ void CSceneGame2::Init() {
 	//プレイヤー(板)
 	/*プレイヤー板前後*/
 
-	new C3DPlayer(&m3DPlayer2, CVector(0.0, 0.0, 0.0), CVector(0.0, 90.0, 0.0), CVector(37.0, 37.0, 37.0));
-	new C3DPlayer(&m3DPlayer2, CVector(0.0, 0.0, 0.0), CVector(0.0, 180.0, 0.0), CVector(37.0, 37.0, 37.0));
-	new C3DPlayer(&m3DPlayer2, CVector(0.0, 0.0, 0.0), CVector(0.0, 270.0, 0.0), CVector(37.0, 37.0, 37.0));
-	new C3DPlayer(&m3DPlayer2, CVector(0.0, 0.0, 0.0), CVector(0.0, 360.0, 0.0), CVector(37.0, 37.0, 37.0));
+	new C3DPlayer(&m3DPlayer2, CVector(0.0, 0.0, 0.0), CVector(0.0, 90.0, 0.0), CVector(36.0, 36.0, 36.0));
+	new C3DPlayer(&m3DPlayer2, CVector(0.0, 0.0, 0.0), CVector(0.0, 180.0, 0.0), CVector(36.0, 36.0, 36.0));
+	new C3DPlayer(&m3DPlayer2, CVector(0.0, 0.0, 0.0), CVector(0.0, 270.0, 0.0), CVector(36.0, 36.0, 36.0));
+	new C3DPlayer(&m3DPlayer2, CVector(0.0, 0.0, 0.0), CVector(0.0, 360.0, 0.0), CVector(36.0, 36.0, 36.0));
 
 	////玉
 	new CBallPlayer(&mBall, CVector(0.0f, 75.0f, 0.0f), CVector(), CVector(7.0f, 7.0f, 7.0));
@@ -66,8 +61,6 @@ void CSceneGame2::Init() {
 	new C3DShaveItem(&C3DShaveItem::mTri, CVector(0.0, 0.0, 0.0), CVector(), CVector(8.0, 8.0, 8.0));
 
 	CSceneGame2::ResetF = true;
-
-	CSceneGame2::mEnable = true;
 
 	CamChan1 = true;
 	CamChan2 = false;
@@ -80,6 +73,7 @@ void CSceneGame2::Init() {
 
 void CSceneGame2::Update() {
 
+	//CameraBottom();
 	if (CSceneGame2::GAMETIME > 61){
 		CTaskManager::Get()->Update();
 		Result = true;
@@ -99,7 +93,7 @@ void CSceneGame2::Update() {
 	}
 	if (CamChan1 == true){
 		//A
-		e = CVector(160.0f, 160.0f, 300.0f);
+		e = CVector(160.0f, 160.0f, 200.0f);
 		CamChan2 = false;
 		CamChan3 = false;
 		CamChan4 = false;
@@ -171,7 +165,6 @@ void CSceneGame2::Update() {
 		CamChanBottom = false;
 	}
 
-
 	//注視点を求める
 
 	c = CVector(0.0f, 0.0f, 0.0f);
@@ -232,38 +225,24 @@ void CSceneGame2::Update() {
 
 }
 
-//void CSceneGame2::CameraTopBottom(){
-//
+//void CSceneGame2::CameraBottom(){
 //	glPushMatrix();
-//
-//	glViewport(600, 450, 200, 150);		//画面の描画エリア指定
-//
+//	glViewport(600, 0, 600, 450);		//画面の描画エリア指定
 //	glLoadIdentity();		//行列の初期化
-//
 //	CVector e, c, u;//視点、注視点、上方向
-//
-//	e = CVector(10.0f, 180.0f, 10.0f);
-//
+//	e = CVector(160.0f, 160.0f, -200.0f);
 //	//注視点を求める
-//
 //	c = CVector(0.0f, 0.0f, 0.0f);
-//
-//	//上方向を求める
-//
-//	u = CVector(0.0f, 10.0f, 0.0f)/**mCamera.mMatrix*/;
-//
+//	//上方向を求め
+//	u = CVector(0.0f, 10.0f, 0.0f);
+//	//カメラの設定
+//	Camera3D(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
 //	glDisable(GL_DEPTH_TEST);
-//
+//	CMatrix Matrix;
 //	CTaskManager::Get()->Render();
-//
-//	glPopMatrix();
-//
-//	glViewport(0, 0, 800, 600);		//描画エリアの指定
-//
 //	glEnable(GL_DEPTH_TEST);
-//
+//	return;
 //}
-
 CScene::EScene CSceneGame2::GetNextScene() {
 	return mScene;
 }

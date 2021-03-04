@@ -95,49 +95,49 @@ void CSceneGame::Init() {
 	
 	/*スピンアイテムブロック----------------------------------------------------------------------------*/
 
-	new CSpinItem(&mBoardR, CVector(0.0f, 20.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(22.0f, 22.0f, 5.0));
+	//new CSpinItem(&mBoardR, CVector(0.0f, 20.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(22.0f, 22.0f, 5.0));
 
 	///*移動アイテムブロック----------------------------------------------------------------------------*/
 
-	new CMoveItem(&mMove, CVector(-2000.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(15.0, 15.0, 5.0));
-	new CMoveItem(&mMove, CVector(-1900.0f, 100.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0, 15.0, 5.0));
-	new CMoveItem(&mMove, CVector(-1800.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(15.0, 15.0, 5.0));
-	new CMoveItem(&mMove, CVector(-1700.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0, 15.0, 5.0));
-	new CMoveItem(&mMove, CVector(-1600.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(15.0, 15.0, 5.0));
-	new CMoveItem(&mMove, CVector(-1500.0f, 100.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0, 15.0, 5.0));
-	new CMoveItem(&mMove, CVector(-1400.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(15.0, 15.0, 5.0));
-	new CMoveItem(&mMove, CVector(-1300.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0, 15.0, 5.0));
-	new CMoveItem(&mMove, CVector(-1200.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(15.0, 15.0, 5.0));
-	new CMoveItem(&mMove, CVector(-1100.0f, 100.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0, 15.0, 5.0));
-	new CMoveItem(&mMove, CVector(-1000.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(15.0, 15.0, 5.0));
-	new CMoveItem(&mMove, CVector(-900.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0, 15.0, 5.0));
-	new CMoveItem(&mMove, CVector(-800.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(15.0, 15.0, 5.0));
-	new CMoveItem(&mMove, CVector(-700.0f, 100.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0, 15.0, 5.0));
+	//new CMoveItem(&mMove, CVector(-2000.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(15.0, 15.0, 5.0));
+	//new CMoveItem(&mMove, CVector(-1900.0f, 100.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0, 15.0, 5.0));
+	//new CMoveItem(&mMove, CVector(-1800.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(15.0, 15.0, 5.0));
+	//new CMoveItem(&mMove, CVector(-1700.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0, 15.0, 5.0));
+	//new CMoveItem(&mMove, CVector(-1600.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(15.0, 15.0, 5.0));
+	//new CMoveItem(&mMove, CVector(-1500.0f, 100.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0, 15.0, 5.0));
+	//new CMoveItem(&mMove, CVector(-1400.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(15.0, 15.0, 5.0));
+	//new CMoveItem(&mMove, CVector(-1300.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0, 15.0, 5.0));
+	//new CMoveItem(&mMove, CVector(-1200.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(15.0, 15.0, 5.0));
+	//new CMoveItem(&mMove, CVector(-1100.0f, 100.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0, 15.0, 5.0));
+	//new CMoveItem(&mMove, CVector(-1000.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(15.0, 15.0, 5.0));
+	//new CMoveItem(&mMove, CVector(-900.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0, 15.0, 5.0));
+	//new CMoveItem(&mMove, CVector(-800.0f, -200.0f, 0.0f), CVector(0.0f, 0.0f, 15.0f), CVector(15.0, 15.0, 5.0));
+	//new CMoveItem(&mMove, CVector(-700.0f, 100.0f, 0.0f), CVector(0.0f, 0.0f, 45.0f), CVector(15.0, 15.0, 5.0));
 
-	/*ノーマルアイテムブロック----------------------------------------------------------------------------*/
-	new CItem(&mBoard, CVector(150.0f/*40.0*/, -75.0f, 0.0f), CVector(0.0f, 0.0f, -30.0f/*45*/), CVector(11.0, 11.0, 11.0));
-	new CItem(&mBoard, CVector(-150.0f/*40.0*/, -75.0f, 0.0f), CVector(0.0f, 0.0f, -30.0f/*45*/), CVector(11.0, 11.0, 11.0));
-	new CItem(&mBoard, CVector(150.0f/*40.0*/, 75.0f, 0.0f), CVector(0.0f, 0.0f, 30.0f/*45*/), CVector(11.0, 11.0, 11.0));
-	new CItem(&mBoard, CVector(-150.0f/*40.0*/, 75.0f, 0.0f), CVector(0.0f, 0.0f, 30.0f/*45*/), CVector(11.0, 11.0, 11.0));
-	
-	new CItem(&mBoard, CVector(200.0f/*40.0*/, 150.0f, 0.0f), CVector(0.0f, 0.0f, -30.0f/*45*/), CVector(17.0, 17.0, 17.0));
-	new CItem(&mBoard, CVector(-200.0f/*40.0*/, 150.0f, 0.0f), CVector(0.0f, 0.0f, -30.0f/*45*/), CVector(17.0, 17.0, 17.0));
-	new CItem(&mBoard, CVector(200.0f/*40.0*/, -150.0f, 0.0f), CVector(0.0f, 0.0f, 30.0f/*45*/), CVector(17.0, 17.0, 17.0));
-	new CItem(&mBoard, CVector(-200.0f/*40.0*/, -150.0f, 0.0f), CVector(0.0f, 0.0f, 30.0f/*45*/), CVector(17.0, 17.0, 17.0));
+	///*ノーマルアイテムブロック----------------------------------------------------------------------------*/
+	//new CItem(&mBoard, CVector(150.0f/*40.0*/, -75.0f, 0.0f), CVector(0.0f, 0.0f, -30.0f/*45*/), CVector(11.0, 11.0, 11.0));
+	//new CItem(&mBoard, CVector(-150.0f/*40.0*/, -75.0f, 0.0f), CVector(0.0f, 0.0f, -30.0f/*45*/), CVector(11.0, 11.0, 11.0));
+	//new CItem(&mBoard, CVector(150.0f/*40.0*/, 75.0f, 0.0f), CVector(0.0f, 0.0f, 30.0f/*45*/), CVector(11.0, 11.0, 11.0));
+	//new CItem(&mBoard, CVector(-150.0f/*40.0*/, 75.0f, 0.0f), CVector(0.0f, 0.0f, 30.0f/*45*/), CVector(11.0, 11.0, 11.0));
+	//
+	//new CItem(&mBoard, CVector(200.0f/*40.0*/, 150.0f, 0.0f), CVector(0.0f, 0.0f, -30.0f/*45*/), CVector(17.0, 17.0, 17.0));
+	//new CItem(&mBoard, CVector(-200.0f/*40.0*/, 150.0f, 0.0f), CVector(0.0f, 0.0f, -30.0f/*45*/), CVector(17.0, 17.0, 17.0));
+	//new CItem(&mBoard, CVector(200.0f/*40.0*/, -150.0f, 0.0f), CVector(0.0f, 0.0f, 30.0f/*45*/), CVector(17.0, 17.0, 17.0));
+	//new CItem(&mBoard, CVector(-200.0f/*40.0*/, -150.0f, 0.0f), CVector(0.0f, 0.0f, 30.0f/*45*/), CVector(17.0, 17.0, 17.0));
 
-	/*カラーアイテムブロック----------------------------------------------------------------------------*/
+	///*カラーアイテムブロック----------------------------------------------------------------------------*/
 
-	CColorItem::RCount = COLORHP;
-	CColorItem::BCount = COLORHP;
-	CColorItem::GCount = COLORHP;
-	CColorItem::YCount = COLORHP;
+	//CColorItem::RCount = COLORHP;
+	//CColorItem::BCount = COLORHP;
+	//CColorItem::GCount = COLORHP;
+	//CColorItem::YCount = COLORHP;
 
-	new CColorItem(&CColorItem::mRed, CVector(0.0f, 200.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
-	new CColorItem(&CColorItem::mYellow, CVector(0.0f, -200.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
+	//new CColorItem(&CColorItem::mRed, CVector(0.0f, 200.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
+	//new CColorItem(&CColorItem::mYellow, CVector(0.0f, -200.0f, 1.0f), CVector(0.0f, 0.0f, 45.0f), CVector(20.0, 20.0, 15.0));
 
-	CColorItem::RCount = CColorItem::RCount - 1;
+	//CColorItem::RCount = CColorItem::RCount - 1;
 
-	CColorItem::YCount = CColorItem::YCount - 1;
+	//CColorItem::YCount = CColorItem::YCount - 1;
 
 	///*ボーナスアイテムブロック----------------------------------------------------------------------------*/
 
@@ -208,6 +208,7 @@ void CSceneGame::Update() {
 	}
 
 	CBallPlayer::mAdjust.mZ = NULL;
+	CBallPlayer::mVector.mZ = NULL;
 	CDammyBallPlayer::mDAdjust.mZ = NULL;
 	CExItem::mAdjust.mZ = NULL;
 

@@ -117,6 +117,12 @@ void CMenu::Update(){
 		mScene = EGAME2_WAVE1;
 	}
 
+	if (Y == 230 && CKey::Once(VK_RETURN))
+	{
+		mScene = EGAME3;
+	}
+
+
 	End2D();
 
 	CTaskManager::Get()->Delete();

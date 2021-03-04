@@ -10,23 +10,23 @@ bool::CBallPlayer::CF = false;//(色:trueで点数追加falseで無効
 //bool::CBallPlayer::BMF = false;//(ボーナス:trueで点数追加falseで無効
 //bool::CBallPlayer::BOF = false;//(ボム:trueで減点falseで無効
 
-CCharacter *CBallPlayer::mpthis = 0;
-int CBallPlayer::BallHP = 0;
+CCharacter *CBallPlayer::mpthis;
+int CBallPlayer::BallHP;
 
-float CBallPlayer::BoundNum = 0;
-float CBallPlayer::ScoreMore = 0;//加算数字
-int CBallPlayer::ScoreBox = 0;//スコア箱
-int CBallPlayer::BScoreBox = 0; // スコア箱(ノーマル
-int CBallPlayer::SScoreBox = 0;//スコア箱(スピン
-int CBallPlayer::MScoreBox = 0;//スコア箱(移動
-int CBallPlayer::CScoreBox = 0;//スコア箱(色
+float CBallPlayer::ScoreMore;//加算数字
+int CBallPlayer::ScoreBox;//スコア箱
+int CBallPlayer::BScoreBox; // スコア箱(ノーマル
+int CBallPlayer::SScoreBox;//スコア箱(スピン
+int CBallPlayer::MScoreBox;//スコア箱(移動
+int CBallPlayer::CScoreBox;//スコア箱(色
 
-int CBallPlayer::FeverCount = 0;
+int CBallPlayer::FeverCount;
+
+CVector CBallPlayer::mAdjust;//法線ベクトル
+CVector CBallPlayer::mVector;//内積
 
 extern std::shared_ptr<CTexture>TextureExp;
 
-CVector CBallPlayer::jumpspeed = CVector(0.0, 0.0, 0.0);
-CVector CBallPlayer::mAdjust = CVector(0.0, 0.0, 0.0);
 CBallPlayer::CBallPlayer(CModel*model, CVector position, CVector rotation, CVector scale)
 :BallCol(this, CVector(), CVector(),
 CVector(1.0,1.0,1.0), scale.mX){
@@ -43,7 +43,7 @@ CVector(1.0,1.0,1.0), scale.mX){
 
 	jumpspeed = CVector();
 
-	BoundNum = 0.75;
+	BoundNum = CVector(NULL, NULL, NULL);
 	
 	CBallPlayer::BallCol.mType = CCollider::ESPHERE;
 
@@ -59,11 +59,17 @@ CVector(1.0,1.0,1.0), scale.mX){
 
 	mpthis = this;
 
-	BALLtime = 3 * 60;
+	//BALLtime = 180;
 
 	FeverCount = 20;
 
 	minusF = false;
+
+	BallVec = NULL;
+
+	mAdjust = CVector(NULL,NULL,NULL);//法線ベクトル
+
+	mVector = CVector(NULL, NULL, NULL);//内積
 }
 
 CBallPlayer::~CBallPlayer(){
@@ -83,23 +89,30 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 
 			if (CCollider::CollisionTriangleSphere(y, m, &mAdjust)){
 
+				jumpF = false;
+
 				if (ColF == true){
 
-					if (BoundNum < 3.0){
+					if (BoundNum.mX < 3.0 || BoundNum.mY || 3.0 || BoundNum.mZ < 3.0){
 
 						Boundf = true;
 
 						if (Boundf == true){
 						
-							BoundNum = BoundNum + 0.05;
+							BoundNum.mX = BoundNum.mX + 0.00005;
+							BoundNum.mY = BoundNum.mY + 0.00005;
+							BoundNum.mZ = BoundNum.mZ + 0.00005;
 
 							Boundf = false;
 						}
 					}
 					else{
-						BoundNum = BoundNum;
+					//	BoundNum = BoundNum;
 					}
-					jumpspeed = mAdjust.Normalize()*BoundNum;
+
+					mVector = CVector((jumpspeed.mX * mAdjust.mX), (jumpspeed.mY * mAdjust.mY), (jumpspeed.mZ * mAdjust.mZ));
+
+					jumpspeed = jumpspeed + (mVector * 2);
 
 					ColF = false;
 				}
@@ -124,9 +137,9 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 
 					mPosition = CVector(0.0, 80.0, 0.0);
 
-					BoundNum = 0.75;
+					BoundNum = CVector(0.0, 0.75, 0.0);
 
-					jumpspeed = CVector(0.0,0.0,0.0);
+					jumpspeed = CVector(0.0, 0.0, 0.0);
 
 					jumpF = false;
 
@@ -155,6 +168,8 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 
 void CBallPlayer::Update(){
 
+	//mVector = jumpspeed + mAdjust.Normalize() * 2;
+
 	BALLtime--;
 
 	ColF = true;
@@ -174,9 +189,13 @@ void CBallPlayer::Update(){
 
 				GoF = true;
 
-				CBallPlayer::jumpspeed = CVector(0.0f, +0.75f, 0.0f);
-
 				CBallPlayer::jumpF = true;
+				if (jumpF == true){
+
+					jumpspeed.mY += 2;
+
+					jumpF = false;
+				}
 
 			}
 		}
@@ -193,12 +212,6 @@ void CBallPlayer::Update(){
 
 	}
 
-	if (jumpF == true){
-
-		mPosition = mPosition + jumpspeed;
-
-	}
-
 
 	if (minusF == true){
 
@@ -208,7 +221,7 @@ void CBallPlayer::Update(){
 	}
 
 
-	mPosition = mPosition + mAdjust + jumpspeed;
+	mPosition = mPosition + jumpspeed;
 
 	CCharacter::Update();
 

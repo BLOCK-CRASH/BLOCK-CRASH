@@ -135,39 +135,6 @@ void C3DDelete::TaskCollision(){
 
 void C3DMap::Update(){
 
-	ROTATETIME--;
-
-	//if (XF == true){
-	//	mRotation.mX = 90.0;
-	//	XF = false;
-	//}
-	//if (YF == true){
-	//	mRotation.mY = 90.0;
-	//	YF = false;
-	//}
-	//if (ZF == true){
-	//	mRotation.mZ = 90.0;
-	//	ZF = false;
-	//}
-
-	//if (ROTATETIME < 4840){
-
-	//	XF = true;
-
-	//	YF = true;
-
-	//	ZF = true;
-	//}
-
-	//if (ROTATETIME < 2420){
-
-	//	XF = true;
-
-	//	YF = true;
-
-	//	ZF = true;
-	//}
-
 	//mRotation.mZ += 0.07;
 
 	//mRotation.mY += 0.07;

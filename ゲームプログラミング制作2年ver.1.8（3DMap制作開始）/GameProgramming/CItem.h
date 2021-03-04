@@ -7,15 +7,11 @@
 //
 #include "CTaskManager.h"
 //
-#include "CScene.h"
-//
 #include "CCollisionManager.h"
 //
 #include "CEffect.h"
 //
 #include "CModel.h"
-//
-#include "CScene.h"
 //
 #include "CKey.h"
 //

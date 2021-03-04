@@ -120,7 +120,7 @@ CMoveItem::CMoveItem(CModel*model, CVector position, CVector rotation, CVector s
 	mScale = scale;
 	//モデルの三角形の数分、コライダの配列を作成します
 	mMItemBody = new CCollider[model->mTriangles.size()];
-	for (int i = NULL; i < model->mTriangles.size(); i++){
+	for (int i = 0; i < model->mTriangles.size(); i++){
 		//コライダを三角形コライダで設定していきます
 		mMItemBody[i].SetTriangle(this,
 			model->mTriangles[i].mV[0],
@@ -147,7 +147,7 @@ CSpinItem::CSpinItem(CModel*model, CVector position, CVector rotation, CVector s
 	mScale = scale;
 
 	mSItemBody = new CCollider[model->mTriangles.size()];
-	for (int i = NULL; i < model->mTriangles.size(); i++){
+	for (int i = 0; i < model->mTriangles.size(); i++){
 		//コライダを三角形コライダで設定していきます
 		mSItemBody[i].SetTriangle(this,
 			model->mTriangles[i].mV[0],
@@ -1089,21 +1089,6 @@ void CColorItem::TaskCollision(){
 	mColorbody[9].ChangePriority();
 	mColorbody[10].ChangePriority();
 	mColorbody[11].ChangePriority();
-
-	//CCollisionManager::Get()->Collision(&mColorbody[0]);
-	//CCollisionManager::Get()->Collision(&mColorbody[1]);
-	//CCollisionManager::Get()->Collision(&mColorbody[2]);
-	//CCollisionManager::Get()->Collision(&mColorbody[3]);
-	//CCollisionManager::Get()->Collision(&mColorbody[4]);
-	//CCollisionManager::Get()->Collision(&mColorbody[5]);
-	//CCollisionManager::Get()->Collision(&mColorbody[6]);
-	//CCollisionManager::Get()->Collision(&mColorbody[7]);
-	//CCollisionManager::Get()->Collision(&mColorbody[8]);
-	//CCollisionManager::Get()->Collision(&mColorbody[9]);
-	//CCollisionManager::Get()->Collision(&mColorbody[10]);
-	//CCollisionManager::Get()->Collision(&mColorbody[11]);
-
-
 }
 
 void CExItem::TaskCollision(){

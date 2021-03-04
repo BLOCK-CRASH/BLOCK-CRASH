@@ -33,9 +33,13 @@ public:
 	
 	static CCharacter*mpthis;
 
-	static CVector jumpspeed;
+	CVector jumpspeed;
 
-	static	CVector mAdjust;
+	CVector Rejumpspeed;
+
+	static CVector mAdjust;//法線ベクトル
+
+	static CVector mVector;//内積
 
 	bool jumpF;
 
@@ -49,7 +53,7 @@ public:
 
 	static int BallHP;
 
-	static float BoundNum;	
+	CVector BoundNum;	
 
 	static float ScoreMore;//加算数字
 
@@ -65,25 +69,11 @@ public:
 
 	static int CScoreBox;//スコア箱(色
 
-	//static int RCount;	//赤ブロックHP
-	//static int BCount; //青ブロックHP
-	//static int GCount; //緑ブロックHP
-	//static int YCount; //黄ブロックHP
-
-	//static bool BF; //スコアフラグ(ノーマル
-
-	//static bool SF;//スコアフラグ(スピン
-
-	//static bool MF;//スコアフラグ(移動
-
 	static bool CF;//スコアフラグ(色
-
-	//static bool BMF;
-
-	//static bool BOF;//スコアフラグ(爆弾
 
 	bool GoF;//スタート重力フラグ	
 
+	int BallVec;//ボールの進む方向
 
 	CBallPlayer(CModel*model, CVector position, CVector rotation, CVector scale);
 

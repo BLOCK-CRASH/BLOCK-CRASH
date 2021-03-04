@@ -1,6 +1,7 @@
 #include "CSceneManager.h"
 #include "CSceneGame.h"
 #include "CSceneGame2.h"
+#include "CSceneGame3.h"
 #include "CSceneGame_Wave2.h"
 #include "CSceneGame2_Wave2.h"
 #include "CTitle.h"
@@ -79,7 +80,7 @@ void CSceneManager::Update() {
 			break;
 
 		case CScene::EGAME3:
-			mpScene = new CSceneGame2_Wave2();
+			mpScene = new CSceneGame3();
 			mpScene->Init();
 
 			break;

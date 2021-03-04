@@ -7,15 +7,11 @@
 //
 #include "CTaskManager.h"
 //
-#include "CScene.h"
-//
 #include "CCollisionManager.h"
 //
 #include "CEffect.h"
 //
 #include "CModel.h"
-//
-#include "CScene.h"
 //
 #include "CKey.h"
 //
@@ -27,6 +23,12 @@
 フィーバー用、通常用
 */
 class C3DMoveItem :public CMoveItem{
+private:
+
+	static CCharacter*mpthis;
+	int mColsize;
+	CCollider *m3DMItemBody;
+
 
 public:
 
@@ -34,13 +36,7 @@ public:
 
 	~C3DMoveItem();
 	C3DMoveItem(CModel*model, CVector position, CVector rotation, CVector scale);
-
-	CCollider *m3DMItemBody;
-
 	static bool RebirthF;
-
-	static CCharacter*mpthis;
-
 	void Update();
 
 	void TaskCollision();
@@ -49,9 +45,6 @@ public:
 	bool B3DminusF;
 	//int BDamageCount;
 	int M3DMyScorePoint;
-
-	int mColsize;
-
 };
 /*
 撃破アイテム
