@@ -28,22 +28,16 @@ private:
 	static CCharacter*mpthis;
 	int mColsize;
 	CCollider *m3DMItemBody;
-
+	void Update();
+	void TaskCollision();
 
 public:
 
 	C3DMoveItem() :m3DMItemBody(0){}
-
 	~C3DMoveItem();
 	C3DMoveItem(CModel*model, CVector position, CVector rotation, CVector scale);
 	static bool RebirthF;
-	void Update();
-
-	void TaskCollision();
-
 	static int BStageCount;
-	bool B3DminusF;
-	//int BDamageCount;
 	int M3DMyScorePoint;
 };
 /*
@@ -51,35 +45,28 @@ public:
 撃破することでいいことが起こる
 */
 class C3DOrbitItem :public CSpinItem{
+private:
+
+	static CCharacter*mpthis;
+	CCollider *m3DSItemBody;
+	int mColsize;
+	void Update();
+	void TaskCollision();
+
 public:
 
 	C3DOrbitItem() :m3DSItemBody(0){}
-
 	~C3DOrbitItem();
 	C3DOrbitItem(CModel*model, CVector position, CVector rotation, CVector scale);
-
-	CCollider *m3DSItemBody;
-
 	static bool RebirthF;
-
-	static CCharacter*mpthis;
-
 	//衝突判定
 	//（コライダ1、コライダ2）
 	void Collision(CCollider*sm, CCollider*y);
-
-	void Update();
-
 	int ItemCount;
-
-	void TaskCollision();
-
 	static int SStageCount;
 	bool S3DminusF;
 	//int SDamageCount;
 	int S3DMyScorePoint;
-
-	int mColsize;
 
 };
 

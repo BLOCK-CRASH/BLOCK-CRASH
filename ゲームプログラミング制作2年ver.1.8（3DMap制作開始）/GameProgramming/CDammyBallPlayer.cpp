@@ -103,7 +103,7 @@ void CDammyBallPlayer::Collision(CCollider*Dammy, CCollider*y){
 
 				if (y->mpParent->mTag == CCharacter::EITEM){
 
-					DammyScoreBox = CDammyBallPlayer::DammyScoreBox + CItem::BMyScorePoint / 2;
+					DammyScoreBox = CDammyBallPlayer::DammyScoreBox + CNormalItem::BMyScorePoint / 2;
 
 				}
 
@@ -140,7 +140,7 @@ void CDammyBallPlayer::Update(){
 
 	DColF = true;
 
-	CDammyBallPlayer::DammyBScoreBox = CItem::BMyScorePoint;
+	CDammyBallPlayer::DammyBScoreBox = CNormalItem::BMyScorePoint;
 	CDammyBallPlayer::DammySScoreBox = CSpinItem::SMyScorePoint;
 	CDammyBallPlayer::DammyMScoreBox = CMoveItem::MMyScorePoint;
 	CDammyBallPlayer::DammyCScoreBox = CColorItem::CMyScorePoint;

@@ -23,7 +23,6 @@ int CBallPlayer::CScoreBox;//スコア箱(色
 int CBallPlayer::FeverCount;
 
 CVector CBallPlayer::mAdjust;//法線ベクトル
-CVector CBallPlayer::mVector;//内積
 
 extern std::shared_ptr<CTexture>TextureExp;
 
@@ -43,7 +42,7 @@ CVector(1.0,1.0,1.0), scale.mX){
 
 	jumpspeed = CVector();
 
-	BoundNum = CVector(NULL, NULL, NULL);
+	BoundNum = 1;
 	
 	CBallPlayer::BallCol.mType = CCollider::ESPHERE;
 
@@ -69,7 +68,7 @@ CVector(1.0,1.0,1.0), scale.mX){
 
 	mAdjust = CVector(NULL,NULL,NULL);//法線ベクトル
 
-	mVector = CVector(NULL, NULL, NULL);//内積
+	InVector = CVector(NULL, NULL, NULL);;//内積
 }
 
 CBallPlayer::~CBallPlayer(){
@@ -93,34 +92,38 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 
 				if (ColF == true){
 
-					if (BoundNum.mX < 3.0 || BoundNum.mY || 3.0 || BoundNum.mZ < 3.0){
+					Boundf = true;
 
-						Boundf = true;
+					if (BoundNum < 0.75){
 
 						if (Boundf == true){
-						
-							BoundNum.mX = BoundNum.mX + 0.00005;
-							BoundNum.mY = BoundNum.mY + 0.00005;
-							BoundNum.mZ = BoundNum.mZ + 0.00005;
+
+							BoundNum = BoundNum + 0.05;
 
 							Boundf = false;
 						}
-					}
-					else{
-					//	BoundNum = BoundNum;
-					}
 
-					mVector = CVector((jumpspeed.mX * mAdjust.mX), (jumpspeed.mY * mAdjust.mY), (jumpspeed.mZ * mAdjust.mZ));
+					}
+					else if (BoundNum > 1.5){
+						BoundNum = BoundNum;
+					}
+					CVector normal = mAdjust.Normalize();
+					
+					float Dot = normal.Dot(jumpspeed);
 
-					jumpspeed = jumpspeed + (mVector * 2);
+					normal = normal*Dot*-1;
+
+					ReVector = InVector + normal * 2;
+
+					jumpspeed = (jumpspeed + ReVector)*BoundNum;
 
 					ColF = false;
 				}
 				if (y->mpParent->mTag == CCharacter::EITEM){ 
-					ScoreBox = CBallPlayer::ScoreBox + CItem::BMyScorePoint;
+					ScoreBox = CBallPlayer::ScoreBox + CNormalItem::BMyScorePoint;
 					FeverCount++;
 				}
-					//ScorePulsF = false;
+					
 				if (y->mpParent->mTag == CCharacter::ESPINITEM){
 					ScoreBox = CBallPlayer::ScoreBox + CSpinItem::SMyScorePoint;
 					FeverCount++;
@@ -137,7 +140,7 @@ void CBallPlayer::Collision(CCollider*m, CCollider*y){
 
 					mPosition = CVector(0.0, 80.0, 0.0);
 
-					BoundNum = CVector(0.0, 0.75, 0.0);
+					BoundNum = 0.75;
 
 					jumpspeed = CVector(0.0, 0.0, 0.0);
 
@@ -174,7 +177,7 @@ void CBallPlayer::Update(){
 
 	ColF = true;
 
-	CBallPlayer::BScoreBox = CItem::BMyScorePoint;
+	CBallPlayer::BScoreBox = CNormalItem::BMyScorePoint;
 	CBallPlayer::SScoreBox = CSpinItem::SMyScorePoint;
 	CBallPlayer::MScoreBox = CMoveItem::MMyScorePoint;
 	CBallPlayer::CScoreBox = CColorItem::CMyScorePoint;

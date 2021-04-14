@@ -1,8 +1,8 @@
 #include "BossItem.h"
-CCharacter*C3DMoveItem::mpthis = 0;
-CCharacter*C3DOrbitItem::mpthis = 0;
-CCharacter*C3DShaveItem::mpthis = 0;
-CCharacter*C3DIncreaseItem::mpthis = 0;
+CCharacter*C3DMoveItem::mpthis(nullptr);
+CCharacter*C3DOrbitItem::mpthis(nullptr);
+CCharacter*C3DShaveItem::mpthis(nullptr);
+CCharacter*C3DIncreaseItem::mpthis(nullptr);
 
 CModel C3DShaveItem::mTri;
 CModel C3DShaveItem::mRec;
@@ -76,8 +76,6 @@ C3DOrbitItem::C3DOrbitItem(CModel*model, CVector position, CVector rotation, CVe
 
 	}
 	mTag = CCharacter::ESPINITEM;
-
-	SminusF = false;
 
 	mpthis = this;
 

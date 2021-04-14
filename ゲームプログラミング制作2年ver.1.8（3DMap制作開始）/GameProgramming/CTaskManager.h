@@ -8,8 +8,16 @@
 タスクリストの管理
 */
 class CTaskManager {
-public:
+private:
+
+	static CTaskManager *CTaskManager::instance;
+
+
+protected:
+
 	CTask *mpHead;	//先頭ポインタ
+
+public:
 //	CTask *mpTail;	//最後ポインタ
 	//デフォルトコンストラクタ
 	CTaskManager();
@@ -38,7 +46,6 @@ public:
 	void ChangePriority(CTask*task, int priority);
 
 	static CTaskManager*CTaskManager::Get();
-	static CTaskManager *CTaskManager::instance;
 
 };
 

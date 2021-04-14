@@ -21,6 +21,7 @@
 
 #include "BossItem.h"
 class CBallPlayer :CCharacter{
+private:
 public:
 	CBallPlayer(){}
 	~CBallPlayer();
@@ -37,9 +38,13 @@ public:
 
 	CVector Rejumpspeed;
 
-	static CVector mAdjust;//–@üƒxƒNƒgƒ‹
+	static CVector mAdjust;//–Ê‚ÌŒü‚«
 
-	static CVector mVector;//“àÏ
+	CVector InVector;//“üËŠp
+
+	CVector ReVector;//”½ËŠp
+
+	float dot;//“àÏ
 
 	bool jumpF;
 
@@ -53,7 +58,7 @@ public:
 
 	static int BallHP;
 
-	CVector BoundNum;	
+	float BoundNum;	
 
 	static float ScoreMore;//‰ÁZ”š
 

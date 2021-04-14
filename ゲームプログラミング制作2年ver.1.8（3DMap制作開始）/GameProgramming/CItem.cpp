@@ -1,15 +1,17 @@
 #include "CItem.h"
 
-CCharacter *CItem::mpthis = 0;
-CCharacter *CMoveItem::mpthis = 0;
-CCharacter*CSpinItem::mpthis = 0;
-CCharacter*CBonus::mpthis = 0;
-CCharacter*CExItem::mpthis = 0;
-CCharacter*CSuperExItem::mpthis = 0;
-CCharacter*CDeleteBlock::mpthis = 0;
-CCharacter*CResBlock::mpthis = 0;
 
-int CItem::BMyScorePoint = 0;
+CCharacter *CItem::mpthis(nullptr);
+CItem *CNormalItem::mpthis(nullptr);
+CCharacter *CMoveItem::mpthis(nullptr);
+CCharacter*CSpinItem::mpthis(nullptr);
+CCharacter*CBonus::mpthis(nullptr);
+CCharacter*CExItem::mpthis(nullptr);
+CCharacter*CSuperExItem::mpthis(nullptr);
+CCharacter*CDeleteBlock::mpthis(nullptr);
+CCharacter*CResBlock::mpthis(nullptr);
+
+int CNormalItem::BMyScorePoint = 0;
 int CMoveItem::MMyScorePoint = 0;
 int CSpinItem::SMyScorePoint = 0;
 int CBonus::BMyScorePoint = 0;
@@ -79,7 +81,14 @@ CVector CSuperExItem::mAdjust;
 
 #define NULL 0
 /*--------------------------------------------------------*/
-CItem::CItem(CModel*model, CVector position, CVector rotation, CVector scale)
+CItem::CItem(){
+	mpModel = nullptr;
+	mPosition = CVector();
+	mRotation = CVector();
+	mScale = CVector();
+}
+
+CNormalItem::CNormalItem(CModel*model, CVector position, CVector rotation, CVector scale)
 :mItemBody(0)
 {
 	mpModel = model;
@@ -344,7 +353,8 @@ CColorItem::CColorItem(CModel*model, CVector position, CVector rotation, CVector
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------*/
-CItem::~CItem(){
+
+CNormalItem::~CNormalItem(){
 
 	if (mItemBody)
 	delete[]mItemBody;
@@ -399,6 +409,7 @@ CColorItem::~CColorItem(){
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------*/
+
 void CColorItem::Init(){
 
 	mRed.Load("cube.obj", "Red.mtl");//ê‘
@@ -408,14 +419,9 @@ void CColorItem::Init(){
 
 	//mNextColor = mYellow;
 }
-
 /*----------------------------------------------------------------------------------------------------------------------------*/
-
 //è’ìÀîªíË
-
-void CSpinItem::Collision(CCollider*sm, CCollider*y){}
-
-void CItem::Collision(CCollider*m, CCollider*y){
+void CNormalItem::Collision(CCollider*m, CCollider*y){
 
 	switch (m->mType)
 	{
@@ -636,11 +642,15 @@ void CColorItem::Collision(CCollider*Cm, CCollider*y){
 
 }
 
-void CDeleteBlock::Collision(CCollider*Dm, CCollider*y){}
-//çXêVèàóù
-void CItem::Update(){
+/*----------------------------------------------------------------------------------------------------------------------------*/
+void CItem::Update()
+{
+	CCharacter::Update();
+}
 
-	if (CItem::BDamageCount < 1){
+void CNormalItem::Update(){
+
+	if (CNormalItem::BDamageCount < 1){
 
 		mEnabled = false;
 
@@ -892,7 +902,7 @@ void CColorItem::Update(){
 
 }
 /*------------------------------------------------------------*/
-void CItem::TaskCollision(){
+void CNormalItem::TaskCollision(){
 
 	//for (int i = 0; i < ARRAYSIZE(mItemBody); i++){
 
@@ -1097,6 +1107,10 @@ void CExItem::TaskCollision(){
 
 	CCollisionManager::Get()->Collision(&BomCol);
 
+}
+/*------------------------------------------------------------*/
+void CItem::Render(){
+	CCharacter::Render();
 }
 void CExItem::Render(){
 
